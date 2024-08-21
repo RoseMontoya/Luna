@@ -22,12 +22,6 @@ const demoUsers = [
     hashedPassword: bcrypt.hashSync("magisterial123")
   },
   {
-    "firstName": "Solas",
-    "lastName": "Wolf",
-    "email": "theDreadWolf@fade.com",
-    "hashedPassword": bcrypt.hashSync("fadewalker123")
-  },
-  {
     "firstName": "Hermione",
     "lastName": "Granger",
     "email": "hermione.granger@hogwarts.edu",
@@ -38,12 +32,6 @@ const demoUsers = [
     "lastName": "Knope",
     "email": "leslie.knope@pawnee.gov",
     "hashedPassword": bcrypt.hashSync("wafflesrule456")
-  },
-  {
-    "firstName": "Donna",
-    "lastName": "Noble",
-    "email": "donna.noble@tardis.galaxy",
-    "hashedPassword": bcrypt.hashSync("tempfromchiswick789")
   }
 ];
 
@@ -61,9 +49,7 @@ module.exports = {
         "bonnibel.bubblegum@candykindgom.com",
         "hermione.granger@hogwarts.edu",
         "leslie.knope@pawnee.gov",
-        "donna.noble@tardis.galaxy",
         "dorian.pavus@tevinter.imperium",
-        "theDreadWolf@fade.com"
       ] }
     }, {});
   }

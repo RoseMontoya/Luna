@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       Entry.belongsTo(models.User, {
         foreignKey: 'userId'
       })
+
+      Entry.belongsTo(models.Icon, {
+        foreignKey: 'iconId'
+      })
     }
   }
   Entry.init({
@@ -21,9 +25,10 @@ module.exports = (sequelize, DataTypes) => {
           args: '1999-12-31',
           msg: 'Date must be after the year 1999'
         },
-        isBefore: {
-          args: this.createdAt,
-          msg: 'Date cannot be in the future'
+        isBeforeCurrentDate(value) {
+          if (new Date(value) > new Date()) {
+            throw new Error('The date cannot be in the future.')
+          }
         },
         isDate: true
       }

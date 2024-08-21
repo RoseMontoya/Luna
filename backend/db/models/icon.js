@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Icon.hasMany(models.Entry, {
         foreignKey: 'iconId',
-        onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
       })
     }

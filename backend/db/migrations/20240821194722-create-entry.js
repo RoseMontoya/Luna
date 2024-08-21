@@ -29,7 +29,6 @@ module.exports = {
         references: {
           model: 'Icons'
         },
-        onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
       },
       userId: {
