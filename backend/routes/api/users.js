@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models')
+const { User, Icon } = require('../../db/models')
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -61,6 +61,14 @@ router.post('/', validateSignup, async (req, res, next) => {
     return res.json({
         user: safeUser
     });
+})
+
+router.get('/icons', async (req, res) => {
+    const icons = await Icon.findAll()
+
+    console.log('icons', icons)
+
+    return res.json(icons)
 })
 
 module.exports = router;

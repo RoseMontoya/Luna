@@ -18,6 +18,13 @@ const removeUser = () => {
     }
 }
 
+const loadIcons = (icons) => {
+    return {
+        type: "LOAD_ICONS",
+        payload: icons
+    }
+}
+
 // * Thunks
 
 // Login
@@ -60,6 +67,12 @@ export const logout = () => async dispatch => {
     return response;
 }
 
+export const getIcons = () => async dispatch => {
+    const response = await csrfFetch('/api/users/icons')
+    const data = await response.json()
+    dispatch(loadIcons(data))
+    return data
+}
 
 // Reducer
 const initialState = { user: null };
@@ -71,6 +84,13 @@ const sessionReducer = (state = initialState, action) => {
         }
         case REMOVE_USER: {
             return {...state, user: null };
+        }
+        case "LOAD_ICONS": {
+            const icons = {}
+            action.payload.forEach(icon => {
+                icons[icon.id] = icon
+            })
+            return {...state, icons: icons}
         }
         default:
             return state;
