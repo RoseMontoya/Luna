@@ -10,6 +10,7 @@ if (process.env.NODE_ENV === 'production') {
 const demoEntries = [
   {
     "datetime": "2024-08-13 09:12:45",
+    "mood": "Happy",
     "overallMood": 9,
     "iconId": 1,
     "userId": 1,
@@ -17,13 +18,15 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-17 11:30:22",
+    "mood": 'Annoyed',
     "overallMood": 7,
-    "iconId": 2,
+    "iconId": 3,
     "userId": 1,
     "note": "Had a productive morning but ran into a minor issue."
   },
   {
     "datetime": "2024-08-18 14:05:19",
+    "mood": "Pleased",
     "overallMood": 8,
     "iconId": 2,
     "userId": 1,
@@ -31,6 +34,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-19 16:47:50",
+    "mood": "Joyful",
     "overallMood": 10,
     "iconId": 1,
     "userId": 1,
@@ -38,6 +42,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-20 19:15:33",
+    "mood": "Tired",
     "overallMood": 6,
     "iconId": 3,
     "userId": 1,
@@ -45,6 +50,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-07-22 10:18:00",
+    "mood": "Happy",
     "overallMood": 8,
     "iconId": 2,
     "userId": 2,
@@ -52,6 +58,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-07-28 14:45:33",
+    "mood": "Excited",
     "overallMood": 9,
     "iconId": 1,
     "userId": 2,
@@ -59,6 +66,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-13 18:20:40",
+    "mood": "Frustrated",
     "overallMood": 6,
     "iconId": 3,
     "userId": 2,
@@ -66,6 +74,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-20 09:55:50",
+    "mood": "Ecstatic",
     "overallMood": 10,
     "iconId": 1,
     "userId": 2,
@@ -73,6 +82,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-01 08:45:30",
+    "mood": "Happy",
     "overallMood": 9,
     "iconId": 1,
     "userId": 3,
@@ -80,6 +90,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-10 14:15:22",
+    "mood": "Good",
     "overallMood": 7,
     "iconId": 2,
     "userId": 3,
@@ -87,6 +98,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-16 11:30:00",
+    "mood": "Unhappy",
     "overallMood": 6,
     "iconId": 3,
     "userId": 3,
@@ -94,6 +106,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-20 19:10:45",
+    "mood": "Joyful",
     "overallMood": 10,
     "iconId": 1,
     "userId": 3,
@@ -101,6 +114,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-01 07:00:00",
+    "mood": "Energized",
     "overallMood": 9,
     "iconId": 1,
     "userId": 4,
@@ -108,6 +122,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-03 12:15:30",
+    "mood": "Inspired",
     "overallMood": 10,
     "iconId": 1,
     "userId": 4,
@@ -115,6 +130,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-05 18:45:22",
+    "mood": "Satisfied",
     "overallMood": 8,
     "iconId": 2,
     "userId": 4,
@@ -122,6 +138,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-07 10:30:45",
+    "mood": "Determined",
     "overallMood": 7,
     "iconId": 2,
     "userId": 4,
@@ -129,6 +146,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-09 14:20:00",
+    "mood": "Joyful",
     "overallMood": 10,
     "iconId": 1,
     "userId": 4,
@@ -136,13 +154,15 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-12 08:50:15",
-    "overallMood": 6,
+    "mood": "Optimistic",
+    "overallMood": 7,
     "iconId": 3,
     "userId": 4,
     "note": "Had a tough morning, but a cup of coffee helped turn things around."
   },
   {
     "datetime": "2024-08-15 17:35:40",
+    "mood": "Okay",
     "overallMood": 7,
     "iconId": 2,
     "userId": 4,
@@ -150,6 +170,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-18 13:00:30",
+    "mood": "Energized",
     "overallMood": 8,
     "iconId": 2,
     "userId": 4,
@@ -157,6 +178,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-20 11:45:50",
+    "mood": "Energized",
     "overallMood": 9,
     "iconId": 1,
     "userId": 4,
@@ -164,6 +186,7 @@ const demoEntries = [
   },
   {
     "datetime": "2024-08-20 19:10:25",
+    "mood": "Joyful",
     "overallMood": 10,
     "iconId": 1,
     "userId": 4,

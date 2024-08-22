@@ -19,6 +19,10 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
+      mood: {
+        type: Sequelize.STRING(20),
+        allowNull: false
+      },
       overallMood: {
         type: Sequelize.INTEGER,
         allowNull: false

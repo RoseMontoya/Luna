@@ -1,9 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
+// const {Entry} = require('../../db/models')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Icon } = require('../../db/models')
+const { User, Entry } = require('../../db/models')
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -63,12 +64,21 @@ router.post('/', validateSignup, async (req, res, next) => {
     });
 })
 
-router.get('/icons', async (req, res) => {
-    const icons = await Icon.findAll()
+router.get('/:userId/entries', requireAuth, async (req, res, next) => {
+    const { userId } = req.params
+    const entries = await Entry.findAll({
+        where: {
+            userId: userId
+        },
+        attributes: {
+            exclude: ['createdAt', 'updatedAt']
+        },
+        order: [['datetime', 'DESC']]
+    })
+    // console.log('entries', entries.toJSON())
 
-    console.log('icons', icons)
+    return res.json(entries)
 
-    return res.json(icons)
 })
 
 module.exports = router;

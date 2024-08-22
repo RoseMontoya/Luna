@@ -22,7 +22,7 @@ function LoginFormPage() {
         email,
         password,
       }))
-      .then(serverResponse => {
+      .then(res => {
           navigate("/");
       })
       .catch(async res => {
@@ -37,7 +37,18 @@ function LoginFormPage() {
     await setEmail("bonnibel.bubblegum@candykindgom.com")
     await setPassword("sweetscience123")
     console.log('email', email)
-    handleSubmit(e)
+    dispatch( login({
+      email: "bonnibel.bubblegum@candykindgom.com",
+      password: "sweetscience123",
+    }))
+    .then(res => {
+        navigate("/");
+    })
+    .catch(async res => {
+      const errs = await res.json()
+      setErrors(errs);
+      console.log(errors)
+    })
   }
 
   return (
@@ -66,7 +77,7 @@ function LoginFormPage() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button onClick={e => demoLogIn(e)}>Log in as demo user</button>
+        <button onClick={e => {demoLogIn(e); handleSubmit(e)}}>Log in as demo user</button>
         <button type="submit">Log In</button>
       </form>
     </>

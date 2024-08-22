@@ -45,8 +45,15 @@ module.exports = (sequelize, DataTypes) => {
         isDate: true
       }
     },
+    mood: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      validate: {
+        len: [2, 20]
+      }
+    },
     overallMood: {
-      type: DataTypes.INTEGER(10),
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         min: 1,
