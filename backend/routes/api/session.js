@@ -12,7 +12,7 @@ const router = express.Router();
 
 // Validate Login
 const validateLogin = [
-    check('credential')
+    check('email')
         .exists({ checkFalsy: true })
         .notEmpty()
         .withMessage('Email is required'),
@@ -41,10 +41,10 @@ router.get('/', (req, res) => {
 
 // Log in
 router.post('/', validateLogin, async (req, res, next) => {
-    const { credential, password } = req.body;
+    const { email, password } = req.body;
 
     const user = await User.unscoped().findOne({
-        where: {email: credential}
+        where: {email: email}
     });
 
     if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {

@@ -1,1 +1,11 @@
 /* TODO: Add sitewide styles */
+
+body {
+    font-family: "Inter", sans-serif;
+    background-color: rgba(18, 110, 130, 0.37);
+}
+
+a {
+    text-decoration: none;
+    color: #FCDEBA;
+}

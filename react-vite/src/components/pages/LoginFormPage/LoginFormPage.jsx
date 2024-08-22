@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { login } from "../../redux/session";
+import { login } from "../../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./LoginForm.css";
@@ -16,20 +16,29 @@ function LoginFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('in handle submit', email, password)
 
-    const serverResponse = await dispatch(
-      login({
+    dispatch( login({
         email,
         password,
+      }))
+      .then(serverResponse => {
+          navigate("/");
       })
-    );
+      .catch(async res => {
+        const errs = await res.json()
+        setErrors(errs);
+        console.log(errors)
+      })
 
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      navigate("/");
-    }
   };
+
+  const demoLogIn = async(e) => {
+    await setEmail("bonnibel.bubblegum@candykindgom.com")
+    await setPassword("sweetscience123")
+    console.log('email', email)
+    handleSubmit(e)
+  }
 
   return (
     <>
@@ -57,6 +66,7 @@ function LoginFormPage() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
+        <button onClick={e => demoLogIn(e)}>Log in as demo user</button>
         <button type="submit">Log In</button>
       </form>
     </>

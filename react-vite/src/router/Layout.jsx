@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ModalProvider, Modal } from "../context/Modal";
 import * as sessionActions from "../redux/session";
-import Navigation from "../components/Navigation/Navigation";
+import { Navigation } from '../components/pages'
 
 
 export default function Layout() {

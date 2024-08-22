@@ -1,0 +1,13 @@
+#landing-page * {
+    color: #AC7D6B;
+}
+
+#landing-page p {
+    font-family: "Kaisei Decol", serif;
+    font-size: 32px;
+}
+
+.title-font {
+    font-family: "IM Fell Double Pica SC", serif;
+    font-size: 57px;
+}

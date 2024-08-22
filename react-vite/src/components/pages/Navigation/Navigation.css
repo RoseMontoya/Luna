@@ -1,0 +1,15 @@
+/* .profile-dropdown {
+  position: absolute;
+} */
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5em 1.5em;
+}
+
+nav div {
+  display: flex;
+  gap: 1em;
+}

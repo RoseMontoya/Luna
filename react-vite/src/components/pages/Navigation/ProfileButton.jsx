@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserCircle } from 'react-icons/fa';
-import { logout } from "../../redux/session";
+import { logout } from "../../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+import LoginFormModal from "../../modals/LoginFormModal";
+import SignupFormModal from "../../modals/SignupFormModal";
 
 function ProfileButton() {
   const dispatch = useDispatch();
