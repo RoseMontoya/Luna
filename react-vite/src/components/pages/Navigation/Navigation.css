@@ -13,3 +13,24 @@ nav div {
   display: flex;
   gap: 1em;
 }
+
+#logged-in-nav {
+  flex-direction: column;
+  align-items: start;
+  padding: 0;
+}
+
+#nav-container {
+  background-color: white;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 20vw;
+  position: sticky;
+  flex-direction: column;
+  padding: 2em;
+}
+
+#nav-container * {
+  color: black;
+
+}

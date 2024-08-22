@@ -24,25 +24,24 @@ function Navigation() {
   // if (!iconsObj) return null
 
   return (
-    <nav>
-      {/* <li> */}
-        <NavLink to="/">Home</NavLink>
-      {/* </li> */}
-      {/* {icons.map(icon => {
-      const IconComponent = Icons[icon.name]
-      console.log(IconComponent)
-      return (
-
-        <p key={icon.id}><IconComponent /></p>
-      )})} */}
-      {/* <li>
-        <ProfileButton />
-      </li> */}
-      <div>
-        <NavLink to='login'>Log in</NavLink>
-        <NavLink to='signup'>Sign up</NavLink>
-      </div>
-    </nav>
+    <>
+    {user? (
+      <nav id="logged-in-nav">
+        <div id="nav-container">
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="entries">Entries</NavLink>
+        </div>
+      </nav>
+    ) : (
+      <nav>
+          <NavLink to="/">Home</NavLink>
+        <div>
+          <NavLink to='login'>Log in</NavLink>
+          <NavLink to='signup'>Sign up</NavLink>
+        </div>
+      </nav>
+    )}
+    </>
   );
 }
 
