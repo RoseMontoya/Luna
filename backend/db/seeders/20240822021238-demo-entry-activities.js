@@ -10,7 +10,87 @@ if (process.env.NODE_ENV === 'production') {
 const demoEntryActivities = [
   {
     "entryId": 1,
-    "activitiesId": 1
+    "activityId": 1
+  },
+  {
+    "entryId": 1,
+    "activityId": 3
+  },
+  {
+    "entryId": 1,
+    "activityId": 6
+  },
+  {
+    "entryId": 2,
+    "activityId": 4
+  },
+  {
+    "entryId": 2,
+    "activityId": 5
+  },
+  {
+    "entryId": 2,
+    "activityId": 11
+  },
+  {
+    "entryId": 2,
+    "activityId": 12
+  },
+  {
+    "entryId": 3,
+    "activityId": 1
+  },
+  {
+    "entryId": 3,
+    "activityId": 5
+  },
+  {
+    "entryId": 3,
+    "activityId": 8
+  },
+  {
+    "entryId": 3,
+    "activityId": 9
+  },
+  {
+    "entryId": 3,
+    "activityId": 12
+  },
+  {
+    "entryId": 4,
+    "activityId": 16
+  },
+  {
+    "entryId": 4,
+    "activityId": 6
+  },
+  {
+    "entryId": 4,
+    "activityId": 13
+  },
+  {
+    "entryId": 4,
+    "activityId": 2
+  },
+  {
+    "entryId": 5,
+    "activityId": 7
+  },
+  {
+    "entryId": 5,
+    "activityId": 11
+  },
+  {
+    "entryId": 5,
+    "activityId": 13
+  },
+  {
+    "entryId": 5,
+    "activityId": 14
+  },
+  {
+    "entryId": 5,
+    "activityId": 16
   }
 ]
 
@@ -24,7 +104,7 @@ module.exports = {
     options.tableName = 'EntryActivities';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      entryId: { [Op.in]: [1, 2, 3, 4 ] }
+      entryId: { [Op.in]: [1, 2, 3, 4, 5] }
     }, {});
   }
 };

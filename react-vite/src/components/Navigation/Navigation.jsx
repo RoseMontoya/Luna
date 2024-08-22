@@ -32,7 +32,7 @@ function Navigation() {
       console.log(IconComponent)
       return (
 
-        <p><IconComponent /></p>
+        <p key={icon.id}><IconComponent /></p>
       )})}
       <li>
         <ProfileButton />

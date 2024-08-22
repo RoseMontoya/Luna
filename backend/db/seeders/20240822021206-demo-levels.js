@@ -10,9 +10,29 @@ if (process.env.NODE_ENV === 'production') {
 const demoLevels = [
   {
     "name": "Happiness",
-    "color": "#F0A8D0",
+    "color": "#CD117C",
     "userId": 1,
-  }
+  },
+  {
+    "name": "Energy",
+    "color": "#FFEA00",
+    "userId": 1,
+  },
+  {
+    "name": "Stress",
+    "color": "#CD113B",
+    "userId": 1,
+  },
+  {
+    "name": "Focus",
+    "color": "#FFA900",
+    "userId": 1,
+  },
+  {
+    "name": "Motivation",
+    "color": "#52006A",
+    "userId": 1,
+  },
 ]
 
 /** @type {import('sequelize-cli').Migration} */
