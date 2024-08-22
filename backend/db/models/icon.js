@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'iconId',
         onUpdate: 'CASCADE'
       })
+
+      Icon.hasMany(models.Activity, {
+        foreignKey: 'iconId',
+        onUpdate: 'CASCADE'
+      })
     }
   }
   Icon.init({

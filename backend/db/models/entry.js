@@ -14,6 +14,18 @@ module.exports = (sequelize, DataTypes) => {
       Entry.belongsTo(models.Icon, {
         foreignKey: 'iconId'
       })
+
+      Entry.belongsToMany(models.Activity, {
+        through: models.EntryActivity,
+        foreignKey: 'entryId',
+        otherKey: 'activityId'
+      })
+
+      Entry.belongsToMany(models.Level, {
+        through: models.EntryLevel,
+        foreignKey: 'entryId',
+        otherKey: "levelId"
+      })
     }
   }
   Entry.init({
