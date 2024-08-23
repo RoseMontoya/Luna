@@ -5,21 +5,22 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllIcons } from "../../../redux/icons";
 
-function Icon({ id }) {
-  const iconsObj = useSelector((state) => state.icons.allIcons);
-  const dispatch = useDispatch();
-  const icon = iconsObj ? Object.values(iconsObj) : [];
+function Icon({ icons, id }) {
+  // const iconsObj = useSelector((state) => state.icons.allIcons);
+  // const dispatch = useDispatch();
+  // const icon = iconsObj ? Object.values(iconsObj) : [];
   // console.log("ahhhhh",iconsObj)
 
-  useEffect(() => {
-      if (!iconsObj) {
-          dispatch(getAllIcons());
-        }
-    }, [iconsObj, dispatch]);
+  // useEffect(() => {
+  //     if (!iconsObj) {
+  //         dispatch(getAllIcons());
+  //       }
+  //   }, [iconsObj, dispatch]);
 
-    if (!iconsObj) return null;
 
-    const IconComponent = Icons[icon[id].name]
+    if (!icons) return null;
+
+    const IconComponent = Icons[icons[id].name]
     // console.log(IconComponent)
   return <IconComponent />;
 }

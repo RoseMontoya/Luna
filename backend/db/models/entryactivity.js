@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      // EntryActivity.belongsTo(models.Entry, {
+      //   foreignKey: 'entryId'
+      // })
     }
   }
   EntryActivity.init({
@@ -28,6 +31,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'EntryActivity',
+    defaultScope: {
+      attributes: {
+        exclude: ['updatedAt', 'createdAt']
+      }
+    }
   });
   return EntryActivity;
 };

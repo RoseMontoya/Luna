@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Navigate, useNavigate } from "react-router-dom";
 import { getAllEntries } from "../../../redux/entries";
-import { Loading, Icon } from "../../subcomponents";
+import { Loading, Icon, Activities } from "../../subcomponents";
 import { BsDot } from "react-icons/bs";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa6";
 import './EntryDetail.css'
+import { getAllIcons } from "../../../redux/icons";
 
 function EntryDetailsPage() {
   const dispatch = useDispatch();
@@ -18,15 +19,21 @@ function EntryDetailsPage() {
   const entry = entriesObj?.[entryId]
   console.log(entries)
 
+  const icons = useSelector(state => state.icons.allIcons)
+
   useEffect(() => {
     if (!entriesObj) {
       dispatch(getAllEntries(user.id));
     }
-  }, [dispatch, entryId, entriesObj]);
+    if (!icons) {
+      dispatch(getAllIcons())
+    }
+  }, [dispatch, entryId, entriesObj, icons]);
 
   if (!user) return <Navigate to="/" replace={true} />;
 
-  if (!entriesObj) return <Loading />;
+  if (!entriesObj || !icons || !entries.length) return <Loading />;
+
 
   const handleLessClick = () => {
     entries.forEach((entry, idx) => {
@@ -56,7 +63,7 @@ function EntryDetailsPage() {
           <div className="entry-header">
             <div className="entry-info">
               <div className="mood-icon">
-                <Icon id={entry.iconId} />
+                <Icon icons={icons} id={entry.iconId} />
               </div>
               <div className="entry-info-text">
                 <h2>{entry.date}</h2>
@@ -80,8 +87,10 @@ function EntryDetailsPage() {
             </div>
             <div className="activities-container container">
               <h2>What have you been up to?</h2>
+              <Activities icons={icons} activities={entry.Activities}/>
             </div>
             <div className="note-container container">
+              <h2>Note:</h2>
               <p>{entry.note}</p>
             </div>
           </div>

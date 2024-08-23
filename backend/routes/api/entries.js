@@ -10,6 +10,16 @@ router.get('/', async (req, res) => {
 }
 )
 
+router.get('/:entryId/activities', requireAuth, async (req, res, next) => {
+    const { entryId } = req.params
+
+    const activities = await EntryActivites.findAll({
+        where: {
+            entryId: entryId
+        }
+    })
+})
+
 router.get('/:entryId', requireAuth, async (req, res, next) => {
     const {entryId} = req.params
     // console.log("asdfadf",entryId)

@@ -1,4 +1,7 @@
 'use strict';
+
+const { EntryActivity, Activity } = require('./')
+
 const {
   Model
 } = require('sequelize');
@@ -26,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'entryId',
         otherKey: "levelId"
       })
+
+      // Entry.hasMany(models.EntryActivity,{
+      //   foreignKey: 'entryId'
+      // })
     }
   }
   Entry.init({
@@ -92,7 +99,16 @@ module.exports = (sequelize, DataTypes) => {
     defaultScope: {
       attributes: {
         exclude: ['updateAt', 'createAt']
-      }
+      },
+      include: [
+        {
+          model: sequelize.models.Activity,
+          attributes: {
+            // include: ['name', 'id', 'iconId', 'deactivated']
+            exclude: ['updatedAt', 'createdAt', 'userId', 'color']
+          }
+        }
+      ]
     }
   });
   return Entry;

@@ -2,11 +2,12 @@ import "./EntriesList.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllEntries } from "../../../redux/entries";
-import { Loading, Icon } from "../../subcomponents";
+import { Loading, Icon, Activities } from "../../subcomponents";
 import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
 import "./EntriesList.css";
 import { BsDot } from "react-icons/bs";
 import { csrfFetch } from "../../../redux/csrf";
+import { getAllIcons } from "../../../redux/icons";
 
 function EntriesListPage() {
   const dispatch = useDispatch();
@@ -15,17 +16,20 @@ function EntriesListPage() {
   const entriesObj = useSelector((state) => state.entries.allEntries);
   // const entriesObj = useLoaderData()
   const entries = entriesObj ? Object.values(entriesObj) : [];
-  console.log(entries);
+  const icons = useSelector(state => state.icons.allIcons)
 
   useEffect(() => {
     if (!entriesObj && user) {
       dispatch(getAllEntries(user.id));
     }
-  }, [dispatch, entriesObj, user]);
+    if (!icons) {
+      dispatch(getAllIcons())
+    }
+  }, [dispatch, entriesObj, user, icons]);
 
   if (!user) return <Navigate to="/" replace={true} />;
   //
-  if (!entriesObj) return <Loading />;
+  if (!entriesObj || !icons || !entries.length) return <Loading />;
 
   return (
     <main className="nav-open">
@@ -36,7 +40,7 @@ function EntriesListPage() {
             <div className="entry-header">
               <div className="entry-info">
                 <div className="mood-icon">
-                  <Icon id={entry.iconId} />
+                  <Icon icons={icons} id={entry.iconId} />
                 </div>
                 <div className="entry-info-text">
                     <h2>{entry.date}</h2>
@@ -59,8 +63,11 @@ function EntriesListPage() {
                 </div>
                 <div className="activities-container container">
                   <h2>What have you been up to?</h2>
+                  {console.log(entry.Activities)}
+                  <Activities icons={icons} activities={entry.Activities}/>
                 </div>
                 <div className="note-container container">
+                  <h2>Note:</h2>
                   <p>{entry.note}</p>
                 </div>
             </div>
