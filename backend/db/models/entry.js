@@ -1,6 +1,6 @@
 'use strict';
 
-const { EntryActivity, Activity } = require('./')
+// const {Level, Activity} = require('./')
 
 const {
   Model
@@ -68,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     iconId: {
-      type: DataTypes.INTEGER(5),
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'Icons'
@@ -104,12 +104,42 @@ module.exports = (sequelize, DataTypes) => {
         {
           model: sequelize.models.Activity,
           attributes: {
-            // include: ['name', 'id', 'iconId', 'deactivated']
             exclude: ['updatedAt', 'createdAt', 'userId', 'color']
           }
-        }
+        },
+        // {
+        //   model: sequelize.models.Level,
+        //   attributes: {
+        //     exclude: ['updateAt', 'createdAt']
+        //   }
+        // }
       ]
     }
   });
+
+  // const { Activity, Level } = sequelize.models
+
+  // console.log('level',Level)
+
+  // Entry.addScope('defaultScope', {
+  //   attributes: {
+  //     exclude: ['updateAt', 'createAt']
+  //   },
+  //   include: [
+  //     {
+  //       model: Activity,
+  //       attributes: {
+  //         exclude: ['updatedAt', 'createdAt', 'userId', 'color']
+  //       }
+  //     },
+  //     {
+  //       model: Level,
+  //       attributes: {
+  //         exclude: ['updateAt', 'createdAt']
+  //       }
+  //     }
+  //   ]
+  // }, { override: true });
+
   return Entry;
 };

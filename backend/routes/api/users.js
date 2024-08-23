@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 // const {Entry} = require('../../db/models')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Entry } = require('../../db/models')
+const { User, Entry, Level } = require('../../db/models')
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -73,12 +73,28 @@ router.get('/:userId/entries', requireAuth, async (req, res, next) => {
         attributes: {
             exclude: ['createdAt', 'updatedAt']
         },
+        include: [Level],
         order: [['datetime', 'DESC']]
     })
-    // console.log('entries', entries.toJSON())
 
     return res.json(entries)
 
+})
+
+router.get('/:userId/today', requireAuth, async (req, res, next) => {
+    const { userId } = req.params
+
+    const entry = await Entry.findAll({
+        where: {
+            userId: userId,
+            datetime: {
+                [Op.gte] : "2024-08-20"
+            }
+        },
+        include: [Level]
+    })
+
+    return res.json(entry)
 })
 
 module.exports = router;

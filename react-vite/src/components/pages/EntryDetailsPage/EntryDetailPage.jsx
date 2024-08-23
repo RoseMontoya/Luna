@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, Navigate, useNavigate, Link } from "react-router-dom";
 import { getAllEntries } from "../../../redux/entries";
-import { Loading, Icon, Activities } from "../../subcomponents";
+import { Loading, Icon, Activities, Levels } from "../../subcomponents";
 import { BsDot } from "react-icons/bs";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa6";
 import './EntryDetail.css'
@@ -56,6 +56,7 @@ function EntryDetailsPage() {
   return (
     <main className="nav-open">
       <div id="entries-container" >
+        <Link to='/entries'>Entries</Link>
         {/* <h1>Entries</h1> */}
         <div className="entry" style={{marginTop: '4em', position: 'relative'}}>
           <button className={`circ-btn ${entries[entries.length - 1].id === +entryId? 'hidden': ''}` }id="less-than"
@@ -84,6 +85,7 @@ function EntryDetailsPage() {
                 <h2>Overall: </h2>
                 <div>{entry.overallMood}</div>
               </div>
+              <Levels levels={entry.Levels}/>
             </div>
             <div className="activities-container container">
               <h2>What have you been up to?</h2>

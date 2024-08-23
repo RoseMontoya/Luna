@@ -2,7 +2,7 @@ import "./EntriesList.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllEntries } from "../../../redux/entries";
-import { Loading, Icon, Activities } from "../../subcomponents";
+import { Loading, Icon, Activities, Levels } from "../../subcomponents";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./EntriesList.css";
 import { BsDot } from "react-icons/bs";
@@ -59,6 +59,7 @@ function EntriesListPage() {
                   <div>
                     <h2>Overall: </h2>
                     <div>{entry.overallMood}</div>
+                    <Levels levels={entry.Levels} />
                   </div>
                 </div>
                 <div className="activities-container container">

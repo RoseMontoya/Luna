@@ -1,27 +1,96 @@
 // import { useDispatch } from 'react-redux'
-import './HomePage.css'
-import { useSelector } from 'react-redux'
+import { useEffect } from "react";
+import "./HomePage.css";
+import { useSelector, useDispatch } from "react-redux";
+import { Loading, Icon, Activities, Levels } from "../../subcomponents";
+import { getEntriesToday } from "../../../redux/entries";
+import { getAllIcons } from "../../../redux/icons";
+import { BsDot } from "react-icons/bs";
+
 
 function Home() {
-    // const dispatch = useDispatch()
-    const user = useSelector(state => state.session.user)
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.session.user);
+  const entries = useSelector((state) => state.entries.today);
+  const icons = useSelector(state => state.icons.allIcons)
 
-    return (
-        <main id='landing-page'>
-            {user? (
-                <div>
 
+  useEffect(() => {
+    if (!entries) {
+      dispatch(getEntriesToday(user.id));
+    }
+    if (!icons) {
+        dispatch(getAllIcons())
+    }
+  }, [dispatch, user, entries, icons]);
+
+  if (user && !entries || !icons) return <Loading />;
+  console.log(user, !entries, entries, !icons, icons)
+
+  return (
+    <main id="landing-page">
+      {user ? (
+        <div className="nav-open">
+          <div id="entries-container">
+            <h1>Entries</h1>
+            {entries
+              .map((entry) => (
+                <div
+                  className="entry"
+                  key={entry.id}
+                  onClick={() => navigate(`${entry.id}`)}
+                >
+                  <div className="entry-header">
+                    <div className="entry-info">
+                      <div className="mood-icon">
+                        <Icon icons={icons} id={entry.iconId} />
+                      </div>
+                      <div className="entry-info-text">
+                        <h2>{entry.date}</h2>
+                        <h3>{entry.mood}</h3>
+                        <p>{entry.time}</p>
+                      </div>
+                    </div>
+                    <div className="entry-buttons">
+                      <p>Edit</p>
+                      <BsDot />
+                      <p>Delete</p>
+                    </div>
+                  </div>
+                  <div className="entry-details">
+                    <div className="levels-container container">
+                      <div>
+                        <h2>Overall: </h2>
+                        <div>{entry.overallMood}</div>
+                        <Levels levels={entry.Levels} />
+                      </div>
+                    </div>
+                    <div className="activities-container container">
+                      <h2>What have you been up to?</h2>
+                      {console.log(entry.Activities)}
+                      <Activities icons={icons} activities={entry.Activities} />
+                    </div>
+                    <div className="note-container container">
+                      <h2>Note:</h2>
+                      <p>{entry.note}</p>
+                    </div>
+                  </div>
                 </div>
-            ) : (
-                <div>
-                    <h1 className="title-font">Welcome to Luna</h1>
-                    <p>Here to help you be mindful of your life.</p>
-                    <p>Chart how you feel. Track what you do.</p>
-                    <h2 className="title-font">No matter what phase I am in, I always remain whole</h2>
-                </div>
-            )}
-        </main>
-    )
+              ))}
+          </div>
+        </div>
+      ) : (
+        <div>
+          <h1 className="title-font">Welcome to Luna</h1>
+          <p>Here to help you be mindful of your life.</p>
+          <p>Chart how you feel. Track what you do.</p>
+          <h2 className="title-font">
+            No matter what phase I am in, I always remain whole
+          </h2>
+        </div>
+      )}
+    </main>
+  );
 }
 
-export default Home
+export default Home;

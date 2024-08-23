@@ -12,6 +12,7 @@ const formatDate = (entry) => {
 
 const ALL_ENTRIES = 'entries/all-entries'
 const ENTRY_BY_ID = 'entries/entry-by-id'
+const ENTRIES_TODAY = 'entries/entries-today'
 
 // * Actions
 const addAllEntries = (entries) => {
@@ -25,6 +26,13 @@ const entryById = (entry) => {
     return {
         type: ENTRY_BY_ID,
         entry
+    }
+}
+
+const addEntriesToday = (entries) => {
+    return {
+        type: ENTRIES_TODAY,
+        entries
     }
 }
 
@@ -52,6 +60,15 @@ export const getEntryById = (entryId) => async dispatch => {
     return entry
 }
 
+export const getEntriesToday = (userId) => async dispatch => {
+    const response = await csrfFetch(`/api/users/${userId}/today`)
+
+    const data = await response.json()
+    console.log(data)
+    dispatch(addEntriesToday(data))
+    return data
+}
+
 const initialState = {}
 
 const entriesReducer = (state = initialState, action) => {
@@ -65,6 +82,9 @@ const entriesReducer = (state = initialState, action) => {
         }
         case ENTRY_BY_ID: {
             return {...state, allEntries: {...state.allEntries, [action.entry.id] : action.entry}}
+        }
+        case ENTRIES_TODAY: {
+            return {...state, today: action.entries}
         }
         default:
             return state

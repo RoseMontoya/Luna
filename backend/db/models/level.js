@@ -49,6 +49,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Level",
+      defaultScope: {
+        attributes: {
+          exclude: ['createdAt',
+            'createdAt', 'userId'
+          ]
+        }
+      }
     }
   );
   return Level;
