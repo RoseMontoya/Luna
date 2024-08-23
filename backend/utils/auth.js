@@ -74,11 +74,11 @@ const requireAuth = (req, _res, next) => {
 const authorization = (req, ownerId) => {
     if (req.user.id !== ownerId) {
         const err = new Error('Forbidden');
-        // err.title = 'Forbidden';
+        err.title = 'Forbidden';
         err.status = 403
-        // err.errors = {
-        //     'message': 'Not authorized'
-        // }
+        err.errors = {
+            'message': 'Not authorized'
+        }
         return err;
     }
     return true

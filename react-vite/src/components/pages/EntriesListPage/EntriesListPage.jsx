@@ -3,12 +3,13 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllEntries } from "../../../redux/entries";
 import { Loading, Icon } from "../../subcomponents";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import "./EntriesList.css";
 import { BsDot } from "react-icons/bs";
 
 function EntriesListPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const user = useSelector((state) => state.session.user);
   const entriesObj = useSelector((state) => state.entries.allEntries);
   const entries = entriesObj ? Object.values(entriesObj) : [];
@@ -29,7 +30,7 @@ function EntriesListPage() {
       <div id="entries-container">
         <h1>Entries</h1>
         {entries.map((entry) => (
-          <div className="entry">
+          <div className="entry" key={entry.id} onClick={() => navigate(`${entry.id}`)}>
             <div className="entry-header">
               <div className="entry-info">
                 <div className="mood-icon">
