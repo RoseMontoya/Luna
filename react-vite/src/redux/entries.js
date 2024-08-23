@@ -6,7 +6,7 @@ const formatDate = (entry) => {
     const formattedDate = format(entry.datetime, "EEEE, MMM d . h:mm a").split(" . ")
     entry.date = formattedDate[0]
     entry.time = formattedDate[1]
-    delete entry.datetime
+    // delete entry.datetime
     return entry
 }
 

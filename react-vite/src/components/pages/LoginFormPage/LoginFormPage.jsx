@@ -28,7 +28,6 @@ function LoginFormPage() {
       .catch(async res => {
         const errs = await res.json()
         setErrors(errs);
-        console.log(errors)
       })
 
   };
@@ -36,7 +35,7 @@ function LoginFormPage() {
   const demoLogIn = async() => {
     await setEmail("bonnibel.bubblegum@candykindgom.com")
     await setPassword("sweetscience123")
-    console.log('email', email)
+
     dispatch( login({
       email: "bonnibel.bubblegum@candykindgom.com",
       password: "sweetscience123",

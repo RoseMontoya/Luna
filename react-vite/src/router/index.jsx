@@ -11,6 +11,7 @@ import {
   EntryDetailsPage,
 } from "../components/pages";
 import Layout from "./Layout";
+import { entriesLoader } from "../components/pages/EntriesListPage/EntriesListPage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

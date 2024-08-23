@@ -9,7 +9,7 @@ function Icon({ id }) {
   const iconsObj = useSelector((state) => state.icons.allIcons);
   const dispatch = useDispatch();
   const icon = iconsObj ? Object.values(iconsObj) : [];
-  console.log("ahhhhh",iconsObj)
+  // console.log("ahhhhh",iconsObj)
 
   useEffect(() => {
       if (!iconsObj) {
@@ -20,7 +20,7 @@ function Icon({ id }) {
     if (!iconsObj) return null;
 
     const IconComponent = Icons[icon[id].name]
-    console.log(IconComponent)
+    // console.log(IconComponent)
   return <IconComponent />;
 }
 

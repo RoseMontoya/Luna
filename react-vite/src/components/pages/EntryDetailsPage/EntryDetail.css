@@ -1,0 +1,26 @@
+.circ-btn {
+  background-color: white;
+  border-radius: 100%;
+  border-color: #132C33;
+  position: absolute;
+  height: 4em;
+  width: 4em;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#less-than {
+    left: -4.5em;
+}
+
+#greater-than {
+    right: -4.5em
+}
+
+.circ-btn * {
+  height: 2em;
+  width: 2em;
+  color: #132C33;
+}

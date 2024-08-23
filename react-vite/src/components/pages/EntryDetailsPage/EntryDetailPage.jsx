@@ -1,34 +1,58 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, Navigate } from "react-router-dom";
-import { getEntryById } from "../../../redux/entries";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { getAllEntries } from "../../../redux/entries";
 import { Loading, Icon } from "../../subcomponents";
 import { BsDot } from "react-icons/bs";
-
-
+import { FaGreaterThan, FaLessThan } from "react-icons/fa6";
+import './EntryDetail.css'
 
 function EntryDetailsPage() {
-    const dispatch = useDispatch()
-    const {entryId} = useParams()
-    const user = useSelector((state) => state.session.user);
-    const entry = useSelector((state) => state.entries.allEntries?.[entryId]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const { entryId } = useParams();
+  const user = useSelector((state) => state.session.user);
+  const entriesObj = useSelector((state) => state.entries.allEntries);
+
+  const entries = entriesObj ? Object.values(entriesObj).sort((a, b) => new Date(b.datetime) - new Date(a.datetime)) : [];
+  const entry = entriesObj?.[entryId]
+  console.log(entries)
 
   useEffect(() => {
-    if (!entry) {
-        dispatch(getEntryById(entryId))
+    if (!entriesObj) {
+      dispatch(getAllEntries(user.id));
     }
-  }, [dispatch, entryId, entry])
+  }, [dispatch, entryId, entriesObj]);
 
   if (!user) return <Navigate to="/" replace={true} />;
 
-  if (!entry) return <Loading />;
+  if (!entriesObj) return <Loading />;
 
+  const handleLessClick = () => {
+    entries.forEach((entry, idx) => {
+      if (entry.id === +entryId) {
+        const next = entries[idx + 1]
+        return navigate(`/entries/${next.id}`)
+      }
+    })
+  }
+
+  const handleGreaterClick = () => {
+    entries.forEach((entry, idx) => {
+      if (entry.id === +entryId) {
+        const next = entries[idx - 1]
+        return navigate(`/entries/${next.id}`)
+      }
+    })
+  }
 
   return (
     <main className="nav-open">
-      <div id="entries-container">
-        <h1>Entries</h1>
-        <div className="entry">
+      <div id="entries-container" >
+        {/* <h1>Entries</h1> */}
+        <div className="entry" style={{marginTop: '4em', position: 'relative'}}>
+          <button className={`circ-btn ${entries[entries.length - 1].id === +entryId? 'hidden': ''}` }id="less-than"
+          onClick={() => handleLessClick()}><FaLessThan/></button>
           <div className="entry-header">
             <div className="entry-info">
               <div className="mood-icon">
@@ -45,6 +69,7 @@ function EntryDetailsPage() {
               <BsDot />
               <p>Delete</p>
             </div>
+
           </div>
           <div className="entry-details">
             <div className="levels-container container">
@@ -60,6 +85,7 @@ function EntryDetailsPage() {
               <p>{entry.note}</p>
             </div>
           </div>
+          <button className={`circ-btn ${entries[0].id === +entryId? 'hidden' : ''}`} id="greater-than" onClick={() => handleGreaterClick()}><FaGreaterThan/></button>
         </div>
       </div>
     </main>
