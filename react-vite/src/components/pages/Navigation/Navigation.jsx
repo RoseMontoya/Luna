@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { FaPlus } from "react-icons/fa6";
 import ProfileButton from "./ProfileButton";
 
 import "./Navigation.css";
@@ -12,7 +13,11 @@ function Navigation() {
     <>
     {user? (
       <nav id="logged-in-nav">
+        <div>
+          <button id="add-button"><FaPlus /></button>
+        </div>
         <div id="nav-container">
+          <h1 style={{fontWeight: 'normal'}}>Welcome back, {user.firstName}</h1>
           <NavLink to="/">Home</NavLink>
           <NavLink to="entries">Entries</NavLink>
         </div>

@@ -1,0 +1,88 @@
+.nav-open {
+    margin-left: 20vw;
+}
+
+#entries-container {
+    padding: 4em;
+}
+
+.entry {
+    background-color: white;
+    padding: 1em;
+    border-radius: 1em;
+    border: solid 2px #132C33;
+    margin-bottom: 1.5em;
+    /* gap: 1em; */
+  box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.25);
+}
+
+.entry * {
+    margin: 0;
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 2em;
+}
+
+.entry-info {
+    display: flex;
+    gap: 1em;
+    min-width: 50%;
+}
+
+.mood-icon {
+    height: 100%;
+    max-height: 70px;
+    width:  25%;
+}
+
+.mood-icon * {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.entry-info-text {
+    min-width: 60%;
+}
+
+.entry-buttons {
+    display: flex;
+    align-items: start;
+    gap: .5em;
+}
+
+
+
+.container {
+    padding: .5em;
+    border: 2px solid #132C33;
+    border-radius: 16px;
+}
+
+.entry-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 1em;
+    padding: 1em 2em;
+}
+
+.levels-container {
+    grid-column: 1/ span 1;
+    grid-row: 1 / span 5
+}
+
+.activities-container {
+    grid-column: 2/ span 2;
+    grid-row: 1 / span 3;
+}
+
+.note-container {
+    grid-column: 2/ span 2;
+    grid-row: 4/ span 2;
+}
