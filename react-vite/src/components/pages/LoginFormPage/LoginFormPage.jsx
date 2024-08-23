@@ -22,7 +22,7 @@ function LoginFormPage() {
         email,
         password,
       }))
-      .then(res => {
+      .then(() => {
           navigate("/");
       })
       .catch(async res => {
@@ -33,7 +33,7 @@ function LoginFormPage() {
 
   };
 
-  const demoLogIn = async(e) => {
+  const demoLogIn = async() => {
     await setEmail("bonnibel.bubblegum@candykindgom.com")
     await setPassword("sweetscience123")
     console.log('email', email)
@@ -41,13 +41,13 @@ function LoginFormPage() {
       email: "bonnibel.bubblegum@candykindgom.com",
       password: "sweetscience123",
     }))
-    .then(res => {
+    .then(() => {
         navigate("/");
     })
     .catch(async res => {
       const errs = await res.json()
       setErrors(errs);
-      console.log(errors)
+      // console.log(errors)
     })
   }
 

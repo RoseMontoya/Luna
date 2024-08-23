@@ -9,7 +9,7 @@ const getIcons = (icons) => {
     }
 }
 
-export const getAllIcons = (userId) => async dispatch => {
+export const getAllIcons = () => async dispatch => {
     const response = await csrfFetch(`/api/icons`)
     const data = await response.json()
     dispatch(getIcons(data))

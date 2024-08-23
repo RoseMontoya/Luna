@@ -1,9 +1,9 @@
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import './HomePage.css'
 import { useSelector } from 'react-redux'
 
 function Home() {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
 
     return (
