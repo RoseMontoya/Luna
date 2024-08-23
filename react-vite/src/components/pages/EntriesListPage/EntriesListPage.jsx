@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllEntries } from "../../../redux/entries";
 import { Loading, Icon, Activities } from "../../subcomponents";
-import { Navigate, useLoaderData, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import "./EntriesList.css";
 import { BsDot } from "react-icons/bs";
-import { csrfFetch } from "../../../redux/csrf";
+// import { csrfFetch } from "../../../redux/csrf";
 import { getAllIcons } from "../../../redux/icons";
 
 function EntriesListPage() {
@@ -81,15 +81,15 @@ function EntriesListPage() {
 export default EntriesListPage;
 
 
-export const entriesLoader = async(user) => {
-  const response = await csrfFetch(`/api/users/${user.id}/entries`)
+// export const entriesLoader = async(user) => {
+//   const response = await csrfFetch(`/api/users/${user.id}/entries`)
 
-  const data = await response.json()
+//   const data = await response.json()
 
-    data.map(entry => {
-      const formattedDate = format(entry.datetime, "EEEE, MMM d . h:mm a").split(" . ")
-      entry.date = formattedDate[0]
-      entry.time = formattedDate[1]
-    })
-    return data
-}
+//     data.map(entry => {
+//       const formattedDate = format(entry.datetime, "EEEE, MMM d . h:mm a").split(" . ")
+//       entry.date = formattedDate[0]
+//       entry.time = formattedDate[1]
+//     })
+//     return data
+// }

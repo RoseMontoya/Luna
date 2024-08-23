@@ -28,7 +28,7 @@ function EntryDetailsPage() {
     if (!icons) {
       dispatch(getAllIcons())
     }
-  }, [dispatch, entryId, entriesObj, icons]);
+  }, [dispatch, entryId, entriesObj, icons, user]);
 
   if (!user) return <Navigate to="/" replace={true} />;
 
