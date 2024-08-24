@@ -13,6 +13,7 @@ const formatDate = (entry) => {
 const ALL_ENTRIES = 'entries/all-entries'
 const ENTRY_BY_ID = 'entries/entry-by-id'
 const ENTRIES_TODAY = 'entries/entries-today'
+const ADD_ENTRY = 'entries/add-entry'
 
 // * Actions
 const addAllEntries = (entries) => {
@@ -33,6 +34,13 @@ const addEntriesToday = (entries) => {
     return {
         type: ENTRIES_TODAY,
         entries
+    }
+}
+
+const addEntry = (payload) => {
+    return {
+        type: ADD_ENTRY,
+        payload
     }
 }
 
@@ -65,7 +73,21 @@ export const getEntriesToday = (userId) => async dispatch => {
 
     const data = await response.json()
     console.log(data)
+    data.map(entry => {
+        formatDate(entry)
+    })
     dispatch(addEntriesToday(data))
+    return data
+}
+
+export const createEntry = (payload) => async dispatch => {
+    const response = await csrfFetch(`/api/entries`, {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    })
+
+    const data = formatDate(await response.json())
+    dispatch(addEntry(data))
     return data
 }
 
@@ -85,6 +107,27 @@ const entriesReducer = (state = initialState, action) => {
         }
         case ENTRIES_TODAY: {
             return {...state, today: action.entries}
+        }
+        case ADD_ENTRY: {
+            const newState = {}
+
+            if (state.allEntries) {
+                const newAll = {...state.allEntries}
+                newAll[action.payload.id] = action.payload
+                newState['allEntries'] = newAll
+            }
+
+            const isToday = action.payload.datetime >= new Date().toDateString()
+
+            if (isToday) {
+                const newToday = {...state.today}
+
+                newToday[action.payload.id] = action.payload
+
+                newState['today'] = newToday
+            }
+
+            return newState
         }
         default:
             return state

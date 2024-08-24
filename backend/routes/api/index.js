@@ -4,6 +4,7 @@ const usersRouter = require('./users.js');
 const iconsRouter = require('./icons.js')
 const entriesRouter = require('./entries.js')
 const activitiesRouter = require('./activities.js')
+const levelsRouter = require('./levels.js')
 const { restoreUser } = require('../../utils/auth.js')
 
 // Connect restoreUser middleware to the API router
@@ -17,6 +18,7 @@ router.use('/users', usersRouter);
 router.use('/icons', iconsRouter);
 router.use('/entries', entriesRouter)
 router.use('/activities', activitiesRouter)
+router.use('/levels', levelsRouter)
 
 
 // router.post('/test', (req, res) => {

@@ -8,11 +8,15 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import entriesReducer from "./entries";
 import iconReducer from "./icons";
+import levelsReducer from "./levels";
+import activitiesReducer from "./activities";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   entries: entriesReducer,
-  icons: iconReducer
+  icons: iconReducer,
+  levels: levelsReducer,
+  activities: activitiesReducer
 });
 
 let enhancer;

@@ -39,6 +39,23 @@ nav div {
   justify-content: center;
 }
 
+#add-entry {
+  display: none;
+}
+
+#add-button:hover #add-entry {
+  display: flex;
+  position: absolute;
+  right: 5em;
+  min-width: max-content;
+  background-color: white;
+  border: #132C33 solid 2px;
+  border-radius: 1em;
+  justify-content: center;
+  align-items: center;
+  padding: .5em 1em;
+}
+
 #add-button * {
   height: 2em;
   width: 2em;
