@@ -30,6 +30,42 @@ const validateSignup = [
     handleValidationErrors
 ];
 
+const validateEntry = [
+    check(datetime)
+        .exists({checkFalsy: true })
+        .withMessage('Date is required.'),
+    check(datetime)
+        .custom((value) => {
+        const entryDate = new Date(value);
+        const current = new Date()
+
+        if (entryDate <= current) {
+            throw new Error ('Entry date cannot be in the future.')
+        } else return true
+    }),
+    check(datetime)
+        .isAfter('1999-12-31')
+        .withMessage('Date cannot be before the year 2000.'),
+    check(mood)
+        .exists({checkFalsy: true})
+        .withMessage('Please give a word to describe how you are feeling.'),
+    check(mood)
+        .isLength({max: 20})
+        .withMessage('Cannot be longer than 20 characters.'),
+    check(overallMood)
+        .exists({ checkFalsy: true })
+        .isLength({min: 1, max:10})
+        .withMessage('Please choose a number between 1-10.'),
+     check(note)
+        .if
+        .isLength({min: 10})
+        .withMessage('If you choose to leave a note, it must be longer than 10 characters.'),
+    check(note)
+        .if
+        .isLength({ max: 255})
+        .withMessage('Note cannot be longer than 255 characters.')
+]
+
 // Sign up
 router.post('/', validateSignup, async (req, res, next) => {
     const { email, password, firstName, lastName} = req.body;
@@ -88,7 +124,7 @@ router.get('/:userId/today', requireAuth, async (req, res, next) => {
         where: {
             userId: userId,
             datetime: {
-                [Op.gte] : "2024-08-20"
+                [Op.gte] : new Date().toDateString()
             }
         },
         include: [Level]

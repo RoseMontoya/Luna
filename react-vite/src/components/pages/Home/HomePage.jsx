@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import "./HomePage.css";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
 import { getEntriesToday } from "../../../redux/entries";
 import { getAllIcons } from "../../../redux/icons";
@@ -30,9 +31,9 @@ function Home() {
   return (
     <main id="landing-page">
       {user ? (
-        <div className="nav-open">
-          <div id="entries-container">
-            <h1>Entries</h1>
+          <div className="nav-open">
+            <h1>Today:</h1>
+            {entries.length? <div id="entries-container">
             {entries
               .map((entry) => (
                 <div
@@ -77,7 +78,12 @@ function Home() {
                   </div>
                 </div>
               ))}
-          </div>
+          </div>:
+          <div>
+            <p>No entries available for today</p>
+            <Link to='entries/new'>New Entry</Link>
+          </div>}
+
         </div>
       ) : (
         <div>

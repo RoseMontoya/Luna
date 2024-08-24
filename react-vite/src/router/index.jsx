@@ -9,6 +9,7 @@ import {
   LoginFormPage,
   SignupFormPage,
   EntryDetailsPage,
+  CreateEntryPage,
 } from "../components/pages";
 import Layout from "./Layout";
 // import { entriesLoader } from "../components/pages/EntriesListPage/EntriesListPage";
@@ -19,9 +20,12 @@ export const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="login" element={<LoginFormPage />} />
       <Route path="signup" element={<SignupFormPage />} />
-      <Route path="entries" >
+      <Route path="entries">
         <Route index element={<EntriesListPage />} />
-        <Route path=":entryId" element={<EntryDetailsPage />} />
+        <Route path=":entryId">
+          <Route index element={<EntryDetailsPage />} />
+        </Route>
+        <Route path="new" element={<CreateEntryPage />} />
       </Route>
     </Route>
   )
