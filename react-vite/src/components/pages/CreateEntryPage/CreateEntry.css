@@ -1,3 +1,8 @@
 .selected {
     color: #51C4D3;
 }
+
+.selectedAct * {
+    color: white;
+    background-color: #126E82;
+}

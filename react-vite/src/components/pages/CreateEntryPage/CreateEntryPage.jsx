@@ -23,7 +23,7 @@ function CreateEntryPage() {
   const [selectedIcon, setSelectedIcon] = useState({});
   const [note, setNote] = useState("");
   const [levelRatings, setLevelsRating] = useState({});
-  const [acts, setActs] = useState([]);
+  const [acts, setActs] = useState(new Set());
   const [errors, setErrors] = useState({});
 
   const allIcons = useSelector((state) => state.icons.allIcons);
@@ -35,8 +35,6 @@ function CreateEntryPage() {
   const activitiesObj = useSelector((state) => state.activities.allActivities);
   const activities = activitiesObj ? Object.values(activitiesObj) : [];
 
-  console.log("levels", levels);
-  console.log('level ratings', levelRatings)
 
   useEffect(() => {
     if (!allIcons) {
@@ -76,6 +74,17 @@ function CreateEntryPage() {
   };
 
   if (!allIcons || !levelsObj || !activitiesObj) return <Loading />;
+
+  const handleSelect = (actId) => {
+    if (acts.has(actId)) {
+        const newA = new Set(acts)
+        newA.delete(actId)
+        setActs(newA)
+    } else {
+        const newA = new Set(acts)
+        setActs(newA.add(actId))
+    }
+  }
 
   return (
     <main className="nav-open">
@@ -164,6 +173,16 @@ function CreateEntryPage() {
                   ))}
                 </select>
               </div>
+            ))}
+          </div>
+          <div>
+            {activities.map(activity => (
+                <div key={activity.id}>
+                    <div onClick={() => handleSelect(activity.id)} className={`${acts.has(activity.id)? 'selectedAct' : ''}`}>
+                        <Icon icons={allIcons} id={activity.iconId}/>
+                    </div>
+                    <p>{activity.name}</p>
+                </div>
             ))}
           </div>
           <button type="submit">Create</button>
