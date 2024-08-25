@@ -29,7 +29,6 @@ function CreateEntryPage() {
   const allIcons = useSelector((state) => state.icons.allIcons);
   const icons = allIcons ? Object.values(allIcons) : [];
   const moodIcons = icons.slice(0, 5);
-  console.log(moodIcons);
   const levelsObj = useSelector((state) => state.levels.allLevels);
   const levels = levelsObj ? Object.values(levelsObj) : [];
   const activitiesObj = useSelector((state) => state.activities.allActivities);
@@ -52,15 +51,25 @@ function CreateEntryPage() {
     e.preventDefault();
     setErrors({});
 
+    const lvls = []
+    for (const [levelId, rating] of Object.entries(levelRatings)) {
+        lvls.push({ 'levelId': Number(levelId), 'rating': Number(rating) })
+    }
+
+    const entriesActs = []
+    for (const actId of acts.values()) {
+        entriesActs.push({ activityId: Number(actId) })
+    }
+
     const payload = {
       datetime: date,
       mood,
       overallMood,
       iconId: selectedIcon.id,
       note,
+      levels: lvls,
+      activities: entriesActs
     };
-
-    // console.log('payload', payload)
 
     dispatch(createEntry(payload))
       .then((res) => {
@@ -69,7 +78,6 @@ function CreateEntryPage() {
       .catch(async (err) => {
         const errs = await err.json();
         setErrors(errs.errors);
-        console.log("errors", errs);
       });
   };
 
@@ -100,7 +108,7 @@ function CreateEntryPage() {
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
-          {errors.datetime && <p className="error">{errors.datetime}</p>}
+          {errors?.datetime && <p className="error">{errors.datetime}</p>}
           <div>
             <label>In one word, how are you feeling?</label>
             <input
@@ -108,7 +116,7 @@ function CreateEntryPage() {
               value={mood}
               onChange={(e) => setMood(e.target.value)}
             />
-            {errors.mood && <p className="error">{errors.mood}</p>}
+            {errors?.mood && <p className="error">{errors.mood}</p>}
             <label>{`On a scale of 1 to 10, how would rating your overall mood?`}</label>
             <select
               name="overallMood"
@@ -125,7 +133,7 @@ function CreateEntryPage() {
                 </option>
               ))}
             </select>
-            {errors.overallMood && (
+            {errors?.overallMood && (
               <p className="error">{errors.overallMood}</p>
             )}
             <label>Choose an icon that best represents your mood:</label>
@@ -140,19 +148,18 @@ function CreateEntryPage() {
                 </div>
               ))}
             </div>
-            {errors.iconId && <p className="error">{errors.iconId}</p>}
+            {errors?.iconId && <p className="error">{errors.iconId}</p>}
             <label>Would you like to add a small note to this entry?</label>
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
             ></textarea>
-            {errors.note && <p className="error">{errors.note}</p>}
+            {errors?.note && <p className="error">{errors.note}</p>}
           </div>
           <div>
             <h2>Levels</h2>
             {levels.map((level) => (
               <div key={level.id}>
-                {/* {console.log("level", level.name)} */}
                 <p>{level.name}</p>
                 <select
                   name={level.name}

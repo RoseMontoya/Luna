@@ -17,7 +17,6 @@ function EntryDetailsPage() {
 
   const entries = entriesObj ? Object.values(entriesObj).sort((a, b) => new Date(b.datetime) - new Date(a.datetime)) : [];
   const entry = entriesObj?.[entryId]
-  console.log(entries)
 
   const icons = useSelector(state => state.icons.allIcons)
 

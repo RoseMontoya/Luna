@@ -16,7 +16,6 @@ function LoginFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('in handle submit', email, password)
 
     dispatch( login({
         email,
@@ -46,7 +45,6 @@ function LoginFormPage() {
     .catch(async res => {
       const errs = await res.json()
       setErrors(errs);
-      // console.log(errors)
     })
   }
 

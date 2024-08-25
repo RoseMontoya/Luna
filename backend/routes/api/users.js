@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 // const {Entry} = require('../../db/models')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Entry, Level } = require('../../db/models')
+const { User, Entry, Level , EntryActivity, EntryLevel} = require('../../db/models')
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');

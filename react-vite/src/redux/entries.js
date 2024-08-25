@@ -59,7 +59,7 @@ export const getAllEntries = (userId) => async dispatch => {
 }
 
 export const getEntryById = (entryId) => async dispatch => {
-    console.log(typeof entryId)
+
     const response = await csrfFetch(`/api/entries/${entryId}`)
 
     const entry = formatDate(await response.json())
@@ -72,7 +72,6 @@ export const getEntriesToday = (userId) => async dispatch => {
     const response = await csrfFetch(`/api/users/${userId}/today`)
 
     const data = await response.json()
-    console.log(data)
     data.map(entry => {
         formatDate(entry)
     })

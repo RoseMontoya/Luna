@@ -1,9 +1,10 @@
 const express = require('express')
 const { requireAuth, authorization } = require('../../utils/auth');
-const { User, Entry, Level } = require('../../db/models');
+const { User, Entry, Level, EntryActivity, EntryLevel } = require('../../db/models');
 const { notFound } = require('../../utils/helper');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+
 
 const router = express.Router()
 
@@ -15,8 +16,6 @@ const validateEntry = [
         .custom((value) => {
         const entryDate = new Date(value);
         const current = new Date()
-        console.log('entry', entryDate, "current",current)
-        console.log(entryDate <= current)
 
         if (entryDate >= current) {
             throw new Error ('Entry date cannot be in the future.')
@@ -64,7 +63,6 @@ router.get('/:entryId/activities', requireAuth, async (req, res, next) => {
 
 router.get('/:entryId', requireAuth, async (req, res, next) => {
     const {entryId} = req.params
-    // console.log("asdfadf",entryId)
 
     const entry = await Entry.findByPk(entryId, {
         include: [Level]
@@ -72,7 +70,6 @@ router.get('/:entryId', requireAuth, async (req, res, next) => {
 
     if (!entry) return next(notFound('Entry'))
 
-    console.log('userId', entry)
     if (req.user.id !== entry.userId) return next(authorization(req, entry.userId))
 
     return res.json(entry)
@@ -80,13 +77,27 @@ router.get('/:entryId', requireAuth, async (req, res, next) => {
 
 router.post('/', requireAuth, validateEntry, async (req, res, next) => {
     const {user} = req
+    const { datetime, mood, overallMood, iconId, note, levels, activities} = req.body
 
     const entry = await Entry.create({
         userId: user.id,
-        ...req.body
+        datetime,
+        mood,
+        overallMood,
+        iconId,
+        note,
     })
 
-    res.status(201).json(entry)
+
+    const newLvls = await EntryLevel.bulkCreate(levels.map(level => ({...level, 'entryId': entry.id })))
+
+    const newacts = await EntryActivity.bulkCreate(activities.map(activity => ({...activity, 'entryId': entry.id})))
+
+    const newEntry = await Entry.findByPk(entry.id, {
+        include: [Level]
+    })
+
+    res.status(201).json(newEntry)
 })
 
 module.exports = router

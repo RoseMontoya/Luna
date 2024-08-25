@@ -64,7 +64,6 @@ function EntriesListPage() {
                 </div>
                 <div className="activities-container container">
                   <h2>What have you been up to?</h2>
-                  {console.log(entry.Activities)}
                   <Activities icons={icons} activities={entry.Activities}/>
                 </div>
                 <div className="note-container container">

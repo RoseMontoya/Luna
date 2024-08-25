@@ -26,7 +26,6 @@ function Home() {
   }, [dispatch, user, entries, icons]);
 
   if (user && !entries || !icons) return <Loading />;
-  console.log(user, !entries, entries, !icons, icons)
 
   return (
     <main id="landing-page">
@@ -68,7 +67,6 @@ function Home() {
                     </div>
                     <div className="activities-container container">
                       <h2>What have you been up to?</h2>
-                      {console.log(entry.Activities)}
                       <Activities icons={icons} activities={entry.Activities} />
                     </div>
                     <div className="note-container container">
