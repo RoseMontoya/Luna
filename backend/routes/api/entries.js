@@ -43,6 +43,18 @@ const validateEntry = [
         .withMessage('If you choose to leave a note, it must be longer than 10 characters.')
         .isLength({ max: 255})
         .withMessage('Note cannot be longer than 255 characters.'),
+    check('levels')
+        .custom((value ) => {
+            const errs = {}
+            value.forEach(level => {
+                if (level.rating <= 0 || level.rating > 10 ) {
+                    errs[(level.levelId)] = 'Rating must be between 1-10.'
+                }
+            })
+            console.log('EERRROR', errs)
+            if (Object.values(errs).length) throw (errs)
+            else return true
+        }),
     handleValidationErrors
 ]
 
@@ -98,6 +110,19 @@ router.post('/', requireAuth, validateEntry, async (req, res, next) => {
     })
 
     res.status(201).json(newEntry)
+})
+
+router.put('/:entryId', requireAuth, validateEntry, async (req, res, next) => {
+    const { datetime, mood, overallMood, iconId, note, levels, activities} = req.body
+    const { entryId } = req.params
+
+    const entry = await Entry.findByPk(entryId, {
+        include: [Level]
+    })
+
+    if (!entry) return next(notFound('Entry'))
+
+
 })
 
 module.exports = router

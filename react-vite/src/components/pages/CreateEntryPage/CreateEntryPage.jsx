@@ -3,26 +3,27 @@ import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getAllIcons } from "../../../redux/icons";
 import { Icon, Loading } from "../../subcomponents";
 import "./CreateEntry.css";
-import { createEntry } from "../../../redux/entries";
+import { createEntry, getEntryById, editEntry } from "../../../redux/entries";
 import { getAllLevels } from "../../../redux/levels";
 import { getAllActivities } from "../../../redux/activities";
 
-function CreateEntryPage() {
+function CreateEntryPage({ type }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { entryId } = useParams();
 
   const user = useSelector((state) => state.session.user);
+  const entry = useSelector((state) => state.entries.entriesById?.[entryId]);
 
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd HH:mm"));
   const [mood, setMood] = useState("");
   const [overallMood, setOverallMood] = useState("");
   const [selectedIcon, setSelectedIcon] = useState({});
   const [note, setNote] = useState("");
-  const [levelRatings, setLevelsRating] = useState({});
   const [acts, setActs] = useState(new Set());
   const [errors, setErrors] = useState({});
 
@@ -31,34 +32,70 @@ function CreateEntryPage() {
   const moodIcons = icons.slice(0, 5);
   const levelsObj = useSelector((state) => state.levels.allLevels);
   const levels = levelsObj ? Object.values(levelsObj) : [];
+  const startStateLevels = {};
+  levels.forEach((level) => (startStateLevels[level.id] = 0));
+  const [levelRatings, setLevelsRating] = useState(startStateLevels);
+  console.log("start levels", levelRatings);
   const activitiesObj = useSelector((state) => state.activities.allActivities);
   const activities = activitiesObj ? Object.values(activitiesObj) : [];
-
 
   useEffect(() => {
     if (!allIcons) {
       dispatch(getAllIcons());
     }
     if (!levelsObj) {
-      dispatch(getAllLevels());
+      dispatch(getAllLevels()).then((res) => {
+        if (!levelRatings) {
+          const startStateLevels = {};
+
+          res.forEach((level) => (startStateLevels[level.id] = 0));
+          setLevelsRating(startStateLevels);
+        }
+      });
     }
     if (!activitiesObj) {
       dispatch(getAllActivities());
     }
   }, [dispatch, allIcons, levelsObj, activitiesObj]);
 
+  useEffect(() => {
+    if (!entry && type === "edit") {
+      dispatch(getEntryById(entryId));
+    }
+    if (type === "edit" && entry && !mood) {
+      setDate(format(entry.datetime, "yyyy-MM-dd HH:mm"));
+      setMood(entry.mood);
+      setOverallMood(entry.overallMood);
+      setSelectedIcon(icons[entry.iconId]);
+      setNote(entry.note || "");
+
+      const startStateLevels = {};
+
+      entry.Levels.forEach(
+        (level) => (startStateLevels[level.id] = level.EntryLevel.rating)
+      );
+      setLevelsRating(startStateLevels);
+
+      const activities = new Set();
+      entry.Activities.forEach((act) => {
+        activities.add(act.id);
+      });
+      setActs(activities);
+    }
+  }, [dispatch, entry, type, entryId, date]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
 
-    const lvls = []
+    const lvls = [];
     for (const [levelId, rating] of Object.entries(levelRatings)) {
-        lvls.push({ 'levelId': Number(levelId), 'rating': Number(rating) })
+      lvls.push({ levelId: Number(levelId), rating: Number(rating) });
     }
 
-    const entriesActs = []
+    const entriesActs = [];
     for (const actId of acts.values()) {
-        entriesActs.push({ activityId: Number(actId) })
+      entriesActs.push({ activityId: Number(actId) });
     }
 
     const payload = {
@@ -68,35 +105,41 @@ function CreateEntryPage() {
       iconId: selectedIcon.id,
       note,
       levels: lvls,
-      activities: entriesActs
+      activities: entriesActs,
     };
 
-    dispatch(createEntry(payload))
+    const thunk = type === "edit" ? editEntry : createEntry;
+
+    dispatch(thunk(payload))
       .then((res) => {
         navigate(`/entries/${res.id}`);
       })
       .catch(async (err) => {
         const errs = await err.json();
+        console.log("errors", errs);
         setErrors(errs.errors);
       });
   };
+
+  if (!user) return <Navigate to="/" replace={true} />;
 
   if (!allIcons || !levelsObj || !activitiesObj) return <Loading />;
 
   const handleSelect = (actId) => {
     if (acts.has(actId)) {
-        const newA = new Set(acts)
-        newA.delete(actId)
-        setActs(newA)
+      const newA = new Set(acts);
+      newA.delete(actId);
+      setActs(newA);
     } else {
-        const newA = new Set(acts)
-        setActs(newA.add(actId))
+      const newA = new Set(acts);
+      setActs(newA.add(actId));
     }
-  }
+  };
 
   return (
     <main className="nav-open">
       <div style={{ padding: "4em 0" }}>
+        <p onClick={() => navigate(-1)}>Back</p>
         <form
           className="container"
           style={{ padding: "2em 4em" }}
@@ -179,17 +222,23 @@ function CreateEntryPage() {
                     </option>
                   ))}
                 </select>
+                {errors?.levels?.[level.id] && (
+                  <p className="error">{errors.levels[level.id]}</p>
+                )}
               </div>
             ))}
           </div>
           <div>
-            {activities.map(activity => (
-                <div key={activity.id}>
-                    <div onClick={() => handleSelect(activity.id)} className={`${acts.has(activity.id)? 'selectedAct' : ''}`}>
-                        <Icon icons={allIcons} id={activity.iconId}/>
-                    </div>
-                    <p>{activity.name}</p>
+            {activities.map((activity) => (
+              <div key={activity.id}>
+                <div
+                  onClick={() => handleSelect(activity.id)}
+                  className={`${acts.has(activity.id) ? "selectedAct" : ""}`}
+                >
+                  <Icon icons={allIcons} id={activity.iconId} />
                 </div>
+                <p>{activity.name}</p>
+              </div>
             ))}
           </div>
           <button type="submit">Create</button>

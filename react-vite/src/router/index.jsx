@@ -24,6 +24,7 @@ export const router = createBrowserRouter(
         <Route index element={<EntriesListPage />} />
         <Route path=":entryId">
           <Route index element={<EntryDetailsPage />} />
+          <Route path="edit" element={<CreateEntryPage type='edit'/>} />
         </Route>
         <Route path="new" element={<CreateEntryPage />} />
       </Route>

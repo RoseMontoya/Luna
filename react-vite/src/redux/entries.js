@@ -14,6 +14,7 @@ const ALL_ENTRIES = 'entries/all-entries'
 const ENTRY_BY_ID = 'entries/entry-by-id'
 const ENTRIES_TODAY = 'entries/entries-today'
 const ADD_ENTRY = 'entries/add-entry'
+const UPDATE_ENTRY = 'entries/update-entry'
 
 // * Actions
 const addAllEntries = (entries) => {
@@ -40,6 +41,13 @@ const addEntriesToday = (entries) => {
 const addEntry = (payload) => {
     return {
         type: ADD_ENTRY,
+        payload
+    }
+}
+
+const updateEntry = (payload) => {
+    return {
+        type: UPDATE_ENTRY,
         payload
     }
 }
@@ -90,6 +98,17 @@ export const createEntry = (payload) => async dispatch => {
     return data
 }
 
+export const editEntry = (payload, entryId) => async dispatch => {
+    const response = await csrfFetch(`/api/entries/${entryId}`, {
+        method: 'PUT',
+        body: JSON.stringify(payload)
+    })
+
+    const data = formatDate(await response.json())
+    dispatch(updateEntry(data))
+    return data
+}
+
 const initialState = {}
 
 const entriesReducer = (state = initialState, action) => {
@@ -102,7 +121,7 @@ const entriesReducer = (state = initialState, action) => {
             return {...state, allEntries: newState}
         }
         case ENTRY_BY_ID: {
-            return {...state, allEntries: {...state.allEntries, [action.entry.id] : action.entry}}
+            return {...state, entriesById: {...state.entriesById, [action.entry.id] : action.entry}}
         }
         case ENTRIES_TODAY: {
             return {...state, today: action.entries}
@@ -124,6 +143,33 @@ const entriesReducer = (state = initialState, action) => {
                 newToday[action.payload.id] = action.payload
 
                 newState['today'] = newToday
+            }
+
+            return newState
+        }
+        case UPDATE_ENTRY: {
+            const newState = {}
+
+            if (state.allEntries) {
+                const newAll = {...state.allEntries}
+                newAll[action.payload.id] = action.payload
+                newState['allEntries'] = newAll
+            }
+
+            const isToday = action.payload.datetime >= new Date().toDateString()
+
+            if (isToday) {
+                const newToday = {...state.today}
+
+                newToday[action.payload.id] = action.payload
+
+                newState['today'] = newToday
+            }
+
+            if (state.entriesById[action.payload.id]) {
+                const newById = {...state.entriesById}
+                newById[action.payload.id] = action.payload
+                newState['entriesById'] = newById
             }
 
             return newState
