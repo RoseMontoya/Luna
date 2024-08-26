@@ -95,7 +95,7 @@ function CreateEntryPage({ type }) {
 
     const entriesActs = [];
     for (const actId of acts.values()) {
-      entriesActs.push({ activityId: Number(actId) });
+      entriesActs.push( Number(actId));
     }
 
     const payload = {
@@ -110,7 +110,7 @@ function CreateEntryPage({ type }) {
 
     const thunk = type === "edit" ? editEntry : createEntry;
 
-    dispatch(thunk(payload))
+    dispatch(thunk(payload, entryId))
       .then((res) => {
         navigate(`/entries/${res.id}`);
       })

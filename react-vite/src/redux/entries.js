@@ -105,6 +105,7 @@ export const editEntry = (payload, entryId) => async dispatch => {
     })
 
     const data = formatDate(await response.json())
+    console.log('UPADATED', data)
     dispatch(updateEntry(data))
     return data
 }

@@ -103,7 +103,7 @@ router.post('/', requireAuth, validateEntry, async (req, res, next) => {
 
     const newLvls = await EntryLevel.bulkCreate(levels.map(level => ({...level, 'entryId': entry.id })))
 
-    const newacts = await EntryActivity.bulkCreate(activities.map(activity => ({...activity, 'entryId': entry.id})))
+    const newacts = await EntryActivity.bulkCreate(activities.map(activity => ({ 'activityId': activity, 'entryId': entry.id})))
 
     const newEntry = await Entry.findByPk(entry.id, {
         include: [Level]
@@ -120,8 +120,42 @@ router.put('/:entryId', requireAuth, validateEntry, async (req, res, next) => {
         include: [Level]
     })
 
-    if (!entry) return next(notFound('Entry'))
+    console.log('activities',activities)
 
+    const oldActs = entry.Activities
+    console.log('old acts', oldActs)
+    const oldActsIds = new Set(oldActs.map(act => {
+        return act.id
+    }))
+    const newActsId = new Set(activities)
+    console.log('add', newActsId, 'del', oldActsIds)
+
+    const actsToAdd = newActsId.difference(oldActsIds)
+    const actsToDelete = oldActsIds.difference(newActsId)
+    // oldActs.forEach(act => {
+    //     oldActsIds.add(act.id)
+    // })
+    console.log('add', actsToAdd, 'del', actsToDelete)
+
+    // activities.forEach(act => {
+    //     if ()
+    // })
+
+
+    if (!entry) return next(notFound('Entry'))
+    if (entry.userId !== req.user.id) return next(authorization(req, entry.userId))
+
+    await entry.update({
+        datetime,
+        mood,
+        overallMood,
+        iconId,
+        note
+    })
+
+    await EntryLevel.bulkUpdate
+
+    return res.json(updated)
 
 })
 
