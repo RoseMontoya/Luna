@@ -141,7 +141,11 @@ const entriesReducer = (state = initialState, action) => {
             return {...state, entriesById: {...state.entriesById, [action.entry.id] : action.entry}}
         }
         case ENTRIES_TODAY: {
-            return {...state, today: action.entries}
+            const newState = {}
+            action.entries.forEach(entry => {
+                newState[entry.id] = entry
+            })
+            return {...state, today: newState}
         }
         case ADD_ENTRY: {
             const newState = {}
@@ -151,15 +155,16 @@ const entriesReducer = (state = initialState, action) => {
                 newAll[action.payload.id] = action.payload
                 newState['allEntries'] = newAll
             }
-
-            const isToday = action.payload.datetime >= new Date().toDateString()
+            const isToday = new Date(action.payload.datetime).toDateString() === new Date().toDateString()
+            console.log('istoday', new Date(action.payload.datetime).toDateString() === new Date().toDateString())
 
             if (isToday) {
                 const newToday = {...state.today}
-
+                console.log('payload', action.payload)
                 newToday[action.payload.id] = action.payload
 
                 newState['today'] = newToday
+                console.log('new', newState)
             }
 
             return {...state, ...newState}
@@ -183,7 +188,7 @@ const entriesReducer = (state = initialState, action) => {
                 newState['today'] = newToday
             }
 
-            if (state.entriesById[action.payload.id]) {
+            if (state.entriesById?.[action.payload.id]) {
                 const newById = {...state.entriesById}
                 newById[action.payload.id] = action.payload
                 newState['entriesById'] = newById
@@ -200,7 +205,7 @@ const entriesReducer = (state = initialState, action) => {
                 newState['allEntries'] = newAll
             }
 
-            if (state.today[action.entryId]) {
+            if (state.today?.[action.entryId]) {
                 const newToday = {...state.today}
 
                 delete newToday[action.entryId]
@@ -208,7 +213,7 @@ const entriesReducer = (state = initialState, action) => {
                 newState['today'] = newToday
             }
 
-            if (state.entriesById[action.entryId]) {
+            if (state.entriesById?.[action.entryId]) {
                 const newById = {...state.entriesById}
                 delete newById[action.entryId]
                 newState['entriesById'] = newById

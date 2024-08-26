@@ -2,30 +2,32 @@
 import { useEffect } from "react";
 import "./HomePage.css";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
-import { getEntriesToday } from "../../../redux/entries";
+import { deleteEntry, getEntriesToday } from "../../../redux/entries";
 import { getAllIcons } from "../../../redux/icons";
 import { BsDot } from "react-icons/bs";
 
 
 function Home() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.session.user);
-  const entries = useSelector((state) => state.entries.today);
+  const entriesObj = useSelector((state) => state.entries.today);
   const icons = useSelector(state => state.icons.allIcons)
+  const entries = entriesObj? Object.values(entriesObj) : []
 
 
   useEffect(() => {
-    if (!entries) {
+    if (!entriesObj) {
       dispatch(getEntriesToday(user.id));
     }
     if (!icons) {
         dispatch(getAllIcons())
     }
-  }, [dispatch, user, entries, icons]);
+  }, [dispatch, user, entriesObj, icons]);
 
-  if (user && !entries || !icons) return <Loading />;
+  if (user && !entriesObj || !icons) return <Loading />;
 
   return (
     <main id="landing-page">
@@ -52,9 +54,9 @@ function Home() {
                       </div>
                     </div>
                     <div className="entry-buttons">
-                      <p>Edit</p>
-                      <BsDot />
-                      <p>Delete</p>
+                    <p onClick={(e) => {e.stopPropagation(); navigate(`entries/${entry.id}/edit`)}}>Edit</p>
+                <BsDot />
+                <p onClick={(e) => {e.stopPropagation(); dispatch(deleteEntry(entry.id))}}>Delete</p>
                     </div>
                   </div>
                   <div className="entry-details">

@@ -1,7 +1,7 @@
 import "./EntriesList.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllEntries } from "../../../redux/entries";
+import { deleteEntry, getAllEntries } from "../../../redux/entries";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./EntriesList.css";
@@ -51,7 +51,7 @@ function EntriesListPage() {
               <div className="entry-buttons">
                 <p onClick={(e) => {e.stopPropagation(); navigate(`${entry.id}/edit`)}}>Edit</p>
                 <BsDot />
-                <p>Delete</p>
+                <p onClick={(e) => {e.stopPropagation(); dispatch(deleteEntry(entry.id))}}>Delete</p>
               </div>
             </div>
             <div className="entry-details">

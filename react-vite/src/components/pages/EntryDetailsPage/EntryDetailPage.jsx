@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Navigate, useNavigate, Link } from "react-router-dom";
-import { getAllEntries } from "../../../redux/entries";
+import { deleteEntry, getAllEntries } from "../../../redux/entries";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
 import { BsDot } from "react-icons/bs";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa6";
@@ -52,6 +52,13 @@ function EntryDetailsPage() {
     })
   }
 
+  const handleDelete = () => {
+    dispatch(deleteEntry(entryId))
+      .then(() => {
+        navigate('/')
+      })
+  }
+
   return (
     <main className="nav-open">
       <div id="entries-container" >
@@ -74,7 +81,7 @@ function EntryDetailsPage() {
             <div className="entry-buttons">
               <p onClick={(e) => {e.stopPropagation(); navigate(`edit`)}}>Edit</p>
               <BsDot />
-              <p>Delete</p>
+              <p onClick={(e) => {e.stopPropagation(); handleDelete()}}>Delete</p>
             </div>
 
           </div>

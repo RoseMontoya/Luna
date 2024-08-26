@@ -27,8 +27,6 @@ function CreateEntryPage({ type }) {
   const [acts, setActs] = useState(new Set());
   const [errors, setErrors] = useState({});
 
-  console.log('selected', selectedIcon)
-
   const allIcons = useSelector((state) => state.icons.allIcons);
   const icons = allIcons ? Object.values(allIcons) : [];
   const moodIcons = icons.slice(0, 5);
