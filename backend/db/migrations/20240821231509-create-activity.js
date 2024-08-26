@@ -19,10 +19,6 @@ module.exports = {
         type: Sequelize.STRING(50),
         allowNull: false
       },
-      color: {
-        type: Sequelize.STRING,
-        defaultValue: "#126E82"
-      },
       iconId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -53,9 +49,18 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     }, options);
+    options.tableName = 'Activities'
+    await queryInterface.addIndex(options,
+      ['userId', 'name'],
+      {
+        unique: true,
+        name: 'idx_user_activity'
+      }
+    )
   },
   async down(queryInterface, Sequelize) {
     options.tableName = 'Activites'
+    await queryInterface.removeIndex(options, 'idx_user_activity')
     await queryInterface.dropTable(options);
   }
 };

@@ -104,7 +104,7 @@ module.exports = (sequelize, DataTypes) => {
         {
           model: sequelize.models.Activity,
           attributes: {
-            exclude: ['updatedAt', 'createdAt', 'userId', 'color']
+            exclude: ['updatedAt', 'createdAt', 'userId']
           }
         },
         // {
@@ -129,7 +129,7 @@ module.exports = (sequelize, DataTypes) => {
   //     {
   //       model: Activity,
   //       attributes: {
-  //         exclude: ['updatedAt', 'createdAt', 'userId', 'color']
+  //         exclude: ['updatedAt', 'createdAt', 'userId']
   //       }
   //     },
   //     {

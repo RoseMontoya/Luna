@@ -130,7 +130,22 @@ module.exports = {
         "FaRegFaceSmile",
         "FaRegFaceMeh",
         "FaRegFaceFrown",
-        "FaRegFaceSadTear"
+        "FaRegFaceSadTear",
+        "FaAppleWhole",
+        "FaAtom",
+        "FaAward",
+        "FaBath",
+        "FaBicycle",
+        "FaBottleWater",
+        "FaBrain",
+        "FaBroom",
+        "FaBriefcase",
+        "FaBrush",
+        "FaCalculator",
+        "FaCalendarDays",
+        "FaCamera",
+        "FaCampground",
+        "FaCandyCane"
       ] }
     }, {});
   }

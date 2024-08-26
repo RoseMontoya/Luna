@@ -45,9 +45,19 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     }, options);
+    options.tableName = 'Levels'
+    await queryInterface.addIndex(
+      options,
+      ['userId', 'name'],
+      {
+        unique: true,
+        name: 'idx_user_level'
+      }
+    )
   },
   async down(queryInterface, Sequelize) {
     options.tableName = 'Levels'
+    await queryInterface.removeIndex(options, 'idx_user_level')
     await queryInterface.dropTable(options);
   }
 };

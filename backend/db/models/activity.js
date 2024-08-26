@@ -27,19 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    color: {
-      type: DataTypes.STRING,
-      defaultValue: "#126E82",
-      validate: {
-        is: {
-          args: [
-            /^#?([a-f0-9]{6}|[a-f0-9]{3})$/i,  // Hex color codes
-            /^rgb\((\d{1,3}), (\d{1,3}), (\d{1,3})\)/ // RGB color codes
-          ],
-          msg: 'Invalid color format. Must be a valid hex or RGB color code.'
-        }
-      }
-    },
     iconId: {
       type: DataTypes.INTEGER,
       references: {
@@ -61,6 +48,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Activity',
+    indexes: [
+      {
+        unique: true,
+        fields: ['userId', 'name'],
+        name:'idx_user_activity'
+      }
+    ],
     defaultScope: {
       attributes: {
         exclude: ['createdAt', "updatedAt"]

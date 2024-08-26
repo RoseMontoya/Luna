@@ -49,6 +49,13 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Level",
+      indexes: [
+        {
+          unique: true,
+          fields: ['userId', 'name'],
+          name:'idx_user_level'
+        }
+      ],
       defaultScope: {
         attributes: {
           exclude: ['createdAt',
