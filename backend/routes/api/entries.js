@@ -157,11 +157,11 @@ router.put('/:entryId', requireAuth, validateEntry, async (req, res, next) => {
 
     await Promise.all(entry.Levels.map(level => {
         if (level.EntryLevel.rating !== levelsObj[level.id]) {
-            entry.addLevel(level, {through: { rating: levelsObj[level.id]}})
+            return entry.addLevel(level, {through: { rating: levelsObj[level.id]}})
         }
+        return Promise.resolve()
     }))
 
-    // ! Need to fix this return. It is not returning updated levels
     const updatedEntry = await Entry.findByPk(entryId, {
         include: [Level]
     })

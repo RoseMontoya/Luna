@@ -62,7 +62,8 @@ function CreateEntryPage({ type }) {
     if (!entry && type === "edit") {
       dispatch(getEntryById(entryId));
     }
-    if (type === "edit" && entry && allIcons && !mood) {
+
+    if (type === "edit" && entry && allIcons && !overallMood) {
       setDate(format(entry.datetime, "yyyy-MM-dd HH:mm"));
       setMood(entry.mood);
       setOverallMood(entry.overallMood);
@@ -83,7 +84,7 @@ function CreateEntryPage({ type }) {
       });
       setActs(activities);
     }
-  }, [dispatch, entry, type, entryId, allIcons, mood]);
+  }, [dispatch, entry, type, entryId, allIcons, overallMood]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -242,7 +243,7 @@ function CreateEntryPage({ type }) {
               </div>
             ))}
           </div>
-          <button type="submit">Create</button>
+          <button type="submit">{`${type === 'edit'? 'Update' :"Create"}`}</button>
         </form>
       </div>
     </main>
