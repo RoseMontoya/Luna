@@ -15,6 +15,7 @@ const ENTRY_BY_ID = 'entries/entry-by-id'
 const ENTRIES_TODAY = 'entries/entries-today'
 const ADD_ENTRY = 'entries/add-entry'
 const UPDATE_ENTRY = 'entries/update-entry'
+const REMOVE_ENTRY = 'entries/remove-entry'
 
 // * Actions
 const addAllEntries = (entries) => {
@@ -49,6 +50,13 @@ const updateEntry = (payload) => {
     return {
         type: UPDATE_ENTRY,
         payload
+    }
+}
+
+const removeEntry = (entryId) => {
+    return {
+        type: REMOVE_ENTRY,
+        entryId
     }
 }
 
@@ -110,6 +118,14 @@ export const editEntry = (payload, entryId) => async dispatch => {
     return data
 }
 
+export const deleteEntry = (entryId) => async dispatch => {
+    const response = await csrfFetch(`/api/entries/${entryId}`, { method: 'DELETE'})
+
+    const data = await response.json()
+    dispatch(removeEntry(entryId))
+    return data
+}
+
 const initialState = {}
 
 const entriesReducer = (state = initialState, action) => {
@@ -146,7 +162,7 @@ const entriesReducer = (state = initialState, action) => {
                 newState['today'] = newToday
             }
 
-            return newState
+            return {...state, ...newState}
         }
         case UPDATE_ENTRY: {
             const newState = {}
@@ -159,7 +175,7 @@ const entriesReducer = (state = initialState, action) => {
 
             const isToday = action.payload.datetime >= new Date().toDateString()
 
-            if (isToday) {
+            if (isToday && state.today) {
                 const newToday = {...state.today}
 
                 newToday[action.payload.id] = action.payload
@@ -173,7 +189,32 @@ const entriesReducer = (state = initialState, action) => {
                 newState['entriesById'] = newById
             }
 
-            return newState
+            return {...state, ...newState}
+        }
+        case REMOVE_ENTRY: {
+            const newState = {}
+
+            if (state.allEntries[action.entryId]) {
+                const newAll = {...state.allEntries}
+                delete newAll[action.entryId]
+                newState['allEntries'] = newAll
+            }
+
+            if (state.today[action.entryId]) {
+                const newToday = {...state.today}
+
+                delete newToday[action.entryId]
+
+                newState['today'] = newToday
+            }
+
+            if (state.entriesById[action.entryId]) {
+                const newById = {...state.entriesById}
+                delete newById[action.entryId]
+                newState['entriesById'] = newById
+            }
+
+            return {...state, ...newState}
         }
         default:
             return state

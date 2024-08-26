@@ -72,7 +72,7 @@ function EntryDetailsPage() {
               </div>
             </div>
             <div className="entry-buttons">
-              <p>Edit</p>
+              <p onClick={(e) => {e.stopPropagation(); navigate(`edit`)}}>Edit</p>
               <BsDot />
               <p>Delete</p>
             </div>

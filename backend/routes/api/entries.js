@@ -120,43 +120,67 @@ router.put('/:entryId', requireAuth, validateEntry, async (req, res, next) => {
         include: [Level]
     })
 
-    console.log('activities',activities)
+    if (!entry) return next(notFound('Entry'))
+    if (entry.userId !== req.user.id) return next(authorization(req, entry.userId))
 
-    const oldActs = entry.Activities
-    console.log('old acts', oldActs)
-    const oldActsIds = new Set(oldActs.map(act => {
-        return act.id
+
+        await entry.update({
+            datetime,
+            mood,
+            overallMood,
+            iconId,
+            note
+        })
+
+        const oldActs = entry.Activities
+        const oldActsIds = new Set(oldActs.map(act => {
+            return act.id
+        }))
+        const newActsId = new Set(activities)
+
+        const actsToAdd = [...newActsId].filter(act => !oldActsIds.has(act))
+        const actsToDelete = [...oldActsIds].filter(act => !newActsId.has(act))
+
+    await EntryActivity.bulkCreate(actsToAdd.map(act => ({ 'activityId': act, 'entryId': entry.id})))
+
+    await Promise.all(oldActs.map(act => {
+        if (actsToDelete.includes(act.id)) {
+            entry.removeActivity(act)
+        }
     }))
-    const newActsId = new Set(activities)
-    console.log('add', newActsId, 'del', oldActsIds)
 
-    const actsToAdd = newActsId.difference(oldActsIds)
-    const actsToDelete = oldActsIds.difference(newActsId)
-    // oldActs.forEach(act => {
-    //     oldActsIds.add(act.id)
-    // })
-    console.log('add', actsToAdd, 'del', actsToDelete)
+    const levelsObj = {}
+    levels.forEach(level => {
+        levelsObj[level.levelId] = level.rating
+    })
+    console.log('obj', levelsObj)
 
-    // activities.forEach(act => {
-    //     if ()
-    // })
+    await Promise.all(entry.Levels.map(level => {
+        if (level.EntryLevel.rating !== levelsObj[level.id]) {
+            entry.addLevel(level, {through: { rating: levelsObj[level.id]}})
+        }
+    }))
 
+    // ! Need to fix this return. It is not returning updated levels
+    const updatedEntry = await Entry.findByPk(entryId, {
+        include: [Level]
+    })
+
+    return res.json(updatedEntry)
+
+})
+
+router.delete('/:entryId', requireAuth, async (req, res, next) => {
+    const { entryId } = req.params
+
+    const entry = await Entry.findByPk(entryId)
 
     if (!entry) return next(notFound('Entry'))
     if (entry.userId !== req.user.id) return next(authorization(req, entry.userId))
 
-    await entry.update({
-        datetime,
-        mood,
-        overallMood,
-        iconId,
-        note
-    })
+    await entry.destroy()
 
-    await EntryLevel.bulkUpdate
-
-    return res.json(updated)
-
+    return res.json({'message': 'Success'})
 })
 
 module.exports = router

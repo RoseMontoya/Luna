@@ -27,6 +27,8 @@ function CreateEntryPage({ type }) {
   const [acts, setActs] = useState(new Set());
   const [errors, setErrors] = useState({});
 
+  console.log('selected', selectedIcon)
+
   const allIcons = useSelector((state) => state.icons.allIcons);
   const icons = allIcons ? Object.values(allIcons) : [];
   const moodIcons = icons.slice(0, 5);
@@ -35,7 +37,7 @@ function CreateEntryPage({ type }) {
   const startStateLevels = {};
   levels.forEach((level) => (startStateLevels[level.id] = 0));
   const [levelRatings, setLevelsRating] = useState(startStateLevels);
-  console.log("start levels", levelRatings);
+  // console.log("start levels", levelRatings);
   const activitiesObj = useSelector((state) => state.activities.allActivities);
   const activities = activitiesObj ? Object.values(activitiesObj) : [];
 
@@ -62,11 +64,12 @@ function CreateEntryPage({ type }) {
     if (!entry && type === "edit") {
       dispatch(getEntryById(entryId));
     }
-    if (type === "edit" && entry && !mood) {
+    if (type === "edit" && entry && allIcons && !mood) {
       setDate(format(entry.datetime, "yyyy-MM-dd HH:mm"));
       setMood(entry.mood);
       setOverallMood(entry.overallMood);
-      setSelectedIcon(icons[entry.iconId]);
+      console.log('iconId', entry.iconId)
+      setSelectedIcon(allIcons[entry.iconId]);
       setNote(entry.note || "");
 
       const startStateLevels = {};
