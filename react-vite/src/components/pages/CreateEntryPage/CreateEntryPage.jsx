@@ -56,7 +56,7 @@ function CreateEntryPage({ type }) {
     if (!activitiesObj) {
       dispatch(getAllActivities());
     }
-  }, [dispatch, allIcons, levelsObj, activitiesObj]);
+  }, [dispatch, allIcons, levelsObj, activitiesObj, levelRatings]);
 
   useEffect(() => {
     if (!entry && type === "edit") {
@@ -83,7 +83,7 @@ function CreateEntryPage({ type }) {
       });
       setActs(activities);
     }
-  }, [dispatch, entry, type, entryId, date]);
+  }, [dispatch, entry, type, entryId, allIcons, mood]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
