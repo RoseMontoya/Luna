@@ -9,7 +9,7 @@ import {
   LoginFormPage,
   SignupFormPage,
   EntryDetailsPage,
-  CreateEntryPage,
+  EntryFormPage,
 } from "../components/pages";
 import Layout from "./Layout";
 // import { entriesLoader } from "../components/pages/EntriesListPage/EntriesListPage";
@@ -24,9 +24,9 @@ export const router = createBrowserRouter(
         <Route index element={<EntriesListPage />} />
         <Route path=":entryId">
           <Route index element={<EntryDetailsPage />} />
-          <Route path="edit" element={<CreateEntryPage type='edit'/>} />
+          <Route path="edit" element={<EntryFormPage type='edit'/>} />
         </Route>
-        <Route path="new" element={<CreateEntryPage />} />
+        <Route path="new" element={<EntryFormPage />} />
       </Route>
     </Route>
   )

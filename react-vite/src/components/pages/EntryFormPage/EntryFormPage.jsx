@@ -6,12 +6,14 @@ import { useDispatch } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { getAllIcons } from "../../../redux/icons";
 import { Icon, Loading } from "../../subcomponents";
-import "./CreateEntry.css";
+import "./EntryForm.css";
 import { createEntry, getEntryById, editEntry } from "../../../redux/entries";
 import { getAllLevels } from "../../../redux/levels";
 import { getAllActivities } from "../../../redux/activities";
+import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
+import { EditActivitiesModal } from "../../modals";
 
-function CreateEntryPage({ type }) {
+function EntryFormPage({ type }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { entryId } = useParams();
@@ -67,7 +69,7 @@ function CreateEntryPage({ type }) {
       setDate(format(entry.datetime, "yyyy-MM-dd HH:mm"));
       setMood(entry.mood);
       setOverallMood(entry.overallMood);
-      console.log('iconId', entry.iconId)
+      console.log("iconId", entry.iconId);
       setSelectedIcon(allIcons[entry.iconId]);
       setNote(entry.note || "");
 
@@ -97,7 +99,7 @@ function CreateEntryPage({ type }) {
 
     const entriesActs = [];
     for (const actId of acts.values()) {
-      entriesActs.push( Number(actId));
+      entriesActs.push(Number(actId));
     }
 
     const payload = {
@@ -230,7 +232,7 @@ function CreateEntryPage({ type }) {
               </div>
             ))}
           </div>
-          <div>
+          <div className="activities">
             {activities.map((activity) => (
               <div key={activity.id}>
                 <div
@@ -242,12 +244,20 @@ function CreateEntryPage({ type }) {
                 <p>{activity.name}</p>
               </div>
             ))}
+            <div onClick={(e) => e.preventDefault()}>
+              <OpenModalButton
+                buttonText="Edit activites"
+                modalComponent={<EditActivitiesModal activities={activities} allIcons={allIcons} icons={icons}/>}
+              />
+            </div>
           </div>
-          <button type="submit">{`${type === 'edit'? 'Update' :"Create"}`}</button>
+          <button type="submit">{`${
+            type === "edit" ? "Update" : "Create"
+          }`}</button>
         </form>
       </div>
     </main>
   );
 }
 
-export default CreateEntryPage;
+export default EntryFormPage;

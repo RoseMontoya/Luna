@@ -28,3 +28,8 @@ form {
 .error {
     color: rgb(197, 11, 11);
 }
+
+.activities {
+    display: flex;
+    flex-wrap: wrap;
+}

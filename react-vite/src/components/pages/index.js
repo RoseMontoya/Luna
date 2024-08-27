@@ -4,6 +4,6 @@ import LoginFormPage from "./LoginFormPage";
 import SignupFormPage from "./SignupFormPage";
 import EntriesListPage from "./EntriesListPage/EntriesListPage"
 import EntryDetailsPage from "./EntryDetailsPage/EntryDetailPage";
-import CreateEntryPage from "./CreateEntryPage/CreateEntryPage";
+import EntryFormPage from "./EntryFormPage/EntryFormPage";
 
-export { Navigation, Home, LoginFormPage, SignupFormPage, EntriesListPage, EntryDetailsPage, CreateEntryPage}
+export { Navigation, Home, LoginFormPage, SignupFormPage, EntriesListPage, EntryDetailsPage, EntryFormPage}
