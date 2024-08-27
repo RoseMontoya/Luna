@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux"
 import EditActivitiesModal from "./EditActvitiesModal"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import { deleteActivity } from "../../../redux/activities"
-import { Navigate } from "react-router-dom"
+// import { Navigate } from "react-router-dom"
 import { useModal } from "../../../context/Modal"
 
 function DeleteActivityModal({activity}) {

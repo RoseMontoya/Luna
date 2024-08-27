@@ -35,7 +35,7 @@ function EntriesListPage() {
     if (!allLevels) {
       dispatch(getAllLevels())
     }
-  }, [dispatch, entriesObj, user, icons, allActsObj]);
+  }, [dispatch, entriesObj, user, icons, allActsObj, allLevels]);
 
   if (!user) return <Navigate to="/" replace={true} />;
   //
