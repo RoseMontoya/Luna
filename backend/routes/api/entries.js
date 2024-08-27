@@ -66,7 +66,7 @@ router.get('/', async (req, res) => {
 router.get('/:entryId/activities', requireAuth, async (req, res, next) => {
     const { entryId } = req.params
 
-    const activities = await EntryActivites.findAll({
+    const activities = await EntryActivity.findAll({
         where: {
             entryId: entryId
         }

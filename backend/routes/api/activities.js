@@ -46,12 +46,23 @@ router.get('/', requireAuth, async(req, res, next) => {
 })
 
 router.post('/', requireAuth, validateActivity, async (req, res, next) => {
-    console.log('INSIDE OF ROUTE')
     const {name, iconId} = req.body
     const user = await User.findByPk(req.user.id)
     const activity = await user.createActivity({userId: user.id, name, iconId})
     return res.status(201).json(activity)
 })
 
+router.put('/:activityId', requireAuth, validateActivity, async (req, res, next) => {
+    const { name, iconId, id} = req.body
+
+    const act = await Activity.findByPk(id)
+
+    if (!act) return next(notFound('Activity'))
+    if (act.userId !== req.user.id) return next(authorization(req, act.userId))
+
+    await act.update({name, iconId})
+
+    return res.json(act)
+})
 
 module.exports = router
