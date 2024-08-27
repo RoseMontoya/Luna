@@ -42,10 +42,12 @@ router.get('/', (req, res) => {
 // Log in
 router.post('/', validateLogin, async (req, res, next) => {
     const { email, password } = req.body;
+    console.log('in backend')
 
     const user = await User.unscoped().findOne({
         where: {email: email}
     });
+    console.log('userrr', user)
 
     if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
         const err = new Error('Invalid credentials');

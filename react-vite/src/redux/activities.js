@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf"
 const GET_ACTIVITIES = 'activities/getActivities'
 const ADD_ACTIVITY = 'activities/addActivity'
 const UPDATE_ACTIVITY = 'activities/updateActivity'
+const REMOVE_ACTIVITY = 'activities/removeActivity'
 
 const getActivities = (activities) => {
     return {
@@ -22,6 +23,13 @@ const updateActivity = (activity) => {
     return {
         type: UPDATE_ACTIVITY,
         activity
+    }
+}
+
+const removeActivity = (activityId) => {
+    return {
+        type: REMOVE_ACTIVITY,
+        activityId
     }
 }
 
@@ -55,6 +63,14 @@ export const editActivity = (payload) => async dispatch => {
     return data
 }
 
+export const deleteActivity = (actitvityId) => async dispatch => {
+    const response = await csrfFetch(`/api/activities/${actitvityId}`, {method: 'DELETE'})
+
+    const data = await response.json()
+    dispatch(removeActivity(actitvityId))
+    return data
+}
+
 const activitiesReducer = (state = {}, action) => {
     switch (action.type) {
         case GET_ACTIVITIES: {
@@ -72,6 +88,13 @@ const activitiesReducer = (state = {}, action) => {
             newState[action.activity.id] = action.activity
             return {...state, allActivities: newState}
 
+        }
+        case REMOVE_ACTIVITY: {
+            const newState = {...state.allActivities}
+            console.log('id', newState[action.activityId])
+            delete newState[action.activityId]
+            console.log('newStat', newState)
+            return {...state, allActivities: newState}
         }
         default:
             return state

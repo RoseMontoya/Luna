@@ -6,16 +6,17 @@ import { createActivity, editActivity } from "../../../redux/activities"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import EditActivitiesModal from "./EditActvitiesModal"
 
-function AddActivityModal({ activities, allIcons, icons, prevAct }) {
+function AddActivityModal({ allIcons, icons, prevAct }) {
     const dispatch = useDispatch()
     // const navigate = useNavigate()
     const { closeModal } = useModal()
 
+    console.log(prevAct)
     // const allIcons = useSelector(state => state.icons.allIcons)
     // const icons = allIcons? Object.values(allIcons) : []
 
-    const [name, setName] = useState('' || prevAct.name)
-    const [iconId, setIconId] = useState('' || prevAct.iconId)
+    const [name, setName] = useState('' || prevAct?.name)
+    const [iconId, setIconId] = useState('' || prevAct?.iconId)
     const [errors, setErrors] = useState({})
 
     // useEffect(() => {
@@ -47,8 +48,8 @@ function AddActivityModal({ activities, allIcons, icons, prevAct }) {
     <div>
         {/* <button onClick={returnBack}>Back</button> */}
         <OpenModalButton
-                buttonText="back"
-                modalComponent={<EditActivitiesModal activities={activities} allIcons={allIcons} icons={icons}/>}
+                buttonText="Edit Activities"
+                modalComponent={<EditActivitiesModal />}
               />
         <form onSubmit={(e) => handleSubmit(e)}>
             <label>Enter activity:</label>

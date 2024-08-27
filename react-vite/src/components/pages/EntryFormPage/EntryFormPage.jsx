@@ -247,7 +247,7 @@ function EntryFormPage({ type }) {
             <div onClick={(e) => e.preventDefault()}>
               <OpenModalButton
                 buttonText="Edit activites"
-                modalComponent={<EditActivitiesModal activities={activities} allIcons={allIcons} icons={icons}/>}
+                modalComponent={<EditActivitiesModal />}
               />
             </div>
           </div>

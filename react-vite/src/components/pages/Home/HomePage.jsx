@@ -19,7 +19,7 @@ function Home() {
 
 
   useEffect(() => {
-    if (!entriesObj) {
+    if (!entriesObj && user) {
       dispatch(getEntriesToday(user.id));
     }
     if (!icons) {
@@ -27,7 +27,7 @@ function Home() {
     }
   }, [dispatch, user, entriesObj, icons]);
 
-  if (user && !entriesObj || !icons) return <Loading />;
+  if (user && (!entriesObj || !icons)) return <Loading />;
 
   return (
     <main id="landing-page">

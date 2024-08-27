@@ -34,7 +34,7 @@ function LoginFormPage() {
   const demoLogIn = async() => {
     await setEmail("bonnibel.bubblegum@candykindgom.com")
     await setPassword("sweetscience123")
-
+    console.log('inside of login')
     dispatch( login({
       email: "bonnibel.bubblegum@candykindgom.com",
       password: "sweetscience123",

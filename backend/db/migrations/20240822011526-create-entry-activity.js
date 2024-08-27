@@ -28,7 +28,8 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Activities'
-        }
+        },
+        onDelete: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

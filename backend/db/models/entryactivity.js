@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       references: {
         model: 'Activities'
-      }
+      },
+      onDelete: 'CASCADE'
     },
   }, {
     sequelize,

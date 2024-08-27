@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Levels'
       },
+      onDelete: 'CASCADE'
     },
     rating: {
       type: DataTypes.INTEGER,

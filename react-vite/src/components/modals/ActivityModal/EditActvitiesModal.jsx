@@ -2,8 +2,15 @@ import { Icon } from "../../subcomponents";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import AddActivityModal from "./AddActivityModal";
 import './ActivityModal.css'
+import DeleteActivityModal from "./DeleteActivityModal";
+import { useSelector } from "react-redux";
 
-function EditActivitiesModal({ activities, allIcons, icons }) {
+function EditActivitiesModal() {
+    const allIcons = useSelector(state => state.icons.allIcons)
+    const icons = allIcons? Object.values(allIcons) : []
+    const actsObj = useSelector(state => state.activities.allActivities)
+    const activities = actsObj? Object.values(actsObj) : []
+
   return (
     <div>
       <h2>Activities:</h2>
@@ -26,7 +33,12 @@ function EditActivitiesModal({ activities, allIcons, icons }) {
             <AddActivityModal activities={activities} allIcons={allIcons} icons={icons} prevAct={activity}/>
           }
         />
-                    <p>Delete</p>
+             <OpenModalButton
+          buttonText="Delete"
+          modalComponent={
+            <DeleteActivityModal activity={activity}/>
+          }
+        />
                 </div>
               <div>
                 <Icon icons={allIcons} id={activity.iconId} />

@@ -22,6 +22,7 @@ const removeUser = () => {
 
 // Login
 export const login = (user) => async dispatch => {
+    console.log('inside thunk', user)
     const response = await csrfFetch('/api/session', {
         method: 'POST',
         body: JSON.stringify(user)
