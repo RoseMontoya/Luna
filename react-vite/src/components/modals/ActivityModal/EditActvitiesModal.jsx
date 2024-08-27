@@ -1,6 +1,6 @@
 import { Icon } from "../../subcomponents";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import AddActivityModal from "./AddActivityModal";
+import ActivityFormModal from "./ActivityFormModal";
 import './ActivityModal.css'
 import DeleteActivityModal from "./DeleteActivityModal";
 import { useSelector } from "react-redux";
@@ -18,7 +18,7 @@ function EditActivitiesModal() {
         <OpenModalButton
           buttonText="Add"
           modalComponent={
-            <AddActivityModal activities={activities} allIcons={allIcons} icons={icons} />
+            <ActivityFormModal activities={activities} allIcons={allIcons} icons={icons} />
           }
         />
       </div>
@@ -30,7 +30,7 @@ function EditActivitiesModal() {
                 <OpenModalButton
           buttonText="Edit"
           modalComponent={
-            <AddActivityModal activities={activities} allIcons={allIcons} icons={icons} prevAct={activity}/>
+            <ActivityFormModal activities={activities} allIcons={allIcons} icons={icons} prevAct={activity}/>
           }
         />
              <OpenModalButton

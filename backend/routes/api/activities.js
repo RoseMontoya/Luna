@@ -13,17 +13,20 @@ const validateActivity = [
         .exists({checkFalsy: true})
         .withMessage('Please name this activity.'),
     check('name')
-        .custom(async value => {
-            console.log('value', value)
-            const activity = await Activity.findOne({
-                where: {
-                    name: value
+        .custom(async (value, req) => {
+
+            if (req.req.method === 'POST') {
+                const activity = await Activity.findOne({
+                    where: {
+                        name: value
+                    }
+                })
+                console.log('are we here?!?!', activity)
+                if (activity) {
+                    throw new Error('Activity with this name already exists.')
                 }
-            })
-            console.log('are we here?!?!', activity)
-            if (activity) {
-                throw new Error('Activity with this name already exists.')
-            } else return true
+            }
+            return true
         }),
     check('iconId')
         .exists({checkFalsy: true})

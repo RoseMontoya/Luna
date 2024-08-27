@@ -6,7 +6,7 @@ import { createActivity, editActivity } from "../../../redux/activities"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import EditActivitiesModal from "./EditActvitiesModal"
 
-function AddActivityModal({ allIcons, icons, prevAct }) {
+function ActivityFormModal({ allIcons, icons, prevAct }) {
     const dispatch = useDispatch()
     // const navigate = useNavigate()
     const { closeModal } = useModal()
@@ -33,7 +33,7 @@ function AddActivityModal({ allIcons, icons, prevAct }) {
 
         const thunk = prevAct? editActivity : createActivity
 
-        dispatch(thunk({name, iconId, id: prevAct.id}))
+        dispatch(thunk({name, iconId, id: prevAct?.id}))
             .then(closeModal)
             .catch(async (res) => {
                 const errs = await res.json()
@@ -71,11 +71,11 @@ function AddActivityModal({ allIcons, icons, prevAct }) {
                 )}
             </div>
             {errors?.iconId && <p className="error">{errors.iconId}</p>}
-            <button type="submit">Create</button>
+            <button type="submit">{`${prevAct? 'Update' :"Create"}`}</button>
         </form>
     </div>
     )
 
 }
 
-export default AddActivityModal
+export default ActivityFormModal

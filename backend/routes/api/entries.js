@@ -1,6 +1,6 @@
 const express = require('express')
 const { requireAuth, authorization } = require('../../utils/auth');
-const { User, Entry, Level, EntryActivity, EntryLevel } = require('../../db/models');
+const { User, Entry, Level, EntryActivity, EntryLevel, Activity } = require('../../db/models');
 const { notFound } = require('../../utils/helper');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -77,7 +77,7 @@ router.get('/:entryId', requireAuth, async (req, res, next) => {
     const {entryId} = req.params
 
     const entry = await Entry.findByPk(entryId, {
-        include: [Level]
+        include: [EntryLevel, EntryActivity]
     })
 
     if (!entry) return next(notFound('Entry'))
@@ -106,7 +106,7 @@ router.post('/', requireAuth, validateEntry, async (req, res, next) => {
     const newacts = await EntryActivity.bulkCreate(activities.map(activity => ({ 'activityId': activity, 'entryId': entry.id})))
 
     const newEntry = await Entry.findByPk(entry.id, {
-        include: [Level]
+        include: [EntryLevel, EntryActivity]
     })
 
     res.status(201).json(newEntry)
@@ -117,7 +117,7 @@ router.put('/:entryId', requireAuth, validateEntry, async (req, res, next) => {
     const { entryId } = req.params
 
     const entry = await Entry.findByPk(entryId, {
-        include: [Level]
+        include: [Level, Activity]
     })
 
     if (!entry) return next(notFound('Entry'))
@@ -131,6 +131,7 @@ router.put('/:entryId', requireAuth, validateEntry, async (req, res, next) => {
             iconId,
             note
         })
+    // console.log('entry', entry.EntryActivities)
 
         const oldActs = entry.Activities
         const oldActsIds = new Set(oldActs.map(act => {
@@ -156,14 +157,14 @@ router.put('/:entryId', requireAuth, validateEntry, async (req, res, next) => {
     console.log('obj', levelsObj)
 
     await Promise.all(entry.Levels.map(level => {
-        if (level.EntryLevel.rating !== levelsObj[level.id]) {
+        if (level.rating !== levelsObj[level.id]) {
             return entry.addLevel(level, {through: { rating: levelsObj[level.id]}})
         }
         return Promise.resolve()
     }))
 
     const updatedEntry = await Entry.findByPk(entryId, {
-        include: [Level]
+        include: [EntryLevel, EntryActivity]
     })
 
     return res.json(updatedEntry)

@@ -7,6 +7,8 @@ import { BsDot } from "react-icons/bs";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa6";
 import './EntryDetail.css'
 import { getAllIcons } from "../../../redux/icons";
+import { getAllActivities } from "../../../redux/activities";
+import { getAllLevels } from "../../../redux/levels";
 
 function EntryDetailsPage() {
   const dispatch = useDispatch();
@@ -19,6 +21,8 @@ function EntryDetailsPage() {
   const entry = entriesObj?.[entryId]
 
   const icons = useSelector(state => state.icons.allIcons)
+  const allActsObj = useSelector((state) => state.activities.allActivities)
+  const allLevels = useSelector(state => state.levels.allLevels)
 
   useEffect(() => {
     if (!entriesObj) {
@@ -27,11 +31,17 @@ function EntryDetailsPage() {
     if (!icons) {
       dispatch(getAllIcons())
     }
-  }, [dispatch, entryId, entriesObj, icons, user]);
+    if (!allActsObj) {
+      dispatch(getAllActivities())
+    }
+    if (!allLevels) {
+      dispatch(getAllLevels())
+    }
+  }, [dispatch, entryId, entriesObj, icons, user, allActsObj, allLevels]);
 
   if (!user) return <Navigate to="/" replace={true} />;
 
-  if (!entriesObj || !icons || !entries.length) return <Loading />;
+  if (!entriesObj || !icons || !allActsObj || !allLevels) return <Loading />;
 
 
   const handleLessClick = () => {
@@ -91,11 +101,11 @@ function EntryDetailsPage() {
                 <h2>Overall: </h2>
                 <div>{entry.overallMood}</div>
               </div>
-              <Levels levels={entry.Levels}/>
+              <Levels levels={allLevels} entryLvls={entry.EntryLevels}/>
             </div>
             <div className="activities-container container">
               <h2>What have you been up to?</h2>
-              <Activities icons={icons} activities={entry.Activities}/>
+              <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities}/>
             </div>
             <div className="note-container container">
               <h2>Note:</h2>

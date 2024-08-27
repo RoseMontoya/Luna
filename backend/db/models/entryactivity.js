@@ -7,9 +7,10 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
-      // EntryActivity.belongsTo(models.Entry, {
-      //   foreignKey: 'entryId'
-      // })
+      EntryActivity.belongsTo(models.Entry, {
+        foreignKey: 'entryId'
+      })
+
     }
   }
   EntryActivity.init({

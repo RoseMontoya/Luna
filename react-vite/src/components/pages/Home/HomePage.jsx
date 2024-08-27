@@ -7,6 +7,8 @@ import { Loading, Icon, Activities, Levels } from "../../subcomponents";
 import { deleteEntry, getEntriesToday } from "../../../redux/entries";
 import { getAllIcons } from "../../../redux/icons";
 import { BsDot } from "react-icons/bs";
+import { getAllLevels } from "../../../redux/levels";
+import { getAllActivities } from "../../../redux/activities";
 
 
 function Home() {
@@ -16,18 +18,27 @@ function Home() {
   const entriesObj = useSelector((state) => state.entries.today);
   const icons = useSelector(state => state.icons.allIcons)
   const entries = entriesObj? Object.values(entriesObj) : []
-
+  const allActsObj = useSelector((state) => state.activities.allActivities)
+  const allLevels = useSelector(state => state.levels.allLevels)
 
   useEffect(() => {
-    if (!entriesObj && user) {
-      dispatch(getEntriesToday(user.id));
+    if (user) {
+      if (!entriesObj) {
+        dispatch(getEntriesToday(user.id));
+      }
+      if (!icons) {
+          dispatch(getAllIcons())
+      }
+      if (!allActsObj) {
+        dispatch(getAllActivities())
+      }
+      if (!allLevels) {
+        dispatch(getAllLevels())
+      }
     }
-    if (!icons) {
-        dispatch(getAllIcons())
-    }
-  }, [dispatch, user, entriesObj, icons]);
+  }, [dispatch, user, entriesObj, icons, allActsObj, allLevels]);
 
-  if (user && (!entriesObj || !icons)) return <Loading />;
+  if (user && (!entriesObj || !icons || !allActsObj || !allLevels)) return <Loading />;
 
   return (
     <main id="landing-page">
@@ -64,12 +75,12 @@ function Home() {
                       <div>
                         <h2>Overall: </h2>
                         <div>{entry.overallMood}</div>
-                        <Levels levels={entry.Levels} />
+                        <Levels levels={allLevels}  entryLvls={entry.EntryLevels} />
                       </div>
                     </div>
                     <div className="activities-container container">
                       <h2>What have you been up to?</h2>
-                      <Activities icons={icons} activities={entry.Activities} />
+                      <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities} />
                     </div>
                     <div className="note-container container">
                       <h2>Note:</h2>

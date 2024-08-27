@@ -74,15 +74,16 @@ function EntryFormPage({ type }) {
       setNote(entry.note || "");
 
       const startStateLevels = {};
+      console.log(entry)
 
-      entry.Levels.forEach(
-        (level) => (startStateLevels[level.id] = level.EntryLevel.rating)
+      entry.EntryLevels.forEach(
+        (level) => (startStateLevels[level.levelId] = level.rating)
       );
       setLevelsRating(startStateLevels);
 
       const activities = new Set();
-      entry.Activities.forEach((act) => {
-        activities.add(act.id);
+      entry.EntryActivities.forEach((act) => {
+        activities.add(act.activityId);
       });
       setActs(activities);
     }

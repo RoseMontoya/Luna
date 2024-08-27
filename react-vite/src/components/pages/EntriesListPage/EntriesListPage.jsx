@@ -8,6 +8,8 @@ import "./EntriesList.css";
 import { BsDot } from "react-icons/bs";
 // import { csrfFetch } from "../../../redux/csrf";
 import { getAllIcons } from "../../../redux/icons";
+import { getAllActivities } from "../../../redux/activities";
+import { getAllLevels } from "../../../redux/levels";
 
 function EntriesListPage() {
   const dispatch = useDispatch();
@@ -18,6 +20,8 @@ function EntriesListPage() {
   const entries = entriesObj ? Object.values(entriesObj) : [];
   const icons = useSelector(state => state.icons.allIcons)
 
+  const allActsObj = useSelector((state) => state.activities.allActivities)
+  const allLevels = useSelector(state => state.levels.allLevels)
   useEffect(() => {
     if (!entriesObj && user) {
       dispatch(getAllEntries(user.id));
@@ -25,11 +29,17 @@ function EntriesListPage() {
     if (!icons) {
       dispatch(getAllIcons())
     }
-  }, [dispatch, entriesObj, user, icons]);
+    if (!allActsObj) {
+      dispatch(getAllActivities())
+    }
+    if (!allLevels) {
+      dispatch(getAllLevels())
+    }
+  }, [dispatch, entriesObj, user, icons, allActsObj]);
 
   if (!user) return <Navigate to="/" replace={true} />;
   //
-  if (!entriesObj || !icons || !entries.length) return <Loading />;
+  if (!entriesObj || !icons || !allActsObj || !allLevels) return <Loading />;
 
   return (
     <main className="nav-open">
@@ -59,12 +69,12 @@ function EntriesListPage() {
                   <div>
                     <h2>Overall: </h2>
                     <div>{entry.overallMood}</div>
-                    <Levels levels={entry.Levels} />
+                    <Levels levels={allLevels} entryLvls={entry.EntryLevels} />
                   </div>
                 </div>
                 <div className="activities-container container">
                   <h2>What have you been up to?</h2>
-                  <Activities icons={icons} activities={entry.Activities}/>
+                  <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities}/>
                 </div>
                 <div className="note-container container">
                   <h2>Note:</h2>

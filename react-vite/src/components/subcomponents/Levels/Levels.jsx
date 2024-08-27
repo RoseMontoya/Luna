@@ -1,10 +1,10 @@
-function Levels({ levels }) {
+function Levels({ levels, entryLvls}) {
   return (
     <>
-      {levels.map((level) => (
-        <div key={level.id}>
-          <p>{level.name}</p>
-          <div>{level.EntryLevel.rating}</div>
+      {entryLvls.map((lvl) => (
+        <div key={lvl.levelId}>
+          <p>{levels[lvl.levelId].name}</p>
+          <div>{lvl.rating}</div>
         </div>
       ))}
     </>

@@ -1,4 +1,4 @@
-import AddActivityModal from "./ActivityModal/AddActivityModal";
+import ActivityFormModal from "./ActivityModal/ActivityFormModal";
 import EditActivitiesModal from "./ActivityModal/EditActvitiesModal";
 
-export {AddActivityModal, EditActivitiesModal}
+export {ActivityFormModal, EditActivitiesModal}

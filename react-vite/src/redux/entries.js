@@ -65,6 +65,7 @@ export const getAllEntries = (userId) => async dispatch => {
     const response = await csrfFetch(`/api/users/${userId}/entries`)
 
     const data = await response.json()
+    console.log("DATATATAJTATATATAT",data)
 
     data.map(entry => {
         formatDate(entry)

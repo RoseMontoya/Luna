@@ -75,7 +75,7 @@ router.get('/:userId/entries', requireAuth, async (req, res, next) => {
         attributes: {
             exclude: ['createdAt', 'updatedAt']
         },
-        include: [Level],
+        include: [EntryLevel, EntryActivity],
         order: [['datetime', 'DESC']]
     })
 
@@ -93,7 +93,7 @@ router.get('/:userId/today', requireAuth, async (req, res, next) => {
                 [Op.gte] : new Date().toDateString()
             }
         },
-        include: [Level]
+        include: [EntryLevel, EntryActivity]
     })
 
     return res.json(entry)

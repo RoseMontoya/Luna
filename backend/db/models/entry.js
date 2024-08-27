@@ -30,9 +30,13 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "levelId"
       })
 
-      // Entry.hasMany(models.EntryActivity,{
-      //   foreignKey: 'entryId'
-      // })
+      Entry.hasMany(models.EntryActivity,{
+        foreignKey: 'entryId'
+      })
+
+      Entry.hasMany(models.EntryLevel, {
+        foreignKey: 'entryId'
+      })
     }
   }
   Entry.init({
@@ -100,20 +104,20 @@ module.exports = (sequelize, DataTypes) => {
       attributes: {
         exclude: ['updateAt', 'createAt']
       },
-      include: [
-        {
-          model: sequelize.models.Activity,
-          attributes: {
-            exclude: ['updatedAt', 'createdAt', 'userId']
-          }
-        },
-        // {
-        //   model: sequelize.models.Level,
-        //   attributes: {
-        //     exclude: ['updateAt', 'createdAt']
-        //   }
-        // }
-      ]
+      // include: [
+      //   {
+      //     model: sequelize.models.EntryActivity,
+      //     attributes: {
+      //       exclude: ['updatedAt', 'createdAt', 'userId']
+      //     }
+      //   },
+      //   {
+      //     model: sequelize.models.EntryLevel,
+      //     attributes: {
+      //       exclude: ['updateAt', 'createdAt']
+      //     }
+      //   }
+      // ]
     }
   });
 

@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
   class EntryLevel extends Model {
     static associate(models) {
       // define association here
+      EntryLevel.belongsTo(models.Entry, {
+        foreignKey: 'entryId'
+      })
     }
   }
   EntryLevel.init({

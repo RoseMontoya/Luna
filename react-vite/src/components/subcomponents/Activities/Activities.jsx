@@ -2,18 +2,22 @@ import { Icon } from '../'
 import { BsDot } from "react-icons/bs";
 
 
-function Activities({activities, icons}) {
+function Activities({activities, icons, entryActs}) {
     return (
         <>
-            {activities.map((activity, idx) => (
-                <div key={activity.id}>
-                    <div className={`${idx === 0 ? 'hidden': ""}`}>
+            {entryActs.map((act, idx) => (
+                <div key={act.activityId}>
+                    {activities[act.activityId]? (
+                        <>
+                    <div className={`${idx === 0 || (!activities[entryActs[0].activityId] && idx === 1)? 'hidden': ""}`}>
                         <BsDot />
                     </div>
                     <div>
-                        <Icon icons={icons} id={activity.iconId} />
+                        <Icon icons={icons} id={activities[act.activityId].iconId} />
                     </div>
-                    <p>{activity.name}</p>
+                    <p>{activities[act.activityId].name}</p>
+                        </>
+                    ): ''}
                 </div>
             ))}
         </>
