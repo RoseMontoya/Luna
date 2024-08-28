@@ -34,9 +34,9 @@ function EntryFormPage({ type }) {
   const moodIcons = icons.slice(0, 5);
   const levelsObj = useSelector((state) => state.levels.allLevels);
   const levels = levelsObj ? Object.values(levelsObj) : [];
-  const startStateLevels = {};
-  levels.forEach((level) => (startStateLevels[level.id] = 0));
-  const [levelRatings, setLevelsRating] = useState(startStateLevels);
+  // const startStateLevels = {};
+  // levels.forEach((level) => (startStateLevels[level.id] = 0));
+  const [levelRatings, setLevelsRating] = useState({});
   // console.log("start levels", levelRatings);
   const activitiesObj = useSelector((state) => state.activities.allActivities);
   const activities = activitiesObj ? Object.values(activitiesObj) : [];
@@ -46,14 +46,15 @@ function EntryFormPage({ type }) {
       dispatch(getAllIcons());
     }
     if (!levelsObj) {
-      dispatch(getAllLevels()).then((res) => {
-        if (!levelRatings) {
-          const startStateLevels = {};
+      dispatch(getAllLevels())
+      // .then((res) => {
+      //   if (!levelRatings) {
+      //     const startStateLevels = {};
 
-          res.forEach((level) => (startStateLevels[level.id] = 0));
-          setLevelsRating(startStateLevels);
-        }
-      });
+      //     res.forEach((level) => (startStateLevels[level.id] = 0));
+      //     setLevelsRating(startStateLevels);
+      //   }
+      // });
     }
     if (!activitiesObj) {
       dispatch(getAllActivities());
