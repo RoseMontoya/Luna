@@ -4,6 +4,7 @@ const GET_LEVELS = 'levels/getLevels'
 const ADD_LEVEL = 'levels/addLevel'
 const UPDATE_LEVEL ='levels/updateLevel'
 const REMOVE_LEVEL = 'levels/removeLevel'
+const CLEAR = 'levels/clearLevels'
 
 const getLevels = (levels) => {
     return {
@@ -32,6 +33,8 @@ const removeLevel = (levelId) => {
         levelId
     }
 }
+
+export const clearLevels = () => ({ type: CLEAR })
 
 export const getAllLevels = () => async dispatch => {
     const response = await csrfFetch('/api/levels')
@@ -96,6 +99,9 @@ const levelsReducer = (state = {}, action) => {
             delete newState[action.levelId]
             console.log(newState)
             return {...state, allLevels: newState}
+        }
+        case CLEAR: {
+            return {}
         }
         default:
             return state

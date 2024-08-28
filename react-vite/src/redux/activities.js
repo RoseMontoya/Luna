@@ -4,6 +4,7 @@ const GET_ACTIVITIES = 'activities/getActivities'
 const ADD_ACTIVITY = 'activities/addActivity'
 const UPDATE_ACTIVITY = 'activities/updateActivity'
 const REMOVE_ACTIVITY = 'activities/removeActivity'
+const CLEAR = 'activities/clearActivities'
 
 const getActivities = (activities) => {
     return {
@@ -32,6 +33,8 @@ const removeActivity = (activityId) => {
         activityId
     }
 }
+
+export const clearActivities = () => ({ type: CLEAR })
 
 export const getAllActivities = () => async dispatch => {
     const response = await csrfFetch('/api/activities')
@@ -95,6 +98,9 @@ const activitiesReducer = (state = {}, action) => {
             delete newState[action.activityId]
             console.log('newStat', newState)
             return {...state, allActivities: newState}
+        }
+        case CLEAR: {
+            return {}
         }
         default:
             return state

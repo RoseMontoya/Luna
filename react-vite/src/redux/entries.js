@@ -16,6 +16,7 @@ const ENTRIES_TODAY = 'entries/entries-today'
 const ADD_ENTRY = 'entries/add-entry'
 const UPDATE_ENTRY = 'entries/update-entry'
 const REMOVE_ENTRY = 'entries/remove-entry'
+const CLEAR = 'entries/clear-entries'
 
 // * Actions
 const addAllEntries = (entries) => {
@@ -59,6 +60,10 @@ const removeEntry = (entryId) => {
         entryId
     }
 }
+
+export const clearEntries =() => ({
+    type:CLEAR
+})
 
 // * Thunk
 export const getAllEntries = (userId) => async dispatch => {
@@ -222,6 +227,9 @@ const entriesReducer = (state = initialState, action) => {
 
             return {...state, ...newState}
         }
+         case CLEAR: {
+            return {}
+         }
         default:
             return state
     }

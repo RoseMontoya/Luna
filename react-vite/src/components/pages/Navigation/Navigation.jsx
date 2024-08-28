@@ -3,11 +3,13 @@ import { FaPlus } from "react-icons/fa6";
 // import ProfileButton from "./ProfileButton";
 
 import "./Navigation.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../../redux/session";
 
 
 function Navigation() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
 
   return (
@@ -21,9 +23,14 @@ function Navigation() {
             </button>
         </div>
         <div id="nav-container">
-          <h1 style={{fontWeight: 'normal'}}>Welcome back, {user.firstName}</h1>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="entries">Entries</NavLink>
+          <div>
+            <h1 style={{fontWeight: 'normal'}}>Welcome back, {user.firstName}</h1>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="entries">Entries</NavLink>
+          </div>
+          <div>
+            <button onClick={() => dispatch(logout())}>Log out</button>
+          </div>
         </div>
       </nav>
     ) : (

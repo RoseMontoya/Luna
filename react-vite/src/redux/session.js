@@ -1,4 +1,7 @@
+import { clearActivities } from "./activities";
 import { csrfFetch } from "./csrf";
+import { clearEntries } from "./entries";
+import { clearLevels } from "./levels";
 
 const SET_CURRENT_USER = '/store/session/SET_CURRENT_USER';
 const REMOVE_USER = '/store/session/REMOVE_USER';
@@ -58,6 +61,9 @@ export const logout = () => async dispatch => {
         method: 'delete'
     })
     dispatch(removeUser())
+    dispatch(clearEntries())
+    dispatch(clearActivities())
+    dispatch(clearLevels())
     return response;
 }
 
