@@ -18,7 +18,6 @@ function Icon({ icons, id }) {
   //   }, [iconsObj, dispatch]);
 
 
-
     if (!icons) return null;
 
     const IconComponent = Icons[icons[id].name]

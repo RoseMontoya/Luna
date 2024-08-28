@@ -157,21 +157,69 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   );
 
   const levelsObj = {};
-  levels.forEach((level) => {
-    levelsObj[level.levelId] = level.rating;
+  entry.Levels.forEach((level) => {
+    console.log('old level', level)
+    levelsObj[level.id] = level.EntryLevels.rating;
   });
+
+  const newLvls = {}
+  levels.forEach(level => {
+    newLvls[level.levelId] = level.rating
+  })
   console.log("obj", levelsObj);
 
+//   await Promise.all(
+//     entry.levels.map((level) => {
+//         console.log('jdfajlkajdfskl',level.rating, levelsObj[level.id])
+//       if (level.rating !== levelsObj[level.id]) {
+//         return entry.addLevel(level, {
+//           through: { rating: levelsObj[level.id] },
+//         });
+//       }
+
+//     //   if ()
+//       return Promise.resolve();
+//     })
+//   );
+
+//   const oldLvls = entry.Levels;
+  const oldLvlsIds = entry.Levels.map((lvl) => lvl.id)
+
+//   const newLvlsId = new Set(
+//     levels.map(lvl => {
+//         return lvl.levelId
+//     })
+// );
+//   console.log('newlvel', newLvlsId)
+
+  const lvlToDelete = [...oldLvlsIds].filter((lvl) => !newLvls[lvl]);
+
+//   await EntryActivity.bulkCreate(
+//     actsToAdd.map((act) => ({ activityId: act, entryId: entry.id }))
+//   );
+
   await Promise.all(
-    entry.Levels.map((level) => {
-      if (level.rating !== levelsObj[level.id]) {
-        return entry.addLevel(level, {
-          through: { rating: levelsObj[level.id] },
+    // entry.Levels.map((lvl) => {
+    //   if (lvlToDelete.includes(lvl.id)) {
+    //     entry.removeLevel(lvl);
+    //   }
+    // })
+    lvlToDelete.map(lvlId => entry.removeLevel(lvlId))
+  );
+
+  await Promise.all(
+    levels.map((level) => {
+      if ((level.rating !== levelsObj[level.levelId])) {
+        console.log('here with levels',level)
+        return entry.addLevel(level.levelId, {
+          through: { rating: level.rating },
         });
       }
       return Promise.resolve();
     })
   );
+
+
 
   const updatedEntry = await Entry.findByPk(entryId, {
     include: [EntryLevel, EntryActivity],

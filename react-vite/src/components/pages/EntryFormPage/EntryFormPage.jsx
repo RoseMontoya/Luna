@@ -98,7 +98,7 @@ function EntryFormPage({ type }) {
     for (const [levelId, rating] of Object.entries(levelRatings)) {
       lvls.push({ levelId: Number(levelId), rating: Number(rating) });
     }
-
+    console.log('level', lvls)
     const entriesActs = [];
     for (const actId of acts.values()) {
       entriesActs.push(Number(actId));
@@ -113,6 +113,7 @@ function EntryFormPage({ type }) {
       levels: lvls,
       activities: entriesActs,
     };
+    console.log('payload', payload)
 
     const thunk = type === "edit" ? editEntry : createEntry;
 
