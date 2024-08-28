@@ -75,11 +75,15 @@ function EntryFormPage({ type }) {
       setNote(entry.note || "");
 
       const startStateLevels = {};
-      console.log(entry);
 
       entry.EntryLevels.forEach(
-        (level) => (startStateLevels[level.levelId] = level.rating)
+        (level) => {
+          if (level.rating > 0) {
+            startStateLevels[level.levelId] = level.rating
+          }
+        }
       );
+      console.log('setting to edit', startStateLevels);
       setLevelsRating(startStateLevels);
 
       const activities = new Set();
@@ -96,7 +100,10 @@ function EntryFormPage({ type }) {
 
     const lvls = [];
     for (const [levelId, rating] of Object.entries(levelRatings)) {
-      lvls.push({ levelId: Number(levelId), rating: Number(rating) });
+      console.log('in levels obj??', levelsObj[levelId])
+      if (levelsObj[levelId] && rating > 0) {
+        lvls.push({ levelId: Number(levelId), rating: Number(rating) });
+      }
     }
     console.log('level', lvls)
     const entriesActs = [];

@@ -158,8 +158,8 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
 
   const levelsObj = {};
   entry.Levels.forEach((level) => {
-    console.log('old level', level)
-    levelsObj[level.id] = level.EntryLevels.rating;
+    console.log('old level', level.EntryLevel.rating)
+    levelsObj[level.id] = level.EntryLevel?.rating;
   });
 
   const newLvls = {}
@@ -167,6 +167,7 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
     newLvls[level.levelId] = level.rating
   })
   console.log("obj", levelsObj);
+  console.log('new', newLvls)
 
 //   await Promise.all(
 //     entry.levels.map((level) => {
