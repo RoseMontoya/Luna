@@ -11,7 +11,7 @@ import { createEntry, getEntryById, editEntry } from "../../../redux/entries";
 import { getAllLevels } from "../../../redux/levels";
 import { getAllActivities } from "../../../redux/activities";
 import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
-import { EditActivitiesModal } from "../../modals";
+import { EditActivitiesModal, LevelEditModal } from "../../modals";
 
 function EntryFormPage({ type }) {
   const dispatch = useDispatch();
@@ -74,7 +74,7 @@ function EntryFormPage({ type }) {
       setNote(entry.note || "");
 
       const startStateLevels = {};
-      console.log(entry)
+      console.log(entry);
 
       entry.EntryLevels.forEach(
         (level) => (startStateLevels[level.levelId] = level.rating)
@@ -232,6 +232,12 @@ function EntryFormPage({ type }) {
                 )}
               </div>
             ))}
+            <div onClick={(e) => e.preventDefault()}>
+              <OpenModalButton
+                buttonText="Edit levels"
+                modalComponent={<LevelEditModal levels={levels} />}
+              />
+            </div>
           </div>
           <div className="activities">
             {activities.map((activity) => (

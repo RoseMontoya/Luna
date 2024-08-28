@@ -1,4 +1,7 @@
 import ActivityFormModal from "./ActivityModal/ActivityFormModal";
 import EditActivitiesModal from "./ActivityModal/EditActvitiesModal";
 
-export {ActivityFormModal, EditActivitiesModal}
+import LevelFormModal from "./LevelModals/LevelFormModal";
+import LevelEditModal from "./LevelModals/LevelEditModal";
+
+export {ActivityFormModal, EditActivitiesModal, LevelEditModal, LevelFormModal}

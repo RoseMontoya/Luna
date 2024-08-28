@@ -180,11 +180,12 @@ const entriesReducer = (state = initialState, action) => {
 
             const isToday = new Date(action.payload.datetime).toDateString() === new Date().toDateString()
 
+            console.log('is today?',isToday)
             if (isToday && state.today) {
                 const newToday = {...state.today}
 
                 newToday[action.payload.id] = action.payload
-
+                console.log('new state', newToday)
                 newState['today'] = newToday
             }
 

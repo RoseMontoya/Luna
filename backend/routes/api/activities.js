@@ -15,7 +15,7 @@ const validateActivity = [
     check('name')
         .custom(async (value, req) => {
 
-            if (req.req.method === 'POST') {
+            if (req.req.method === 'POST' && value) {
                 const activity = await Activity.findOne({
                     where: {
                         name: value

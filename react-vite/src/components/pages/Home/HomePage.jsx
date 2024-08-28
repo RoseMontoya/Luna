@@ -51,7 +51,7 @@ function Home() {
                 <div
                   className="entry"
                   key={entry.id}
-                  onClick={() => navigate(`${entry.id}`)}
+                  onClick={() => navigate(`entries/${entry.id}`)}
                 >
                   <div className="entry-header">
                     <div className="entry-info">
