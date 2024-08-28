@@ -235,7 +235,7 @@ function EntryFormPage({ type }) {
             <div onClick={(e) => e.preventDefault()}>
               <OpenModalButton
                 buttonText="Edit levels"
-                modalComponent={<LevelEditModal levels={levels} />}
+                modalComponent={<LevelEditModal levelsObj={levelsObj} />}
               />
             </div>
           </div>

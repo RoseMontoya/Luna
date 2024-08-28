@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { createLevel, deleteLevel, editLevel } from "../../../redux/levels"
 
-function LevelInput({level, setSelected, selected}) {
+function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
     console.log('do we get here??')
     const dispatch = useDispatch()
     const [error, setError] = useState({})
@@ -34,6 +34,11 @@ function LevelInput({level, setSelected, selected}) {
         dispatch(deleteLevel(level.id))
             .then(() => {
                 setSelected('')
+                const newLvls = [...lvls]
+                newLvls.splice(idx, 1)
+                setLvls(newLvls)
+
+
             })
     }
 
