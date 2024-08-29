@@ -34,6 +34,16 @@
     justify-content: center;
 }
 
+.act-btns button {
+    padding: 9px .5em;
+    /* margin: 5px 0; */
+}
+
+.act-btns button:hover {
+    padding: .25em .5em;
+    z-index: 1;
+}
+
 .activities button {
     padding-bottom: 0;
 }
@@ -46,4 +56,9 @@
 
 #act-form label{
     padding-bottom: .5em;
+}
+
+#act-form .icon {
+    width: 34px;
+    height: 34px;
 }

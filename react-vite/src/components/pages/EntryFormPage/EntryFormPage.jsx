@@ -158,7 +158,7 @@ function EntryFormPage({ type }) {
   return (
     <main className="nav-open">
       <div id="entry-form" >
-        <p onClick={() => navigate(-1)}>Back</p>
+        <p className="nav-buttons" onClick={() => navigate(-1)}>Back</p>
         <form
           className="container"
           style={{ padding: "2em 4em" }}
@@ -172,7 +172,7 @@ function EntryFormPage({ type }) {
             onChange={(e) => setDate(e.target.value)}
           /> */}
           <div className="date-container">
-            <DatePicker  className="date-input" selected={date} onChange={(date) => setDate(date)} showTimeSelect timeIntervals={1} dateFormat='EEEE, MMM d h:mm a'/>
+            <DatePicker  showIcon toggleCalendarOnIconClick className="date-input" selected={date} onChange={(date) => setDate(date)}  showTimeInput timeIntervals={1} dateFormat='EEEE, MMM d h:mm a' />
             <p className={`${errors.datetime? 'error': "hidden-error" } `}>{errors.datetime}</p>
           </div>
           {/* {errors?.datetime && <p className="error">{errors.datetime}</p>} */}
@@ -186,7 +186,7 @@ function EntryFormPage({ type }) {
 <p className={`${errors.mood? 'error': "hidden-error" } `}>{errors.mood}</p>
             </label>
             {/* {errors?.mood && <p className="error">{errors.mood}</p>} */}
-            <label>{`On a scale of 1 to 10, how would rating your overall mood?`}
+            <label>{`On a scale of 1 to 10, how would rating your overall mood?  `}
             <select
               name="overallMood"
               id="overallMood"
@@ -240,7 +240,7 @@ function EntryFormPage({ type }) {
             <div className="lvls-container">
 
               {levels.map((level) => (
-                <div key={level.id} className="activity act-form">
+                <div key={level.id} className="lvl act-form">
                   <p>{level.name}</p>
                   <select
                     name={level.name}

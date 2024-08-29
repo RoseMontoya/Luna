@@ -66,7 +66,7 @@ function ActivityFormModal({ allIcons, icons, prevAct }) {
             <div className="activities">
                 {icons.map(icon => (
                     <div key={icon.id} onClick={() => setIconId(icon.id)}
-                    className={`${ icon.id === iconId ? "selectedAct" : ""} icon`}
+                    className={`${ icon.id === iconId ? "selectedAct" : ""} icon light-shadow`}
                     >
                         <Icon icons={allIcons} id={icon.id}/>
                     </div>

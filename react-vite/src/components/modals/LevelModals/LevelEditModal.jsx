@@ -15,8 +15,13 @@ function LevelEditModal({levelsObj}) {
         setSelected(lvls[lvls.length -1].id + 1)
     }
 
+    const handleDeselect = (e) => {
+        e.stopPropagation()
+        setSelected('')
+    }
+
     return (
-        <div id="levels-edit">
+        <div id="levels-edit" >
             <div id="lvl-head" className="border-bottom">
                 <h2>Levels</h2>
                 <button style={{fontSize:'16px', padding: '0 5px'}} onClick={handleClick}>Add level</button>

@@ -36,8 +36,15 @@
     border: #126E82 solid 1px;
     border-radius: 16px;
     /* margin: .5em 0; */
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+
 }
 
+.lvl {
+
+}
 .edit-btn {
     display: flex;
     justify-content: end;
