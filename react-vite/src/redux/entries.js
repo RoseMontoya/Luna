@@ -70,7 +70,6 @@ export const getAllEntries = (userId) => async dispatch => {
     const response = await csrfFetch(`/api/users/${userId}/entries`)
 
     const data = await response.json()
-    console.log("DATATATAJTATATATAT",data)
 
     data.map(entry => {
         formatDate(entry)
@@ -119,7 +118,6 @@ export const editEntry = (payload, entryId) => async dispatch => {
     })
 
     const data = formatDate(await response.json())
-    console.log('UPADATED', data)
     dispatch(updateEntry(data))
     return data
 }
@@ -165,11 +163,9 @@ const entriesReducer = (state = initialState, action) => {
 
             if (isToday) {
                 const newToday = {...state.today}
-                console.log('payload', action.payload)
                 newToday[action.payload.id] = action.payload
 
                 newState['today'] = newToday
-                console.log('new', newState)
             }
 
             return {...state, ...newState}
@@ -185,12 +181,10 @@ const entriesReducer = (state = initialState, action) => {
 
             const isToday = new Date(action.payload.datetime).toDateString() === new Date().toDateString()
 
-            console.log('is today?',isToday)
             if (isToday && state.today) {
                 const newToday = {...state.today}
 
                 newToday[action.payload.id] = action.payload
-                console.log('new state', newToday)
                 newState['today'] = newToday
             }
 

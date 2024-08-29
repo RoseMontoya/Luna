@@ -123,7 +123,6 @@ module.exports = (sequelize, DataTypes) => {
 
   // const { Activity, Level } = sequelize.models
 
-  // console.log('level',Level)
 
   // Entry.addScope('defaultScope', {
   //   attributes: {

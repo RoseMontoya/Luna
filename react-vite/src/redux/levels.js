@@ -45,7 +45,6 @@ export const getAllLevels = () => async dispatch => {
 }
 
 export const createLevel = (level) => async dispatch => {
-    console.log('in thunk', level)
     const response = await csrfFetch(`/api/levels`, {
         method: 'POST',
         body: JSON.stringify(level)
@@ -97,7 +96,7 @@ const levelsReducer = (state = {}, action) => {
         case REMOVE_LEVEL: {
             const newState = {...state.allLevels}
             delete newState[action.levelId]
-            console.log(newState)
+
             return {...state, allLevels: newState}
         }
         case CLEAR: {

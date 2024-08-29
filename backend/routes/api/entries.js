@@ -115,6 +115,7 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   const { datetime, mood, overallMood, iconId, note, levels, activities } =
     req.body;
   const { entryId } = req.params;
+  const userId = req.user.id
 
   const entry = await Entry.findByPk(entryId, {
     include: [Level, Activity],
@@ -131,7 +132,7 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
     iconId,
     note,
   });
-  // console.log('entry', entry.EntryActivities)
+
 
   const oldActs = entry.Activities;
   const oldActsIds = new Set(
@@ -144,8 +145,14 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   const actsToAdd = [...newActsId].filter((act) => !oldActsIds.has(act));
   const actsToDelete = [...oldActsIds].filter((act) => !newActsId.has(act));
 
+  // console.log('oldActs', oldActs)
+  // console.log('oldActsIds', oldActsIds)
+  // console.log('newActsIds',newActsId)
+  // console.log('acts to add',actsToAdd)
+  // console.log('acts to delete', actsToDelete)
+
   await EntryActivity.bulkCreate(
-    actsToAdd.map((act) => ({ activityId: act, entryId: entry.id }))
+    actsToAdd.map((act) => ({ userId: userId, activityId: act, entryId: entry.id }))
   );
 
   await Promise.all(
@@ -158,7 +165,6 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
 
   const levelsObj = {};
   entry.Levels.forEach((level) => {
-    console.log('old level', level.EntryLevel.rating)
     levelsObj[level.id] = level.EntryLevel?.rating;
   });
 
@@ -166,54 +172,20 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   levels.forEach(level => {
     newLvls[level.levelId] = level.rating
   })
-  console.log("obj", levelsObj);
-  console.log('new', newLvls)
 
-//   await Promise.all(
-//     entry.levels.map((level) => {
-//         console.log('jdfajlkajdfskl',level.rating, levelsObj[level.id])
-//       if (level.rating !== levelsObj[level.id]) {
-//         return entry.addLevel(level, {
-//           through: { rating: levelsObj[level.id] },
-//         });
-//       }
-
-//     //   if ()
-//       return Promise.resolve();
-//     })
-//   );
-
-//   const oldLvls = entry.Levels;
   const oldLvlsIds = entry.Levels.map((lvl) => lvl.id)
-
-//   const newLvlsId = new Set(
-//     levels.map(lvl => {
-//         return lvl.levelId
-//     })
-// );
-//   console.log('newlvel', newLvlsId)
 
   const lvlToDelete = [...oldLvlsIds].filter((lvl) => !newLvls[lvl]);
 
-//   await EntryActivity.bulkCreate(
-//     actsToAdd.map((act) => ({ activityId: act, entryId: entry.id }))
-//   );
-
   await Promise.all(
-    // entry.Levels.map((lvl) => {
-    //   if (lvlToDelete.includes(lvl.id)) {
-    //     entry.removeLevel(lvl);
-    //   }
-    // })
     lvlToDelete.map(lvlId => entry.removeLevel(lvlId))
   );
 
   await Promise.all(
     levels.map((level) => {
       if ((level.rating !== levelsObj[level.levelId])) {
-        console.log('here with levels',level)
         return entry.addLevel(level.levelId, {
-          through: { rating: level.rating },
+          through: { rating: level.rating, userId: userId },
         });
       }
       return Promise.resolve();

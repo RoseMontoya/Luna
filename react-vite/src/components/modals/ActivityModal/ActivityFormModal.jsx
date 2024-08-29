@@ -8,24 +8,11 @@ import EditActivitiesModal from "./EditActvitiesModal"
 
 function ActivityFormModal({ allIcons, icons, prevAct }) {
     const dispatch = useDispatch()
-    // const navigate = useNavigate()
     const { closeModal } = useModal()
-
-    console.log(prevAct)
-    // const allIcons = useSelector(state => state.icons.allIcons)
-    // const icons = allIcons? Object.values(allIcons) : []
 
     const [name, setName] = useState('' || prevAct?.name)
     const [iconId, setIconId] = useState('' || prevAct?.iconId)
     const [errors, setErrors] = useState({})
-
-    // useEffect(() => {
-    //     if (!allIcons) {
-    //         dispatch(getAllIcons())
-    //     }
-    // }, [dispatch, allIcons])
-
-    // if (!allIcons) return <Loading />
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -37,7 +24,6 @@ function ActivityFormModal({ allIcons, icons, prevAct }) {
             .then(closeModal)
             .catch(async (res) => {
                 const errs = await res.json()
-                console.log('errors', errs)
                 setErrors(errs.errors)
             })
     }

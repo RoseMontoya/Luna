@@ -6,7 +6,7 @@ import "./ActivityModal.css";
 import DeleteActivityModal from "./DeleteActivityModal";
 import { useSelector } from "react-redux";
 
-function EditActivitiesModal() {
+function EditActivitiesModal({acts, setActs}) {
   const { closeModal } = useModal()
   const allIcons = useSelector((state) => state.icons.allIcons);
   const icons = allIcons ? Object.values(allIcons) : [];
@@ -56,7 +56,7 @@ function EditActivitiesModal() {
                 />
                 <OpenModalButton
                   buttonText="Delete"
-                  modalComponent={<DeleteActivityModal activity={activity} />}
+                  modalComponent={<DeleteActivityModal activity={activity} acts={acts} setActs={setActs} />}
                 />
               </div>
             </div>

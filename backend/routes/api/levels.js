@@ -13,19 +13,16 @@ const validateLevel = [
     .exists({ checkFalsy: true })
     .withMessage("Please provide a name.")
     .custom(async (value, req) => {
-        console.log('value', value)
       if (value) {
         const level = await Level.findOne({
           where: {
             name: value,
           },
         });
-        console.log('asdfajsdkfas', req.req.body)
         if (
           (req.req.method === "POST" && level) ||
           (req.req.method === "PUT" && level?.id !== req.req.body?.id)
         ) {
-          console.log("are we here?!?!");
           if (level) {
             throw new Error("Level with this name already exists.");
           }
@@ -51,7 +48,6 @@ router.get("/", requireAuth, async (req, res, next) => {
 });
 
 router.post("/", requireAuth, validateLevel, async (req, res) => {
-    console.log('insode of route')
     const {name} = req.body
 
     const user = await User.findByPk(req.user.id, {
@@ -64,9 +60,7 @@ router.post("/", requireAuth, validateLevel, async (req, res) => {
 });
 
 router.put('/:levelId', requireAuth, validateLevel, async (req, res, next) => {
-    console.log('aldjalksf', req.body)
     const { id, name } = req.body
-    console.log('name', name, id)
 
     const level  = await Level.findByPk(id)
 

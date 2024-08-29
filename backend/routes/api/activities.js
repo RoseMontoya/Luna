@@ -21,7 +21,6 @@ const validateActivity = [
                         name: value
                     }
                 })
-                console.log('are we here?!?!', activity)
                 if (activity) {
                     throw new Error('Activity with this name already exists.')
                 }
@@ -72,7 +71,6 @@ router.delete('/:activityId', requireAuth, async (req, res, next) => {
     const { activityId } = req.params
 
     const act = await Activity.findByPk(activityId)
-    console.log('activity', act)
 
     if (!act) return next(notFound('Activity'))
     if (act.userId !== req.user.id) return next(authorization(req, act.userId))

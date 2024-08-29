@@ -38,10 +38,7 @@ function EntryFormPage({ type }) {
   const moodIcons = icons.slice(0, 5);
   const levelsObj = useSelector((state) => state.levels.allLevels);
   const levels = levelsObj ? Object.values(levelsObj) : [];
-  // const startStateLevels = {};
-  // levels.forEach((level) => (startStateLevels[level.id] = 0));
   const [levelRatings, setLevelsRating] = useState({});
-  // console.log("start levels", levelRatings);
   const activitiesObj = useSelector((state) => state.activities.allActivities);
   const activities = activitiesObj ? Object.values(activitiesObj) : [];
 
@@ -74,7 +71,6 @@ function EntryFormPage({ type }) {
       setDate(format(entry.datetime, "yyyy-MM-dd HH:mm"));
       setMood(entry.mood);
       setOverallMood(entry.overallMood);
-      console.log("iconId", entry.iconId);
       setSelectedIcon(allIcons[entry.iconId]);
       setNote(entry.note || "");
 
@@ -87,7 +83,6 @@ function EntryFormPage({ type }) {
           }
         }
       );
-      console.log('setting to edit', startStateLevels);
       setLevelsRating(startStateLevels);
 
       const activities = new Set();
@@ -106,12 +101,10 @@ function EntryFormPage({ type }) {
 
     const lvls = [];
     for (const [levelId, rating] of Object.entries(levelRatings)) {
-      console.log('in levels obj??', levelsObj[levelId])
       if (levelsObj[levelId] && rating > 0) {
         lvls.push({ levelId: Number(levelId), rating: Number(rating) });
       }
     }
-    console.log('level', lvls)
     const entriesActs = [];
     for (const actId of acts.values()) {
       entriesActs.push(Number(actId));
@@ -126,7 +119,6 @@ function EntryFormPage({ type }) {
       levels: lvls,
       activities: entriesActs,
     };
-    console.log('payload', payload)
 
     const thunk = type === "edit" ? editEntry : createEntry;
 
@@ -136,7 +128,6 @@ function EntryFormPage({ type }) {
       })
       .catch(async (err) => {
         const errs = await err.json();
-        console.log("errors", errs);
         setErrors(errs.errors);
       });
   };
@@ -297,7 +288,7 @@ function EntryFormPage({ type }) {
               <div className="edit-btn" onClick={(e) => e.preventDefault()}>
                 <OpenModalButton
                   buttonText="Edit activites"
-                  modalComponent={<EditActivitiesModal />}
+                  modalComponent={<EditActivitiesModal acts={acts} setActs={setActs}/>}
                 />
               </div>
           </div>

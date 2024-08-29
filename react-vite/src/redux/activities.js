@@ -94,9 +94,7 @@ const activitiesReducer = (state = {}, action) => {
         }
         case REMOVE_ACTIVITY: {
             const newState = {...state.allActivities}
-            console.log('id', newState[action.activityId])
             delete newState[action.activityId]
-            console.log('newStat', newState)
             return {...state, allActivities: newState}
         }
         case CLEAR: {

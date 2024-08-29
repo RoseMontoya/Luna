@@ -25,7 +25,6 @@ const removeUser = () => {
 
 // Login
 export const login = (user) => async dispatch => {
-    console.log('inside thunk', user)
     const response = await csrfFetch('/api/session', {
         method: 'POST',
         body: JSON.stringify(user)
@@ -64,7 +63,6 @@ export const logout = () => async dispatch => {
     dispatch(clearEntries())
     dispatch(clearActivities())
     dispatch(clearLevels())
-    console.log(await response.json())
     return response;
 }
 

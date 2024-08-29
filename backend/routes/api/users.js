@@ -49,7 +49,6 @@ router.post('/', validateSignup, async (req, res, next) => {
     const { email, password, firstName, lastName} = req.body;
 
     const first = firstName.slice(0, 1).toUpperCase() + firstName.slice(1).toLowerCase()
-    console.log('first', first)
 
     // Check if User exist
     const existingUser = await User.findOne({
