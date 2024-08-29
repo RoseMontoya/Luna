@@ -71,7 +71,7 @@ function EntryDetailsPage() {
 
   return (
     <main className="nav-open">
-        <Link to='/entries' className="nav-buttons">Entries</Link>
+        <Link to='/entries' className="nav-buttons">{"< Entries"}</Link>
       <div id="entries-container" >
         {/* <h1>Entries</h1> */}
         <div className="entry" style={{ position: 'relative'}}>

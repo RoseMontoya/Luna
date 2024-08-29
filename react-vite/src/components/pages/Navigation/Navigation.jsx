@@ -34,7 +34,7 @@ function Navigation() {
         </div>
       </nav>
     ) : (
-      <nav>
+      <nav id="logged-out">
           <NavLink to="/">Home</NavLink>
         <div>
           <NavLink to='login'>Log in</NavLink>

@@ -172,8 +172,11 @@ function EntryFormPage({ type }) {
             onChange={(e) => setDate(e.target.value)}
           /> */}
           <div className="date-container">
-            <DatePicker  showIcon toggleCalendarOnIconClick className="date-input" selected={date} onChange={(date) => setDate(date)}  showTimeInput timeIntervals={1} dateFormat='EEEE, MMM d h:mm a' />
-            <p className={`${errors.datetime? 'error': "hidden-error" } `}>{errors.datetime}</p>
+<div>
+
+              <DatePicker  showIcon toggleCalendarOnIconClick className="date-input" selected={date} onChange={(date) => setDate(date)}  showTimeInput timeIntervals={1} dateFormat='EEEE, MMM d h:mm a' />
+</div>
+            <p style={{paddingLeft: '1em'}} className={`${errors.datetime? 'error': "hidden-error" } `}>{errors.datetime}</p>
           </div>
           {/* {errors?.datetime && <p className="error">{errors.datetime}</p>} */}
           <div className="border-bottom">

@@ -74,8 +74,8 @@ function LoginFormPage() {
           />
         <p className={`${errors.password? 'error': "hidden-error" } `}>{errors.password}</p>
         </label>
-        <button onClick={e => {demoLogIn(e)}} style={{marginBottom: '1.5em'}}>Log in as demo user</button>
-        <button type="submit">Log In</button>
+        <button className="submit-btn" onClick={e => {demoLogIn(e)}} style={{marginBottom: '1.5em'}}>Log in as demo user</button>
+        <button className="submit-btn" type="submit">Log In</button>
       </form>
     </main>
   );

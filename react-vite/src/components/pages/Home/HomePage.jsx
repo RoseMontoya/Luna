@@ -17,7 +17,7 @@ function Home() {
   const user = useSelector((state) => state.session.user);
   const entriesObj = useSelector((state) => state.entries.today);
   const icons = useSelector(state => state.icons.allIcons)
-  const entries = entriesObj? Object.values(entriesObj) : []
+  const entries = entriesObj? Object.values(entriesObj).sort((a, b) => new Date(b.datetime) - new Date(a.datetime)) : []
   const allActsObj = useSelector((state) => state.activities.allActivities)
   const allLevels = useSelector(state => state.levels.allLevels)
 
@@ -44,7 +44,7 @@ function Home() {
     <main id="landing-page">
       {user ? (
           <div className="nav-open">
-            <h1 style={{paddingTop: '1rem'}}>Today:</h1>
+            <h1 style={{paddingTop: '32px'}}>Today:</h1>
             {entries.length? <div id="entries-container">
             {entries
               .map((entry) => (
@@ -92,7 +92,7 @@ function Home() {
                 </div>
               ))}
           </div>:
-          <div>
+          <div className="no-entries">
             <p>No entries available for today</p>
             <Link to='entries/new'>New Entry</Link>
           </div>}

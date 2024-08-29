@@ -8,9 +8,19 @@
 }
 
 .date-container {
+    margin: 0 auto;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    max-width: 13em;
 }
+
+/* .date-container * {
+    display: flex;
+    justify-content: center;
+} */
 
 .date-input {
     border: none;
@@ -54,6 +64,12 @@
     justify-content: space-between;
 }
 
+.react-datepicker__input-container {
+    min-width: 13em;
+    text-align: center;
+    /* display: flex; */
+    /* background-color: #126E82; */
+}
 /* .note-form-container {
     display: flex;
     flex-direction: column;

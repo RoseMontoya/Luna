@@ -23,7 +23,7 @@ function SignupFormPage() {
     if (password !== confirmPassword) {
       return setErrors({
         confirmPassword:
-          "Confirm Password field must be the same as the Password field",
+          "Confirm Password does not match Password.",
       });
     }
 
@@ -101,7 +101,7 @@ function SignupFormPage() {
           <p className={`${errors.confirmPassword? 'error': "hidden-error" } `}>{errors.confirmPassword}</p>
         </label>
         {/* {errors.confirmPassword && <p>{errors.confirmPassword}</p>} */}
-        <button type="submit">Sign Up</button>
+        <button className="submit-btn" type="submit">Sign Up</button>
       </form>
     </main>
   );

@@ -64,6 +64,7 @@ export const logout = () => async dispatch => {
     dispatch(clearEntries())
     dispatch(clearActivities())
     dispatch(clearLevels())
+    console.log(await response.json())
     return response;
 }
 

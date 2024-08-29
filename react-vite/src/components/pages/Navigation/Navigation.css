@@ -81,9 +81,8 @@ nav div {
   padding: 2em;
 }
 
-#nav-container * {
-  color: #132C33;
-
+#nav-container a:hover {
+  color: #D8E3E7;
 }
 #nav-top {
   flex-direction: column;
@@ -100,4 +99,15 @@ nav div {
   cursor: pointer;
   position: absolute;
   left: 1em;
+}
+
+#logged-out a {
+  color: #FCDEBA;
+}
+
+#logged-out a:hover {
+  /* text-shadow: #132C33; */
+  box-shadow: none;
+  background-color: transparent;
+  text-decoration: underline;
 }

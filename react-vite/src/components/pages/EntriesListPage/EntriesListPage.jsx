@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteEntry, getAllEntries } from "../../../redux/entries";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./EntriesList.css";
 import { BsDot } from "react-icons/bs";
 // import { csrfFetch } from "../../../redux/csrf";
@@ -17,7 +17,7 @@ function EntriesListPage() {
   const user = useSelector((state) => state.session.user);
   const entriesObj = useSelector((state) => state.entries.allEntries);
   // const entriesObj = useLoaderData()
-  const entries = entriesObj ? Object.values(entriesObj) : [];
+  const entries = entriesObj ? Object.values(entriesObj).sort((a, b) => new Date(b.datetime) - new Date(a.datetime)) : [];
   const icons = useSelector(state => state.icons.allIcons)
 
   const allActsObj = useSelector((state) => state.activities.allActivities)
@@ -43,9 +43,9 @@ function EntriesListPage() {
 
   return (
     <main className="nav-open">
+        <h1>Entries:</h1>
       <div id="entries-container">
-        <h1>Entries</h1>
-        {entries.sort((a, b) => new Date(b.datetime) - new Date(a.datetime)).map((entry) => (
+        {entries.length? entries.map((entry) => (
           <div className="entry" key={entry.id} onClick={() => navigate(`${entry.id}`)}>
             <div className="entry-header">
               <div className="entry-info">
@@ -84,7 +84,12 @@ function EntriesListPage() {
                 </div>
             </div>
           </div>
-        ))}
+        )) : (
+          <div className="no-entries">
+            <p>No entries available</p>
+            <Link to='new'>Create Entry</Link>
+          </div>
+        )}
       </div>
     </main>
   );

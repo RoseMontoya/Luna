@@ -18,7 +18,21 @@ main {
 
 a {
     text-decoration: none;
-    color: #FCDEBA;
+    /* color: #FCDEBA; */
+    border-radius: 16px;
+    width: fit-content;
+    padding: .25em;
+}
+
+a:hover {
+    /* box-shadow: 0px 0px 8px 3px #132C33;
+    background-color: #132C33; */
+    /* font-size: 18px; */
+}
+
+a:hover  {
+    color: white;
+
 }
 
 ul {
@@ -108,6 +122,12 @@ button:hover {
     font-weight: bold;
 }
 
+.nav-buttons:hover {
+    color: #D8E3E7;
+    padding: 0;
+    box-shadow: none;
+}
+
 .border-bottom {
     border-bottom: #132C33 solid 1px;
 }
@@ -118,4 +138,21 @@ button:hover {
 
 .light-shadow:hover {
     box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.25);
+}
+
+.no-entries {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em;
+    gap: 1em
+}
+
+.no-entries p,
+.no-entries a {
+    font-size: 24px;
+}
+.no-entries a {
+    color: #126E82;
 }

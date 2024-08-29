@@ -5,6 +5,7 @@ const { Op } = require('sequelize');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Entry, Level , EntryActivity, EntryLevel} = require('../../db/models')
+const userDefaults = require('../../utils/newUserDefaults')
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -47,6 +48,9 @@ const validateSignup = [
 router.post('/', validateSignup, async (req, res, next) => {
     const { email, password, firstName, lastName} = req.body;
 
+    const first = firstName.slice(0, 1).toUpperCase() + firstName.slice(1).toLowerCase()
+    console.log('first', first)
+
     // Check if User exist
     const existingUser = await User.findOne({
         where:  { email: email }
@@ -61,7 +65,7 @@ router.post('/', validateSignup, async (req, res, next) => {
 
     // Create new user
     const hashedPassword = bcrypt.hashSync(password);
-    const user = await User.create({ email, firstName, lastName, hashedPassword });
+    const user = await User.create({ email, firstName: first, lastName, hashedPassword });
 
     const safeUser = {
         id: user.id,
@@ -71,6 +75,7 @@ router.post('/', validateSignup, async (req, res, next) => {
     };
 
     setTokenCookie(res, safeUser);
+    await userDefaults(user.id)
 
     return res.json({
         user: safeUser
