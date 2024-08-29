@@ -1,13 +1,14 @@
 #landing-page {
     height: 95vh;
+    /* min-height: 33em; */
     padding: 0 2em;
 }
 
-#landing-page * {
+#home-logged-out * {
     color: #AC7D6B;
 }
 
-#landing-page p {
+#home-logged-out p {
     font-family: "Kaisei Decol", serif;
     font-size: 30px;
     max-width: 12em;
@@ -38,6 +39,7 @@
     flex-direction: column;
     justify-content: space-between;
     height: 95vh;
+    min-height: 45em;
 }
 
 #home-logged-out h2 {

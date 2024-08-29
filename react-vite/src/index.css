@@ -26,7 +26,7 @@ form {
     flex-direction: column;
     justify-content: center;
     padding: 2em;
-    margin: 5em 2em;
+    margin: 2em;
     background-color: white;
     border-radius: 1em;
     /* gap: 1em */
@@ -38,6 +38,18 @@ input {
     /* margin-bottom: 1em; */
 }
 
+input:focus-visible {
+    outline-color: #51C4D3;
+}
+
+select:focus-visible {
+    outline-color: #51C4D3;
+}
+
+textarea:focus-visible {
+    outline-color: #51C4D3;
+}
+
 h1 {
     font-family: "IM Fell Double Pica SC", serif;
     font-size: 57px;
@@ -45,10 +57,15 @@ h1 {
 }
 
 button {
+    border: none;
     padding: .5em 1em;
-    border: solid 2px #132C33;
     background-color: white;
+}
+
+.submit-btn {
+    border: solid 2px #132C33;
     border-radius: 1em;
+
 }
 
 .hidden {
@@ -75,4 +92,12 @@ button {
 
 .nav-buttons {
     color: #132C33;
+}
+
+.border-bottom {
+    border-bottom: #132C33 solid 1px;
+}
+
+#entry-form h2 {
+    padding: .5em 0;
 }

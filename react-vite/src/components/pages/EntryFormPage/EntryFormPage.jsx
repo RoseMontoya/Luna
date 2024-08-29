@@ -12,6 +12,10 @@ import { getAllLevels } from "../../../redux/levels";
 import { getAllActivities } from "../../../redux/activities";
 import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
 import { EditActivitiesModal, LevelEditModal } from "../../modals";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { BsDot } from "react-icons/bs";
+
 
 function EntryFormPage({ type }) {
   const dispatch = useDispatch();
@@ -21,7 +25,7 @@ function EntryFormPage({ type }) {
   const user = useSelector((state) => state.session.user);
   const entry = useSelector((state) => state.entries.entriesById?.[entryId]);
 
-  const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd HH:mm"));
+  const [date, setDate] = useState(new Date());
   const [mood, setMood] = useState("");
   const [overallMood, setOverallMood] = useState("");
   const [selectedIcon, setSelectedIcon] = useState({});
@@ -94,6 +98,8 @@ function EntryFormPage({ type }) {
     }
   }, [dispatch, entry, type, entryId, allIcons, overallMood]);
 
+  if (!user) return <Navigate to="/" replace={true} />;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
@@ -135,7 +141,6 @@ function EntryFormPage({ type }) {
       });
   };
 
-  if (!user) return <Navigate to="/" replace={true} />;
 
   if (!allIcons || !levelsObj || !activitiesObj) return <Loading />;
 
@@ -152,29 +157,36 @@ function EntryFormPage({ type }) {
 
   return (
     <main className="nav-open">
-      <div style={{ padding: "4em 0" }}>
+      <div id="entry-form" >
         <p onClick={() => navigate(-1)}>Back</p>
         <form
           className="container"
           style={{ padding: "2em 4em" }}
           onSubmit={(e) => handleSubmit(e)}
         >
-          <h1>How are you?</h1>
-          <input
+          <h1 style={{textAlign: 'center'}}>How are you?</h1>
+          {/* <input
+            className="date-input"
             type="datetime-local"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-          />
-          {errors?.datetime && <p className="error">{errors.datetime}</p>}
-          <div>
-            <label>In one word, how are you feeling?</label>
+          /> */}
+          <div className="date-container">
+            <DatePicker  className="date-input" selected={date} onChange={(date) => setDate(date)} showTimeSelect timeIntervals={1} dateFormat='EEEE, MMM d h:mm a'/>
+            <p className={`${errors.datetime? 'error': "hidden-error" } `}>{errors.datetime}</p>
+          </div>
+          {/* {errors?.datetime && <p className="error">{errors.datetime}</p>} */}
+          <div className="border-bottom">
+            <label>In one word, how are you feeling?
             <input
               type="text"
               value={mood}
               onChange={(e) => setMood(e.target.value)}
             />
-            {errors?.mood && <p className="error">{errors.mood}</p>}
-            <label>{`On a scale of 1 to 10, how would rating your overall mood?`}</label>
+<p className={`${errors.mood? 'error': "hidden-error" } `}>{errors.mood}</p>
+            </label>
+            {/* {errors?.mood && <p className="error">{errors.mood}</p>} */}
+            <label>{`On a scale of 1 to 10, how would rating your overall mood?`}
             <select
               name="overallMood"
               id="overallMood"
@@ -190,84 +202,103 @@ function EntryFormPage({ type }) {
                 </option>
               ))}
             </select>
-            {errors?.overallMood && (
+            <p className={`${errors.overallMood? 'error': "hidden-error" } `}>{errors.overallMood}</p>
+            </label>
+            {/* {errors?.overallMood && (
               <p className="error">{errors.overallMood}</p>
-            )}
-            <label>Choose an icon that best represents your mood:</label>
-            <div>
+            )} */}
+            <label>Choose an icon that best represents your mood:
+
+            <div className="icons-container">
               {moodIcons.map((icon) => (
                 <div
                   key={icon.id}
                   onClick={() => setSelectedIcon(icon)}
-                  className={`${icon.id === selectedIcon.id ? "selected" : ""}`}
+                  className={`${icon.id === selectedIcon.id ? "selected" : ""} mood-icon`}
                 >
                   <Icon id={icon.id} icons={allIcons} />
                 </div>
               ))}
             </div>
-            {errors?.iconId && <p className="error">{errors.iconId}</p>}
-            <label>Would you like to add a small note to this entry?</label>
-            <textarea
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-            ></textarea>
-            {errors?.note && <p className="error">{errors.note}</p>}
+            <p className={`${errors.iconId? 'error': "hidden-error" } `}>{errors.iconId}</p>
+            </label>
+            {/* {errors?.iconId && <p className="error">{errors.iconId}</p>} */}
+            <div className="note-form-container">
+              <label>Would you like to add a small note to this entry?
+                </label>
+              <textarea
+                className="note"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+              ></textarea>
+              <p className={`${errors.note? 'error': "hidden-error" } `}>{errors.note}</p>
+            </div>
+            {/* {errors?.note && <p className="error">{errors.note}</p>} */}
           </div>
-          <div>
+          <div className="border-bottom">
             <h2>Levels</h2>
-            {levels.map((level) => (
-              <div key={level.id}>
-                <p>{level.name}</p>
-                <select
-                  name={level.name}
-                  id={level.name}
-                  value={levelRatings[level.id]}
-                  onChange={(e) =>
-                    setLevelsRating({
-                      ...levelRatings,
-                      [level.id]: e.target.value,
-                    })
-                  }
-                >
-                  <option value="">--</option>
-                  {[...new Array(10)].map((val, idx) => (
-                    <option key={idx + 1} value={idx + 1}>
-                      {idx + 1}
-                    </option>
-                  ))}
-                </select>
-                {errors?.levels?.[level.id] && (
-                  <p className="error">{errors.levels[level.id]}</p>
-                )}
-              </div>
-            ))}
-            <div onClick={(e) => e.preventDefault()}>
+            <div className="lvls-container">
+
+              {levels.map((level) => (
+                <div key={level.id} className="activity act-form">
+                  <p>{level.name}</p>
+                  <select
+                    name={level.name}
+                    id={level.name}
+                    value={levelRatings[level.id]}
+                    onChange={(e) =>
+                      setLevelsRating({
+                        ...levelRatings,
+                        [level.id]: e.target.value,
+                      })
+                    }
+                  >
+                    <option value="">--</option>
+                    {[...new Array(10)].map((val, idx) => (
+                      <option key={idx + 1} value={idx + 1}>
+                        {idx + 1}
+                      </option>
+                    ))}
+                  </select>
+                  {/* {errors?.levels?.[level.id] && (
+                    <p className="error">{errors.levels[level.id]}</p>
+                  )} */}
+                </div>
+              ))}
+            </div>
+            <div className='edit-btn' onClick={(e) => e.preventDefault()}>
               <OpenModalButton
                 buttonText="Edit levels"
                 modalComponent={<LevelEditModal levelsObj={levelsObj} />}
               />
             </div>
           </div>
-          <div className="activities">
-            {activities.map((activity) => (
-              <div key={activity.id}>
-                <div
-                  onClick={() => handleSelect(activity.id)}
-                  className={`${acts.has(activity.id) ? "selectedAct" : ""}`}
-                >
-                  <Icon icons={allIcons} id={activity.iconId} />
+          <div>
+            <h2>Activities</h2>
+            <div className="activities">
+              {activities.map((activity, idx) => (
+                <div key={activity.id} className="activity">
+                  <div className={`${idx === 0 ? 'hidden': ""}`}>
+                        <BsDot />
+                    </div>
+                  <div
+                    onClick={() => handleSelect(activity.id)}
+                    className={`${acts.has(activity.id) ? "selectedAct" : ""}`}
+                  >
+                    <Icon icons={allIcons} id={activity.iconId} />
+                  </div>
+                  <p>{activity.name}</p>
                 </div>
-                <p>{activity.name}</p>
-              </div>
-            ))}
-            <div onClick={(e) => e.preventDefault()}>
-              <OpenModalButton
-                buttonText="Edit activites"
-                modalComponent={<EditActivitiesModal />}
-              />
+              ))}
             </div>
+              <div className="edit-btn" onClick={(e) => e.preventDefault()}>
+                <OpenModalButton
+                  buttonText="Edit activites"
+                  modalComponent={<EditActivitiesModal />}
+                />
+              </div>
           </div>
-          <button type="submit">{`${
+          <button className="submit-btn" type="submit">{`${
             type === "edit" ? "Update" : "Create"
           }`}</button>
         </form>

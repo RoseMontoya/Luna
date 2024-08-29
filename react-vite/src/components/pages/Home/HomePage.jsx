@@ -44,7 +44,7 @@ function Home() {
     <main id="landing-page">
       {user ? (
           <div className="nav-open">
-            <h1>Today:</h1>
+            <h1 style={{paddingTop: '1rem'}}>Today:</h1>
             {entries.length? <div id="entries-container">
             {entries
               .map((entry) => (

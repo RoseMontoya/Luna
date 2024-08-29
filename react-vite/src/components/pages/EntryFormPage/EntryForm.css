@@ -1,8 +1,63 @@
-.selected {
+.selected * {
     color: #51C4D3;
 }
 
 .selectedAct * {
     color: white;
     background-color: #126E82;
+}
+
+.date-container {
+    display: flex;
+    justify-content: center;
+}
+
+.date-input {
+    border: none;
+    text-align: center;
+    padding: none;
+    min-width: max-content;
+}
+
+.icons-container {
+    display: flex;
+    gap: 1em;
+    padding-top: 1em;
+}
+
+.mood-icon {
+    width: 2em;
+    height: 2em;
+}
+
+.lvls-container {
+    padding: .5em;
+    max-width: 15em;
+    border: #126E82 solid 1px;
+    border-radius: 16px;
+    /* margin: .5em 0; */
+}
+
+.edit-btn {
+    display: flex;
+    justify-content: end;
+}
+
+.act-form {
+    justify-content: space-between;
+}
+
+/* .note-form-container {
+    display: flex;
+    flex-direction: column;
+} */
+.note {
+    width: 90%;
+    margin: .5em 2.3em 0  2.3em;
+    min-height: 4em;
+    padding: .5em;
+}
+
+.activities .activity {
+    padding-bottom: .5em;
 }
