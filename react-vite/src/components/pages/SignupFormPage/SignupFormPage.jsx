@@ -2,13 +2,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { signup } from "../../../redux/session";
+import './SignupForm.css'
 
 function SignupFormPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -25,69 +27,83 @@ function SignupFormPage() {
       });
     }
 
-    const serverResponse = await dispatch(
+    dispatch(
       signup({
+        firstName,
+        lastName,
         email,
-        username,
         password,
       })
-    );
-
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
+    )
+    .then(() => {
       navigate("/");
-    }
+    })
+    .catch(async res => {
+      const errs = await res.json()
+      setErrors(errs.errors)
+    })
+
   };
 
   return (
-    <>
+    <main id='signup-page'>
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="signup-form">
+      <label>
+          First Name
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            // required
+          />
+          <p className={`${errors.firstName? 'error': "hidden-error" } `}>{errors.firstName}</p>
+        </label>
+        <label>
+          Last Name
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            // required
+          />
+          <p className={`${errors.lastName? 'error': "hidden-error" } `}>{errors.lastName}</p>
+        </label>
         <label>
           Email
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            // required
           />
+          <p className={`${errors.email? 'error': "hidden-error" } `}>{errors.email}</p>
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
         <label>
           Password
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+            // required
           />
+          <p className={`${errors.password? 'error': "hidden-error" } `}>{errors.password}</p>
         </label>
-        {errors.password && <p>{errors.password}</p>}
         <label>
           Confirm Password
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
+            // required
           />
+          <p className={`${errors.confirmPassword? 'error': "hidden-error" } `}>{errors.confirmPassword}</p>
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {/* {errors.confirmPassword && <p>{errors.confirmPassword}</p>} */}
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </main>
   );
 }
 

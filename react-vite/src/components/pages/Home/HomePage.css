@@ -1,12 +1,54 @@
+#landing-page {
+    height: 95vh;
+    padding: 0 2em;
+}
+
 #landing-page * {
     color: #AC7D6B;
 }
 
 #landing-page p {
     font-family: "Kaisei Decol", serif;
-    font-size: 32px;
+    font-size: 30px;
+    max-width: 12em;
+    margin: 0;
 }
 
+#luna-image {
+ /* display: flex; */
+ /* justify-content: center; */
+ position: fixed;
+ width: 50vw;
+ left: 25vw;
+ height: 70vh;
+ z-index: -1;
+ top: 5vh;
+}
+
+#luna-image img{
+    width: 100%;
+}
+
+#title {
+    margin: 0;
+}
+
+#home-logged-out {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 95vh;
+}
+
+#home-logged-out h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    max-width: 60vw;
+    text-align: center;
+    margin: 0;
+}
 .title-font {
     font-family: "IM Fell Double Pica SC", serif;
     font-size: 57px;

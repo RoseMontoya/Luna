@@ -72,15 +72,17 @@ function Home() {
                   </div>
                   <div className="entry-details">
                     <div className="levels-container container">
-                      <div>
+                      <div className="level">
                         <h2>Overall: </h2>
-                        <div>{entry.overallMood}</div>
-                        <Levels levels={allLevels}  entryLvls={entry.EntryLevels} />
+                        <div className="rating">{entry.overallMood}</div>
                       </div>
+                        <Levels levels={allLevels}  entryLvls={entry.EntryLevels} />
                     </div>
                     <div className="activities-container container">
                       <h2>What have you been up to?</h2>
-                      <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities} />
+                      <div className="acts">
+                        <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities} />
+                      </div>
                     </div>
                     <div className="note-container container">
                       <h2>Note:</h2>
@@ -97,13 +99,18 @@ function Home() {
 
         </div>
       ) : (
-        <div>
-          <h1 className="title-font">Welcome to Luna</h1>
-          <p>Here to help you be mindful of your life.</p>
-          <p>Chart how you feel. Track what you do.</p>
-          <h2 className="title-font">
+        <div >
+          <div id="home-logged-out">
+            <div>
+              <h1 className="title-font" id="title">Welcome to Luna</h1>
+              <p>Here to help you be mindful of your life.</p>
+              <p>Chart how you feel. Track what you do.</p>
+            </div>
+          <h2 className="title-font" >
             No matter what phase I am in, I always remain whole
           </h2>
+          </div>
+          <div id='luna-image'><img src="./images/home-page-image.png" /></div>
         </div>
       )}
     </main>

@@ -1,0 +1,22 @@
+.activities-container {
+    grid-column: 2/ span 2;
+    grid-row: 1 / span 3;
+}
+
+.acts {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 1em;
+    row-gap: 1em;
+}
+
+.activity {
+    display: flex;
+    align-items: center;
+    gap: .25em;
+}
+
+.activity div * {
+    display: flex;
+    align-items: center;
+}

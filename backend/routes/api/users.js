@@ -14,19 +14,30 @@ const router = express.Router();
 // Validate Signup Middleware
 const validateSignup = [
     check('firstName')
-        .exists({ checkFalsy: true})
-        .withMessage('First Name is required'),
+        .exists({ checkFalsy: true })
+        .withMessage('Name is required')
+        .isLength({ min: 2})
+        .withMessage('Name must be at least 2 characters long.')
+        .isLength({ max: 30})
+        .withMessage('Name cannot be longer than 30 characters.'),
     check('lastName')
-        .exists({ checkFalsy: true})
-        .withMessage('Last Name is required'),
+        .exists({ checkFalsy: true })
+        .withMessage('Name is required')
+        .isLength({ min: 2})
+        .withMessage('Name must be at least 2 characters long.')
+        .isLength({ max: 75})
+        .withMessage('Name cannot be longer than 75 characters.'),
     check('email')
         .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Email is required')
         .isEmail()
-        .withMessage('Invalid email'),
+        .withMessage('Please provide a valid email.'),
     check('password')
         .exists({ checkFalsy: true })
+        .withMessage('Password is required')
         .isLength({ min: 6 })
-        .withMessage('Password is required'),
+        .withMessage('Password must be at least 6 characters.'),
     handleValidationErrors
 ];
 

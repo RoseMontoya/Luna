@@ -7,6 +7,15 @@ body {
     color: #132C33;
 }
 
+body * {
+    margin: 0;
+    color: #132C33;
+}
+
+main {
+    padding: 2em;
+}
+
 a {
     text-decoration: none;
     color: #FCDEBA;
@@ -19,6 +28,27 @@ form {
     padding: 2em;
     margin: 5em 2em;
     background-color: white;
+    border-radius: 1em;
+    /* gap: 1em */
+}
+
+input {
+    width: 100%;
+    margin-top: .25em;
+    /* margin-bottom: 1em; */
+}
+
+h1 {
+    font-family: "IM Fell Double Pica SC", serif;
+    font-size: 57px;
+    margin: 0;
+}
+
+button {
+    padding: .5em 1em;
+    border: solid 2px #132C33;
+    background-color: white;
+    border-radius: 1em;
 }
 
 .hidden {
@@ -27,9 +57,22 @@ form {
 
 .error {
     color: rgb(197, 11, 11);
+    margin: 0;
+    height: 16px;
+    padding: .5em 0;
+    font-size: 12px;
+}
+.hidden-error {
+    height: 1em;
+    padding: .25em 0;
+
 }
 
 .activities {
     display: flex;
     flex-wrap: wrap;
+}
+
+.nav-buttons {
+    color: #132C33;
 }

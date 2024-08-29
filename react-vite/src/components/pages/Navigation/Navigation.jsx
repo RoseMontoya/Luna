@@ -23,13 +23,13 @@ function Navigation() {
             </button>
         </div>
         <div id="nav-container">
-          <div>
-            <h1 style={{fontWeight: 'normal'}}>Welcome back, {user.firstName}</h1>
+          <div id="nav-top">
+            <h1 id='welcome-title'>Welcome back, {user.firstName}</h1>
             <NavLink to="/">Home</NavLink>
             <NavLink to="entries">Entries</NavLink>
           </div>
           <div>
-            <button onClick={() => dispatch(logout())}>Log out</button>
+            <button id="logout-btn" onClick={() => dispatch(logout())}>Log out</button>
           </div>
         </div>
       </nav>

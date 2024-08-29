@@ -66,15 +66,17 @@ function EntriesListPage() {
             </div>
             <div className="entry-details">
                 <div className="levels-container container">
-                  <div>
+                  <div className="level">
                     <h2>Overall: </h2>
-                    <div>{entry.overallMood}</div>
-                    <Levels levels={allLevels} entryLvls={entry.EntryLevels} />
+                    <div className="rating">{entry.overallMood}</div>
                   </div>
+                    <Levels levels={allLevels} entryLvls={entry.EntryLevels} />
                 </div>
                 <div className="activities-container container">
                   <h2>What have you been up to?</h2>
-                  <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities}/>
+                  <div className="acts">
+                    <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities}/>
+                  </div>
                 </div>
                 <div className="note-container container">
                   <h2>Note:</h2>

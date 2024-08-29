@@ -71,10 +71,10 @@ function EntryDetailsPage() {
 
   return (
     <main className="nav-open">
+        <Link to='/entries' className="nav-buttons">Entries</Link>
       <div id="entries-container" >
-        <Link to='/entries'>Entries</Link>
         {/* <h1>Entries</h1> */}
-        <div className="entry" style={{marginTop: '4em', position: 'relative'}}>
+        <div className="entry" style={{ position: 'relative'}}>
           <button className={`circ-btn ${entries[entries.length - 1].id === +entryId? 'hidden': ''}` }id="less-than"
           onClick={() => handleLessClick()}><FaLessThan/></button>
           <div className="entry-header">
@@ -97,15 +97,17 @@ function EntryDetailsPage() {
           </div>
           <div className="entry-details">
             <div className="levels-container container">
-              <div>
+              <div className="level">
                 <h2>Overall: </h2>
-                <div>{entry.overallMood}</div>
+                <div className="rating">{entry.overallMood}</div>
               </div>
               <Levels levels={allLevels} entryLvls={entry.EntryLevels}/>
             </div>
             <div className="activities-container container">
               <h2>What have you been up to?</h2>
-              <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities}/>
+              <div className="acts">
+                <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities}/>
+              </div>
             </div>
             <div className="note-container container">
               <h2>Note:</h2>

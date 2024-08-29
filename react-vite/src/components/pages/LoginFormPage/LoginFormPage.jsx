@@ -26,14 +26,14 @@ function LoginFormPage() {
       })
       .catch(async res => {
         const errs = await res.json()
-        setErrors(errs);
+        setErrors(errs.errors);
       })
 
   };
 
   const demoLogIn = async() => {
-    await setEmail("bonnibel.bubblegum@candykindgom.com")
-    await setPassword("sweetscience123")
+    setEmail("bonnibel.bubblegum@candykindgom.com")
+    setPassword("sweetscience123")
     console.log('inside of login')
     dispatch( login({
       email: "bonnibel.bubblegum@candykindgom.com",
@@ -44,40 +44,40 @@ function LoginFormPage() {
     })
     .catch(async res => {
       const errs = await res.json()
-      setErrors(errs);
+      setErrors(errs.errors);
     })
   }
 
   return (
-    <>
+    <main id="login-page">
       <h1>Log In</h1>
       {errors.length > 0 &&
         errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="login-form">
         <label>
           Email
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            // required
           />
+        <p className={`${errors.email? 'error': "hidden-error" } `}>{errors.email}</p>
         </label>
-        {errors.email && <p>{errors.email}</p>}
         <label>
           Password
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
+            // required
           />
+        <p className={`${errors.password? 'error': "hidden-error" } `}>{errors.password}</p>
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button onClick={e => {demoLogIn(e); handleSubmit(e)}}>Log in as demo user</button>
+        <button onClick={e => {demoLogIn(e)}} style={{marginBottom: '1.5em'}}>Log in as demo user</button>
         <button type="submit">Log In</button>
       </form>
-    </>
+    </main>
   );
 }
 

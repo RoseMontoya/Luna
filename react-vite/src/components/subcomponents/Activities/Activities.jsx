@@ -1,12 +1,13 @@
 import { Icon } from '../'
 import { BsDot } from "react-icons/bs";
+import './Activities.css'
 
 
 function Activities({activities, icons, entryActs}) {
     return (
         <>
             {entryActs.map((act, idx) => (
-                <div key={act.activityId}>
+                <div key={act.activityId} className='activity'>
                     {activities[act.activityId]? (
                         <>
                     <div className={`${idx === 0 || (!activities[entryActs[0].activityId] && idx === 1)? 'hidden': ""}`}>
