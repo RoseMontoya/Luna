@@ -16,8 +16,11 @@ function LevelEditModal({levelsObj}) {
     }
 
     return (
-        <div>
-            <h2>Levels</h2>
+        <div id="levels-edit">
+            <div id="lvl-head" className="border-bottom">
+                <h2>Levels</h2>
+                <button style={{fontSize:'16px'}} onClick={handleClick}>Add level</button>
+            </div>
             <ul>
                 {lvls.map((level, idx) => (
                     <li key={level.id} >
@@ -25,7 +28,6 @@ function LevelEditModal({levelsObj}) {
                     </li>
                 ))}
             </ul>
-            <button onClick={handleClick}>Add level</button>
 
         </div>
     )

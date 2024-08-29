@@ -21,6 +21,14 @@ a {
     color: #FCDEBA;
 }
 
+ul {
+    padding-left: 1em;
+}
+
+li {
+    list-style-type: none;
+}
+
 form {
     display: flex;
     flex-direction: column;

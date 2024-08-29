@@ -44,7 +44,7 @@ function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
 
     return (
         <>
-        <div>
+        <div className="lvl">
             <input
                 // onClick={() => setSelected(level.id)}
                 disabled={!isSelelcted}
@@ -53,11 +53,11 @@ function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Please entry activity"
             />
-            <button onClick={handleEdit} className={`${isSelelcted? "hidden" : ''}`}>Edit</button>
-            <button onClick={handleSave} className={`${isSelelcted? "" : 'hidden'}`}>Save</button>
+            <button  onClick={handleEdit} className={`${isSelelcted? "hidden" : ''} lvl-btns`}>Edit</button>
+            <button onClick={handleSave} className={`${isSelelcted? "" : 'hidden'} lvl-btns`}>Save</button>
             <button onClick={handleDelete}>Delete</button>
         </div>
-        {error?.name && <p className="error">{error.name}</p>}
+        <p className={`${error.name? 'error': "hidden-error" } `}>{error.name}</p>
         </>
     )
 }

@@ -1,5 +1,37 @@
+#levels-edit button{
+    padding: 0;
+}
+
+.level-input {
+    font-size: 16px;
+    min-width: 7em;
+    margin: 0;
+}
+
+#levels-edit .error,
+#levels-edit .hidden-error{
+    padding: 0;
+}
+
 .level-input:disabled {
     color: black;
     background-color: transparent;
     border: none;
+    /* padding: 5px; */
+}
+
+#lvl-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: .5em;
+}
+
+.lvl {
+    display: flex;
+    align-items: end;
+}
+
+.lvl-btns {
+    min-width: 3em;
 }

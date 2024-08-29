@@ -22,5 +22,7 @@
   position: absolute;
   background-color:white;
   padding: 2em;
+  padding-bottom: 1em;
   border-radius: 1em;
+  max-width: 80vw;
 }
