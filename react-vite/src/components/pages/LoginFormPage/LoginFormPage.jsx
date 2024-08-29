@@ -72,8 +72,10 @@ function LoginFormPage() {
             onChange={(e) => setPassword(e.target.value)}
             // required
           />
-        <p className={`${errors.password? 'error': "hidden-error" } `}>{errors.password}</p>
+        {errors.password? <p className={`${errors.password? 'error': "hidden-error" } `}>{errors.password}</p> : <p className={`${errors.credentials? 'error': "hidden-error" } `}>{errors.credentials}</p>}
+
         </label>
+
         <button className="submit-btn" onClick={e => {demoLogIn(e)}} style={{marginBottom: '1.5em'}}>Log in as demo user</button>
         <button className="submit-btn" type="submit">Log In</button>
       </form>

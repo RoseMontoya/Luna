@@ -180,6 +180,7 @@ const entriesReducer = (state = initialState, action) => {
             }
 
             const isToday = new Date(action.payload.datetime).toDateString() === new Date().toDateString()
+            console.log("isToday?",isToday)
 
             if (isToday && state.today) {
                 const newToday = {...state.today}

@@ -34,8 +34,8 @@ const activities = [
     "userId": 1,
   },
   { // 6
-    "name": "Science experiment",
-    "iconId": 12,
+    "name": "Cleaned",
+    "iconId": 18,
     "userId": 1,
   },
   { // 7
@@ -59,12 +59,12 @@ const activities = [
     "userId": 1,
   },
   { // 11
-    "name": "Business meeting",
+    "name": "Work",
     "iconId": 19,
     "userId": 1,
   },
   { // 12
-    "name": "Mathematics",
+    "name": "Bills",
     "iconId": 21,
     "userId": 1,
   },
@@ -74,7 +74,7 @@ const activities = [
     "userId": 1,
   },
   { // 14
-    "name": "Surveillance",
+    "name": "Photography",
     "iconId": 23,
     "userId": 1,
   },
@@ -84,7 +84,7 @@ const activities = [
     "userId": 1,
   },
   { // 16
-    "name": "Meeting with Candy Citizens",
+    "name": "Had sweets",
     "iconId": 25,
     "userId": 1,
   }

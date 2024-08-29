@@ -24,7 +24,7 @@ function Navigation() {
         </div>
         <div id="nav-container">
           <div id="nav-top">
-            <h1 id='welcome-title'>Welcome back, {user.firstName}</h1>
+            <h1 id='welcome-title'>Welcome, {user.firstName}</h1>
             <NavLink to="/">Home</NavLink>
             <NavLink to="entries">Entries</NavLink>
           </div>

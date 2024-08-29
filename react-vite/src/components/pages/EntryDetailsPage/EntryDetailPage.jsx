@@ -65,7 +65,8 @@ function EntryDetailsPage() {
   const handleDelete = () => {
     dispatch(deleteEntry(entryId))
       .then(() => {
-        navigate('/')
+        if (entries.length <= 1) navigate('/')
+        else navigate('/entries')
       })
   }
 

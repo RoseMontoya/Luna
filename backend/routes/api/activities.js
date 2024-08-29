@@ -14,15 +14,18 @@ const validateActivity = [
         .withMessage('Please name this activity.'),
     check('name')
         .custom(async (value, req) => {
-
-            if (req.req.method === 'POST' && value) {
+            if (value) {
                 const activity = await Activity.findOne({
                     where: {
-                        name: value
+                        name: value,
+                        userId: req.req.user.id
                     }
                 })
-                if (activity) {
-                    throw new Error('Activity with this name already exists.')
+                if ((req.req.method === "POST" && activity) ||
+                (req.req.method === "PUT" && activity?.id !== req.req.body?.id)) {
+                    if (activity) {
+                        throw new Error('Activity with this name already exists.')
+                    }
                 }
             }
             return true

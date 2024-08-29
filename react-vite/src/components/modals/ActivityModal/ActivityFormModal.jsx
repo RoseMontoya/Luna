@@ -9,6 +9,7 @@ import EditActivitiesModal from "./EditActvitiesModal"
 function ActivityFormModal({ allIcons, icons, prevAct }) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
+    console.log("previous act", prevAct)
 
     const [name, setName] = useState('' || prevAct?.name)
     const [iconId, setIconId] = useState('' || prevAct?.iconId)

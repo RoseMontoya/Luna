@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { createLevel, deleteLevel, editLevel } from "../../../redux/levels"
 
 function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
-    console.log('do we get here??')
+    // console.log('do we get here??')
     const dispatch = useDispatch()
     const [error, setError] = useState({})
 
@@ -12,39 +12,40 @@ function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
 
     const inputRef = useRef(null)
     const editBtnRef = useRef(null)
-    console.log("inputRef",inputRef)
+    // console.log("inputRef",inputRxef)
 
     const handleEdit = () => {
         setSelected(level.id)
     }
 
 
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            console.log('target', e.target.contains('level-input'), 'Input current', inputRef.current, '...', !inputRef.current.contains(e.target),  'Edit current', editBtnRef.current, '...', editBtnRef.current.contains(e.target), 'res', inputRef.current &&
-            !inputRef.current.contains(e.target) &&
-            !editBtnRef.current.contains(e.target))
-            // if (inputRef.current && !inputRef.current.contains(e.target) && !e.target === "<button className=\"hidden lvl-btns\">Edit</button>") {
-            //     console.log('inside if statement')
-            //     setSelected('')
-            // }
-                if (
-                    inputRef.current &&
-                    !inputRef.current.contains(e.target) &&
-                    !editBtnRef.current.contains(e.target)
-                ) {
-                    setSelected('');
-                }
+    // useEffect(() => {
+    //     const handleClickOutside = (e) => {
+    //         // console.log('target', e.target.contains('level-input'), 'Input current', inputRef.current, '...', !inputRef.current.contains(e.target),  'Edit current', editBtnRef.current, '...', editBtnRef.current.contains(e.target), 'res', inputRef.current &&
+    //         // !inputRef.current.contains(e.target) &&
+    //         // !editBtnRef.current.contains(e.target))
+    //         // if (inputRef.current && !inputRef.current.contains(e.target) && !e.target === "<button className=\"hidden lvl-btns\">Edit</button>") {
+    //         //     console.log('inside if statement')
+    //         //     setSelected('')
+    //         // }
+    //             if (
+    //                 inputRef.current &&
+    //                 !inputRef.current.contains(e.target) &&
+    //                 !editBtnRef.current.contains(e.target)
+    //             ) {
+    //                 setSelected('');
+    //             }
 
-        }
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
-    }, [setSelected])
+    //     }
+    //     document.addEventListener('mousedown', handleClickOutside)
+    //     return () => {
+    //         document.removeEventListener('mousedown', handleClickOutside)
+    //     }
+    // }, [setSelected])
 
     const handleSave = async () => {
         console.log('level', level, 'name', name)
+        setError({})
         if (!name) {
             return setError({name: 'Please enter a level'})
         }
@@ -52,7 +53,12 @@ function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
             if (level.updatedAt) {
                 await dispatch(editLevel({...level, name}))
             } else {
-                await dispatch(createLevel({name: name}))
+                dispatch(createLevel({name: name}))
+                    .then((res) => {
+                        const newLvls = [...lvls]
+                        newLvls.splice(idx, 1, res)
+                        setLvls(newLvls)
+                    })
             }
             setSelected("")
         } catch (e) {

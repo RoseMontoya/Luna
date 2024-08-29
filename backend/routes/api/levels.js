@@ -14,11 +14,17 @@ const validateLevel = [
     .withMessage("Please provide a name.")
     .custom(async (value, req) => {
       if (value) {
+        console.log('req', req.req.user.id)
         const level = await Level.findOne({
           where: {
             name: value,
+            userId: req.req.user.id
           },
         });
+        // console.log('level', level.id, 'body id', req.req.body, 'res', level?.id !== req.req.body?.id)
+        // console.log('method', req.req.method)
+        console.log('total if', (req.req.method === "POST" && level) ||
+        (req.req.method === "PUT" && level?.id !== req.req.body?.id))
         if (
           (req.req.method === "POST" && level) ||
           (req.req.method === "PUT" && level?.id !== req.req.body?.id)
