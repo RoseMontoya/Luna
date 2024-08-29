@@ -18,30 +18,30 @@ function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
         setSelected(level.id)
     }
 
-    const handleClickOutside = (e) => {
-        console.log('target', e.target.contains('level-input'), 'Input current', inputRef.current, '...', !inputRef.current.contains(e.target),  'Edit current', editBtnRef.current, '...', editBtnRef.current.contains(e.target), 'res', inputRef.current &&
-        !inputRef.current.contains(e.target) &&
-        !editBtnRef.current.contains(e.target))
-        // if (inputRef.current && !inputRef.current.contains(e.target) && !e.target === "<button className=\"hidden lvl-btns\">Edit</button>") {
-        //     console.log('inside if statement')
-        //     setSelected('')
-        // }
-            if (
-                inputRef.current &&
-                !inputRef.current.contains(e.target) &&
-                !editBtnRef.current.contains(e.target)
-            ) {
-                setSelected('');
-            }
-
-    }
 
     useEffect(() => {
+        const handleClickOutside = (e) => {
+            console.log('target', e.target.contains('level-input'), 'Input current', inputRef.current, '...', !inputRef.current.contains(e.target),  'Edit current', editBtnRef.current, '...', editBtnRef.current.contains(e.target), 'res', inputRef.current &&
+            !inputRef.current.contains(e.target) &&
+            !editBtnRef.current.contains(e.target))
+            // if (inputRef.current && !inputRef.current.contains(e.target) && !e.target === "<button className=\"hidden lvl-btns\">Edit</button>") {
+            //     console.log('inside if statement')
+            //     setSelected('')
+            // }
+                if (
+                    inputRef.current &&
+                    !inputRef.current.contains(e.target) &&
+                    !editBtnRef.current.contains(e.target)
+                ) {
+                    setSelected('');
+                }
+
+        }
         document.addEventListener('mousedown', handleClickOutside)
         return () => {
             document.removeEventListener('mousedown', handleClickOutside)
         }
-    }, [])
+    }, [setSelected])
 
     const handleSave = async () => {
         console.log('level', level, 'name', name)

@@ -120,6 +120,7 @@ button:hover {
     color: #132C33;
     padding: 0;
     font-weight: bold;
+    width: fit-content;
 }
 
 .nav-buttons:hover {

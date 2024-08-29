@@ -14,7 +14,7 @@ import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
 import { EditActivitiesModal, LevelEditModal } from "../../modals";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { BsDot } from "react-icons/bs";
+// import { BsDot } from "react-icons/bs";
 
 
 function EntryFormPage({ type }) {
@@ -279,7 +279,7 @@ function EntryFormPage({ type }) {
           <div>
             <h2>Activities</h2>
             <div className="activities">
-              {activities.map((activity, idx) => (
+              {activities.map((activity) => (
                 <div key={activity.id} className="activity">
                   {/* <div className={`${idx === 0 ? 'hidden': ""}`}>
                         <BsDot />

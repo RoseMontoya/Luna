@@ -17,10 +17,10 @@ function LevelEditModal({levelsObj}) {
         setSelected(lvls[lvls.length -1].id + 1)
     }
 
-    const handleDeselect = (e) => {
-        e.stopPropagation()
-        setSelected('')
-    }
+    // const handleDeselect = (e) => {
+    //     e.stopPropagation()
+    //     setSelected('')
+    // }
 
     return (
         <div id="levels-edit" >
