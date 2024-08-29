@@ -45,33 +45,37 @@ function ActivityFormModal({ allIcons, icons, prevAct }) {
 
 
     return (
-    <div>
+    <div >
         {/* <button onClick={returnBack}>Back</button> */}
         <OpenModalButton
-                buttonText="Edit Activities"
+            className="nav-buttons"
+                buttonText="Cancel"
                 modalComponent={<EditActivitiesModal />}
               />
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <label>Enter activity:</label>
+        <form id="act-form" onSubmit={(e) => handleSubmit(e)}>
+            <label>Enter activity:
             <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            {errors?.name && <p className="error">{errors.name}</p>}
-            <label>Choose an icon:</label>
+            </label>
+            <p className={`${errors.name? 'error': "hidden-error" } `}>{errors.name}</p>
+            {/* {errors?.name && <p className="error">{errors.name}</p>} */}
+            <label >Choose an icon:</label>
             <div className="activities">
                 {icons.map(icon => (
                     <div key={icon.id} onClick={() => setIconId(icon.id)}
-                    className={`${ icon.id === iconId ? "selectedAct" : ""}`}
+                    className={`${ icon.id === iconId ? "selectedAct" : ""} icon`}
                     >
                         <Icon icons={allIcons} id={icon.id}/>
                     </div>
                 )
                 )}
             </div>
-            {errors?.iconId && <p className="error">{errors.iconId}</p>}
-            <button type="submit">{`${prevAct? 'Update' :"Create"}`}</button>
+            <p className={`${errors.iconId? 'error': "hidden-error" } `}>{errors.iconId}</p>
+            {/* {errors?.iconId && <p className="error">{errors.iconId}</p>} */}
+            <button className="submit-btn" type="submit">{`${prevAct? 'Update' :"Create"}`}</button>
         </form>
     </div>
     )

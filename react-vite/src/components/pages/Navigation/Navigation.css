@@ -30,12 +30,13 @@ nav div {
 #add-button {
   background-color: white;
   border-radius: 100%;
-  border-color: #132C33;
-  position: absolute;
+  border: #132C33 solid 2px;
+  position: fixed;
   height: 4em;
   width: 4em;
-  left: 95vw;
-  top: 1em;
+  /* left: 95vw; */
+  right: .5em;
+  top: .5em;
   display: flex;
   align-items: center;
   justify-content: center;

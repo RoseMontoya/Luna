@@ -214,7 +214,7 @@ function EntryFormPage({ type }) {
                 <div
                   key={icon.id}
                   onClick={() => setSelectedIcon(icon)}
-                  className={`${icon.id === selectedIcon.id ? "selected" : ""} mood-icon`}
+                  className={`${icon.id === selectedIcon.id ? "selected" : ""} mood-icon selectable-icon light-shadow`}
                 >
                   <Icon id={icon.id} icons={allIcons} />
                 </div>
@@ -278,12 +278,12 @@ function EntryFormPage({ type }) {
             <div className="activities">
               {activities.map((activity, idx) => (
                 <div key={activity.id} className="activity">
-                  <div className={`${idx === 0 ? 'hidden': ""}`}>
+                  {/* <div className={`${idx === 0 ? 'hidden': ""}`}>
                         <BsDot />
-                    </div>
+                    </div> */}
                   <div
                     onClick={() => handleSelect(activity.id)}
-                    className={`${acts.has(activity.id) ? "selectedAct" : ""}`}
+                    className={`${acts.has(activity.id) ? "selectedAct" : ""} icon selectable-icon light-shadow`}
                   >
                     <Icon icons={allIcons} id={activity.iconId} />
                   </div>

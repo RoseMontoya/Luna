@@ -1,0 +1,10 @@
+#act-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: .5em;
+}
+
+.add-act-btn {
+    font-size: 16px;
+}

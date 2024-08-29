@@ -55,7 +55,7 @@ function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
             />
             <button  onClick={handleEdit} className={`${isSelelcted? "hidden" : ''} lvl-btns`}>Edit</button>
             <button onClick={handleSave} className={`${isSelelcted? "" : 'hidden'} lvl-btns`}>Save</button>
-            <button onClick={handleDelete}>Delete</button>
+            <button style={{padding: '0 5px'}} onClick={handleDelete}>Delete</button>
         </div>
         <p className={`${error.name? 'error': "hidden-error" } `}>{error.name}</p>
         </>

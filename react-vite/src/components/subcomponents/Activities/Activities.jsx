@@ -13,7 +13,7 @@ function Activities({activities, icons, entryActs}) {
                     <div className={`${idx === 0 || (!activities[entryActs[0].activityId] && idx === 1)? 'hidden': ""}`}>
                         <BsDot />
                     </div>
-                    <div>
+                    <div className='icon'>
                         <Icon icons={icons} id={activities[act.activityId].iconId} />
                     </div>
                     <p>{activities[act.activityId].name}</p>

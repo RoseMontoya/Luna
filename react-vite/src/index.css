@@ -68,6 +68,14 @@ button {
     border: none;
     padding: .5em 1em;
     background-color: white;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+button:hover {
+    padding: .5em 1em;
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
 }
 
 .submit-btn {
@@ -93,13 +101,10 @@ button {
 
 }
 
-.activities {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .nav-buttons {
     color: #132C33;
+    padding: 0;
+    font-weight: bold;
 }
 
 .border-bottom {
@@ -108,4 +113,8 @@ button {
 
 #entry-form h2 {
     padding: .5em 0;
+}
+
+.light-shadow:hover {
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.25);
 }

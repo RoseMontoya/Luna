@@ -1,0 +1,16 @@
+.icon {
+    border-radius: 100%;
+}
+
+.icon  * {
+    min-width: 1rem;
+    min-height: 1rem;
+    padding: .5em;
+    color: #126E82;
+    border: 1px solid #126E82;
+    border-radius: 100%;
+}
+
+.selectable-icon {
+    cursor: pointer;
+}
