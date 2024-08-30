@@ -1,7 +1,7 @@
 import "./EntriesList.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteEntry, getAllEntries } from "../../../redux/entries";
+import { getAllEntries } from "../../../redux/entries";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./EntriesList.css";

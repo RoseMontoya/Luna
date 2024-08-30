@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { useDispatch } from "react-redux"
-import { createLevel, deleteLevel, editLevel } from "../../../redux/levels"
+import { createLevel, editLevel } from "../../../redux/levels"
 import DeleteLevelModal from "./DeleteLevelModal"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 
@@ -70,17 +70,17 @@ function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls
         }
     }
 
-    const handleDelete = async() => {
-        dispatch(deleteLevel(level.id))
-            .then(() => {
-                setSelected('')
-                const newLvls = [...lvls]
-                newLvls.splice(idx, 1)
-                setLvls(newLvls)
+    // const handleDelete = async() => {
+    //     dispatch(deleteLevel(level.id))
+    //         .then(() => {
+    //             setSelected('')
+    //             const newLvls = [...lvls]
+    //             newLvls.splice(idx, 1)
+    //             setLvls(newLvls)
 
 
-            })
-    }
+    //         })
+    // }
 
     // const lvlInput =
 

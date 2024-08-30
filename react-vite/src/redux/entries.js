@@ -189,10 +189,13 @@ const entriesReducer = (state = initialState, action) => {
                 newState['today'] = newToday
             }
 
+            console.log('action.payload', action.payload.id)
+
             if (state.entriesById?.[action.payload.id]) {
                 const newById = {...state.entriesById}
                 newById[action.payload.id] = action.payload
                 newState['entriesById'] = newById
+                console.log('newById', newById)
             }
 
             return {...state, ...newState}

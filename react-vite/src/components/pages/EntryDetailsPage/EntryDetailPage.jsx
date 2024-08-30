@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Navigate, useNavigate, Link } from "react-router-dom";
-import { deleteEntry, getAllEntries } from "../../../redux/entries";
+import { getAllEntries } from "../../../redux/entries";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
 import { BsDot } from "react-icons/bs";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa6";
@@ -64,13 +64,13 @@ function EntryDetailsPage() {
     })
   }
 
-  const handleDelete = () => {
-    dispatch(deleteEntry(entryId))
-      .then(() => {
-        if (entries.length <= 1) navigate('/')
-        else navigate('/entries')
-      })
-  }
+  // const handleDelete = () => {
+  //   dispatch(deleteEntry(entryId))
+  //     .then(() => {
+  //       if (entries.length <= 1) navigate('/')
+  //       else navigate('/entries')
+  //     })
+  // }
 
   return (
     <main className="nav-open">

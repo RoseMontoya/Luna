@@ -4,7 +4,7 @@ import "./HomePage.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
-import { deleteEntry, getEntriesToday } from "../../../redux/entries";
+import { getEntriesToday } from "../../../redux/entries";
 import { getAllIcons } from "../../../redux/icons";
 import { BsDot } from "react-icons/bs";
 import { getAllLevels } from "../../../redux/levels";
