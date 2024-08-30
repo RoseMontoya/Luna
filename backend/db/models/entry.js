@@ -31,11 +31,13 @@ module.exports = (sequelize, DataTypes) => {
       })
 
       Entry.hasMany(models.EntryActivity,{
-        foreignKey: 'entryId'
+        foreignKey: 'entryId',
+        onDelete: 'CASCADE'
       })
 
       Entry.hasMany(models.EntryLevel, {
-        foreignKey: 'entryId'
+        foreignKey: 'entryId',
+        onDelete: 'CASCADE'
       })
     }
   }
@@ -78,6 +80,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Icons'
       },
       onUpdate: 'CASCADE',
+      // onDelete: 'SET NULL',
       validate: {
         min: 1,
         max: 5

@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Icons'
       },
       onUpdate: 'CASCADE',
+      // onDelete: 'SET NULL'
     },
     userId: {
       type: DataTypes.INTEGER,

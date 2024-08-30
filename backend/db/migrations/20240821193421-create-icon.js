@@ -38,6 +38,6 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     options.tableName = 'Icons'
-    await queryInterface.dropTable(options);
+    return await queryInterface.dropTable(options);
   }
 };

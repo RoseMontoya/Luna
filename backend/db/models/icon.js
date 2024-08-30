@@ -9,12 +9,14 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Icon.hasMany(models.Entry, {
         foreignKey: 'iconId',
-        onUpdate: 'CASCADE'
+        onUpdate: 'CASCADE',
+        // onDelete: 'SET NULL'
       })
 
       Icon.hasMany(models.Activity, {
         foreignKey: 'iconId',
-        onUpdate: 'CASCADE'
+        onUpdate: 'CASCADE',
+        // onDelete: 'SET NULL'
       })
     }
   }

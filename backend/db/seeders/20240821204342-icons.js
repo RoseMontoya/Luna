@@ -119,7 +119,7 @@ module.exports = {
   async down (queryInterface, Sequelize) {
     options.tableName = 'Icons';
     const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
+    return await queryInterface.bulkDelete(options, {
       name: { [Op.in]: [
         "FaAngellist",
         "FaBanSmoking",

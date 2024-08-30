@@ -30,6 +30,7 @@ function EntryFormPage({ type }) {
   const [selectedIcon, setSelectedIcon] = useState({});
   const [note, setNote] = useState("");
   const [acts, setActs] = useState(new Set());
+  console.log('ACTS', acts)
   const [errors, setErrors] = useState({});
 
   const allIcons = useSelector((state) => state.icons.allIcons);
@@ -98,8 +99,12 @@ function EntryFormPage({ type }) {
 
     const entriesActs = [];
     for (const actId of acts.values()) {
-      entriesActs.push(Number(actId));
+      if (activitiesObj[actId]) {
+        entriesActs.push(Number(actId));
+      }
     }
+
+    console.log('entriesActs', entriesActs)
 
     const payload = {
       datetime: date,

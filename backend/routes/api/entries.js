@@ -145,11 +145,11 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   const actsToAdd = [...newActsId].filter((act) => !oldActsIds.has(act));
   const actsToDelete = [...oldActsIds].filter((act) => !newActsId.has(act));
 
-  // console.log('oldActs', oldActs)
-  // console.log('oldActsIds', oldActsIds)
-  // console.log('newActsIds',newActsId)
-  // console.log('acts to add',actsToAdd)
-  // console.log('acts to delete', actsToDelete)
+  console.log('oldActs', oldActs)
+  console.log('oldActsIds', oldActsIds)
+  console.log('newActsIds',newActsId)
+  console.log('acts to add',actsToAdd)
+  console.log('acts to delete', actsToDelete)
 
   await EntryActivity.bulkCreate(
     actsToAdd.map((act) => ({ userId: userId, activityId: act, entryId: entry.id }))

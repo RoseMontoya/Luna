@@ -25,7 +25,8 @@ module.exports = {
         references: {
           model: 'Icons'
         },
-        onUpdate: 'CASCADE'
+        onUpdate: 'CASCADE',
+        // onDelete: "SET NULL"
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -59,8 +60,8 @@ module.exports = {
     )
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'Activites'
+    options.tableName = 'Activities'
     await queryInterface.removeIndex(options, 'idx_user_activity')
-    await queryInterface.dropTable(options);
+    return await queryInterface.dropTable(options);
   }
 };

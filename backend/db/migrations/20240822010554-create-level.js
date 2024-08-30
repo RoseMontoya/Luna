@@ -58,6 +58,6 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     options.tableName = 'Levels'
     await queryInterface.removeIndex(options, 'idx_user_level')
-    await queryInterface.dropTable(options);
+    return await queryInterface.dropTable(options);
   }
 };
