@@ -33,7 +33,7 @@ function LevelEditModal({levelsObj}) {
                 <ul>
                     {lvls.map((level, idx) => (
                         <li key={level.id} >
-                                <LevelInput selected={selected} setSelected={setSelected} level={level} idx={idx} lvls={lvls} setLvls={setLvls}/>
+                                <LevelInput levelsObj={levelsObj} selected={selected} setSelected={setSelected} level={level} idx={idx} lvls={lvls} setLvls={setLvls}/>
                         </li>
                     ))}
                 </ul>

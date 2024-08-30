@@ -1,8 +1,10 @@
 import { useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { createLevel, deleteLevel, editLevel } from "../../../redux/levels"
+import DeleteLevelModal from "./DeleteLevelModal"
+import OpenModalButton from "../OpenModalButton/OpenModalButton"
 
-function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
+function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls}) {
     // console.log('do we get here??')
     const dispatch = useDispatch()
     const [error, setError] = useState({})
@@ -97,7 +99,10 @@ function LevelInput({level, idx, setSelected, selected, lvls, setLvls}) {
             />
             <button  ref={editBtnRef} onClick={handleEdit} className={`${isSelelcted? "hidden" : ''} lvl-btns`}>Edit</button>
             <button onClick={handleSave} className={`${isSelelcted? "" : 'hidden'} lvl-btns`}>Save</button>
-            <button style={{padding: '0 5px'}} onClick={handleDelete}>Delete</button>
+            <OpenModalButton
+                  buttonText="Delete"
+                  modalComponent={<DeleteLevelModal idx={idx} level={level} lvls={lvls} setLvls={setLvls} setSelected={setSelected} levelsObj={levelsObj}/>}
+                />
         </div>
         <p className={`${error.name? 'error': "hidden-error" } `}>{error.name}</p>
         </>

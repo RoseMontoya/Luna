@@ -10,6 +10,8 @@ import { BsDot } from "react-icons/bs";
 import { getAllIcons } from "../../../redux/icons";
 import { getAllActivities } from "../../../redux/activities";
 import { getAllLevels } from "../../../redux/levels";
+import { DeleteEntryModal } from "../../modals";
+import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
 
 function EntriesListPage() {
   const dispatch = useDispatch();
@@ -61,7 +63,13 @@ function EntriesListPage() {
               <div className="entry-buttons">
                 <p onClick={(e) => {e.stopPropagation(); navigate(`${entry.id}/edit`)}}>Edit</p>
                 <BsDot />
-                <p onClick={(e) => {e.stopPropagation(); dispatch(deleteEntry(entry.id))}}>Delete</p>
+                <div onClick={(e) => e.stopPropagation()}>
+                  <OpenModalButton
+                  className='delete-entry-btn'
+                  buttonText="Delete"
+                  modalComponent={<DeleteEntryModal  entry={entry} entries={entries}/>}
+                                />
+                </div>
               </div>
             </div>
             <div className="entry-details">

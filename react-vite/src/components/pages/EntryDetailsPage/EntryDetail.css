@@ -25,3 +25,14 @@
   width: 2em;
   color: #132C33;
 }
+
+.delete-entry-btn {
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+}
+
+.delete-entry-btn:hover {
+  padding: 0;
+  box-shadow: none;
+}

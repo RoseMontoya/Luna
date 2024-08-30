@@ -9,6 +9,8 @@ import { getAllIcons } from "../../../redux/icons";
 import { BsDot } from "react-icons/bs";
 import { getAllLevels } from "../../../redux/levels";
 import { getAllActivities } from "../../../redux/activities";
+import { DeleteEntryModal } from "../../modals";
+import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
 
 
 function Home() {
@@ -67,7 +69,13 @@ function Home() {
                     <div className="entry-buttons">
                     <p onClick={(e) => {e.stopPropagation(); navigate(`entries/${entry.id}/edit`)}}>Edit</p>
                 <BsDot />
-                <p onClick={(e) => {e.stopPropagation(); dispatch(deleteEntry(entry.id))}}>Delete</p>
+                <div onClick={(e) => e.stopPropagation()}>
+                  <OpenModalButton
+                  className='delete-entry-btn'
+                  buttonText="Delete"
+                  modalComponent={<DeleteEntryModal  entry={entry} entries={entries}/>}
+                                />
+                </div>
                     </div>
                   </div>
                   <div className="entry-details">

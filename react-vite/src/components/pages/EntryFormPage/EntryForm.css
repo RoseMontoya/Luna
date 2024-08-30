@@ -84,3 +84,14 @@
 .activities .activity {
     padding-bottom: .5em;
 }
+
+.overall-mood-icon {
+    height: 2em;
+    width: 2em;
+    border-radius: 100%;
+}
+
+.overall-mood-icon * {
+    height: 2em;
+    width: 2em;
+}

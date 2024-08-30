@@ -208,7 +208,7 @@ function EntryFormPage({ type }) {
                 <div
                   key={icon.id}
                   onClick={() => setSelectedIcon(icon)}
-                  className={`${icon.id === selectedIcon.id ? "selected" : ""} mood-icon selectable-icon light-shadow`}
+                  className={`${icon.id === selectedIcon.id ? "selected" : ""} overall-mood-icon selectable-icon light-shadow`}
                 >
                   <Icon id={icon.id} icons={allIcons} />
                 </div>
