@@ -1,7 +1,7 @@
 const express = require("express");
 const { requireAuth, authorization } = require("../../utils/auth");
 const { User, Entry, Level } = require("../../db/models");
-const { notFound } = require("../../utils/helper");
+const { notFound, titleCase } = require("../../utils/helper");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -12,12 +12,14 @@ const validateLevel = [
   check("name")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a name.")
+    .isLength({ min: 2, max: 15})
+    .withMessage('Level name must between 2 and 15 characters.')
     .custom(async (value, req) => {
       if (value) {
         console.log('req', req.req.user.id)
         const level = await Level.findOne({
           where: {
-            name: value,
+            name: value, //.toLowerCase(),
             userId: req.req.user.id
           },
         });

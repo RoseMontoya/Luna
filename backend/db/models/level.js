@@ -18,8 +18,11 @@ module.exports = (sequelize, DataTypes) => {
   Level.init(
     {
       name: {
-        type: DataTypes.STRING(50),
-        allowNull: false
+        type: DataTypes.STRING(15),
+        allowNull: false,
+        validate: {
+          len: [2, 15]
+        }
       },
       color: {
         type: DataTypes.STRING,

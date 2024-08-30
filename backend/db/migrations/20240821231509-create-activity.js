@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(25),
         allowNull: false
       },
       iconId: {

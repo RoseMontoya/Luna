@@ -6,5 +6,8 @@ const notFound = (type) => {
     return err;
 };
 
+const titleCase = (string) => {
+    return string.slice(0, 1).toUpperCase() + string.slice(1).toLowerCase()
+}
 
-module.exports = { notFound}
+module.exports = { notFound, titleCase}

@@ -21,7 +21,7 @@ function ActivityFormModal({ allIcons, icons, prevAct }) {
 
         const thunk = prevAct? editActivity : createActivity
 
-        dispatch(thunk({name, iconId, id: prevAct?.id}))
+        dispatch(thunk({name: name.toLowerCase(), iconId, id: prevAct?.id}))
             .then(closeModal)
             .catch(async (res) => {
                 const errs = await res.json()

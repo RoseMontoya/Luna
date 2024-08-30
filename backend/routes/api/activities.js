@@ -1,7 +1,7 @@
 const express = require('express')
 const { requireAuth, authorization } = require('../../utils/auth');
 const { Activity, User } = require('../../db/models');
-const { notFound } = require('../../utils/helper');
+const { notFound, titleCase } = require('../../utils/helper');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { where } = require('sequelize');
@@ -11,7 +11,9 @@ const router = express.Router()
 const validateActivity = [
     check('name')
         .exists({checkFalsy: true})
-        .withMessage('Please name this activity.'),
+        .withMessage('Please name this activity.')
+        .isLength({ min: 2, max: 25 })
+        .withMessage('Activity name must be between 2-25 characters.'),
     check('name')
         .custom(async (value, req) => {
             if (value) {

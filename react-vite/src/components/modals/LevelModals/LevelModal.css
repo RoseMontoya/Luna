@@ -8,6 +8,7 @@
     min-width: 7em;
     margin: 0;
     margin-right: .5em;
+    text-transform: capitalize;
 }
 
 #levels-edit .error,
@@ -32,6 +33,7 @@
 .lvl {
     display: flex;
     align-items: end;
+    text-transform: capitalize;
 }
 
 .lvl-btns {

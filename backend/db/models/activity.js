@@ -24,8 +24,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Activity.init({
     name: {
-      type: DataTypes.STRING(50),
-      allowNull: false
+      type: DataTypes.STRING(25),
+      allowNull: false,
+      validate: {
+        len: [2, 25]
+      }
     },
     iconId: {
       type: DataTypes.INTEGER,

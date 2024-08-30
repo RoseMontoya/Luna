@@ -49,13 +49,13 @@ function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls
         console.log('level', level, 'name', name)
         setError({})
         if (!name) {
-            return setError({name: 'Please enter a level'})
+            return setError({name: 'Level name must be longer than 2 characters.'})
         }
         try {
             if (level.updatedAt) {
-                await dispatch(editLevel({...level, name}))
+                await dispatch(editLevel({...level, name: name.toLowerCase()}))
             } else {
-                dispatch(createLevel({name: name}))
+                await dispatch(createLevel({name: name.toLowerCase()}))
                     .then((res) => {
                         const newLvls = [...lvls]
                         newLvls.splice(idx, 1, res)

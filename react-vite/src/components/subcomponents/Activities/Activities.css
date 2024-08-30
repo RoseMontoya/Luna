@@ -21,6 +21,7 @@
     display: flex;
     align-items: center;
     gap: .25em;
+    text-transform: capitalize;
     /* border: 1px solid black; */
 }
 
