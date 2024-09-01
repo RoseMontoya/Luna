@@ -10,9 +10,10 @@ import {
   SignupFormPage,
   EntryDetailsPage,
   EntryFormPage,
+  ActivitiesPage,
+  LevelsPage,
 } from "../components/pages";
 import Layout from "./Layout";
-// import { entriesLoader } from "../components/pages/EntriesListPage/EntriesListPage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,8 @@ export const router = createBrowserRouter(
         </Route>
         <Route path="new" element={<EntryFormPage />} />
       </Route>
+      <Route path="activities" element={<ActivitiesPage />} />
+      <Route path="levels" element={<LevelsPage />} />
     </Route>
   )
 );

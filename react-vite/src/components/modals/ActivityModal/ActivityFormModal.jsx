@@ -1,12 +1,13 @@
-import {useState } from "react"
+import {useEffect, useState } from "react"
 import { useDispatch} from "react-redux"
 import { Icon } from "../../subcomponents"
 import { useModal } from "../../../context/Modal"
 import { createActivity, editActivity } from "../../../redux/activities"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import EditActivitiesModal from "./EditActvitiesModal"
+import { Navigate } from "react-router-dom"
 
-function ActivityFormModal({ allIcons, icons, prevAct }) {
+function ActivityFormModal({ allIcons, icons, prevAct, source }) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
     console.log("previous act", prevAct)
@@ -19,6 +20,12 @@ function ActivityFormModal({ allIcons, icons, prevAct }) {
         e.preventDefault()
         setErrors({})
 
+        const errs = {}
+        if (!name || name.length < 3 || name.length > 25) errs.name = 'Activity name must be between 2-25 characters.'
+        if (!iconId) errs.iconId = 'Please chose an icon to represent this activity.'
+
+        if (Object.values(errs).length) return setErrors(errs)
+
         const thunk = prevAct? editActivity : createActivity
 
         dispatch(thunk({name: name.toLowerCase(), iconId, id: prevAct?.id}))
@@ -29,6 +36,12 @@ function ActivityFormModal({ allIcons, icons, prevAct }) {
             })
     }
 
+    useEffect(() => {
+        if (name?.length > 25) {
+            setName(name.slice(0, -1))
+            setErrors({name: 'Activity name cannot be longer than 25 characters.'})
+        }
+    }, [name])
 
 
     return (
@@ -37,13 +50,14 @@ function ActivityFormModal({ allIcons, icons, prevAct }) {
         <OpenModalButton
             className="nav-buttons"
                 buttonText="Cancel"
-                modalComponent={<EditActivitiesModal />}
+                modalComponent={source === 'page'? Navigate(-1): <EditActivitiesModal />}
               />
         <form id="act-form" onSubmit={(e) => handleSubmit(e)}>
             <label>Enter activity:
             <input
                 type="text"
                 value={name}
+                // maxLength={25}
                 onChange={(e) => setName(e.target.value)}
             />
             </label>

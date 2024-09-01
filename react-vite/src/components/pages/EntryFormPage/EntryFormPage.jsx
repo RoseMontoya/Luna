@@ -14,6 +14,7 @@ import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
 import { EditActivitiesModal, LevelEditModal } from "../../modals";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import entryValidation from "./entryValidation";
 // import { BsDot } from "react-icons/bs";
 
 function EntryFormPage({ type }) {
@@ -83,11 +84,27 @@ function EntryFormPage({ type }) {
     }
   }, [dispatch, entry, type, entryId, allIcons, overallMood]);
 
+  useEffect(() => {
+    if (mood.length > 20) {
+      setMood(mood.slice(0, -1))
+      setErrors({ mood : "Cannot be longer than 20 characters."})
+    }
+    if (note.length > 255 ) {
+      setNote(note.slice(0, -1))
+      setErrors({ note : "Note cannot be longer than 255 characters."})
+    }
+  }, [note, mood])
+
   if (!user) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+
+    const errs = entryValidation({date, mood, overallMood, selectedIcon, note})
+    console.log('errors', errs)
+
+    if (Object.values(errs).length) return setErrors(errs)
 
     const lvls = [];
     for (const [levelId, rating] of Object.entries(levelRatings)) {

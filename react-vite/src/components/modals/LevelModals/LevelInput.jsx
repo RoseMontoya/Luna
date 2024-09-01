@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { createLevel, editLevel } from "../../../redux/levels"
 import DeleteLevelModal from "./DeleteLevelModal"
@@ -15,6 +15,13 @@ function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls
     const inputRef = useRef(null)
     const editBtnRef = useRef(null)
     // console.log("inputRef",inputRxef)
+
+    useEffect(() => {
+        if (name.length > 15 ) {
+            setName(name.slice(0, -1))
+            setError({name: 'Level name cannot be longer than 15 characters.'})
+        }
+    })
 
     const handleEdit = () => {
         setSelected(level.id)
@@ -48,8 +55,8 @@ function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls
     const handleSave = async () => {
         console.log('level', level, 'name', name)
         setError({})
-        if (!name) {
-            return setError({name: 'Level name must be longer than 2 characters.'})
+        if (!name || name.length < 3 || name.length > 15) {
+            return setError({name: 'Level name must between 2 and 15 characters.'})
         }
         try {
             if (level.updatedAt) {

@@ -27,6 +27,8 @@ function Navigation() {
             <h1 id='welcome-title'>Welcome, {user.firstName}</h1>
             <NavLink to="/">Home</NavLink>
             <NavLink to="entries">Entries</NavLink>
+            <NavLink to="levels">Levels</NavLink>
+            <NavLink to="activities">Activities</NavLink>
           </div>
           <div>
             <button id="logout-btn" onClick={() => dispatch(logout())}>Log out</button>
