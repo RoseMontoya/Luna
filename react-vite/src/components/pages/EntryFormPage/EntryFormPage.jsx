@@ -15,6 +15,7 @@ import { EditActivitiesModal, LevelEditModal } from "../../modals";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import entryValidation from "./entryValidation";
+import { useNav } from "../../../context/navContext";
 // import { BsDot } from "react-icons/bs";
 
 function EntryFormPage({ type }) {
@@ -23,6 +24,7 @@ function EntryFormPage({ type }) {
   const { entryId } = useParams();
 
   const user = useSelector((state) => state.session.user);
+  const { navOpen } = useNav()
   const entry = useSelector((state) => state.entries.entriesById?.[entryId]);
 
   const [date, setDate] = useState(new Date());
@@ -31,7 +33,6 @@ function EntryFormPage({ type }) {
   const [selectedIcon, setSelectedIcon] = useState({});
   const [note, setNote] = useState("");
   const [acts, setActs] = useState(new Set());
-  console.log('ACTS', acts)
   const [errors, setErrors] = useState({});
 
   const allIcons = useSelector((state) => state.icons.allIcons);
@@ -159,14 +160,14 @@ function EntryFormPage({ type }) {
   };
 
   return (
-    <main className="nav-open">
-      <div id="entry-form">
+    <main className={`${navOpen? "nav-open" : ''}`}>
         <p className="nav-buttons" onClick={() => navigate(-1)}>
           Back
         </p>
+      <div id="entry-form" className="entries-container">
         <form
           className="container"
-          style={{ padding: "2em 4em" }}
+          style={{ padding: "2em 4em", margin: 0 }}
           onSubmit={(e) => handleSubmit(e)}
         >
           <h1 style={{ textAlign: "center" }}>How are you?</h1>

@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { ModalProvider, Modal } from "../context/Modal";
 import * as sessionActions from "../redux/session";
 import { Navigation } from '../components/pages'
+import { NavProvider } from "../context/navContext";
 
 
 export default function Layout() {
@@ -15,11 +16,13 @@ export default function Layout() {
 
   return (
     <>
+      <NavProvider>
       <ModalProvider>
         <Navigation />
         {isLoaded && <Outlet />}
         <Modal />
       </ModalProvider>
+      </NavProvider>
     </>
   );
 }

@@ -11,12 +11,14 @@ import { getAllActivities } from "../../../redux/activities";
 import { getAllLevels } from "../../../redux/levels";
 import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
 import { DeleteEntryModal } from "../../modals";
+import { useNav } from "../../../context/navContext";
 
 function EntryDetailsPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const { entryId } = useParams();
   const user = useSelector((state) => state.session.user);
+  const { navOpen } = useNav()
   const entriesObj = useSelector((state) => state.entries.allEntries);
 
   const entries = entriesObj ? Object.values(entriesObj).sort((a, b) => new Date(b.datetime) - new Date(a.datetime)) : [];
@@ -73,9 +75,9 @@ function EntryDetailsPage() {
   // }
 
   return (
-    <main className="nav-open">
-        <Link to='/entries' className="nav-buttons">{"< Entries"}</Link>
-      <div id="entries-container" >
+    <main className={`${navOpen? "nav-open" : ''}`}>
+        <Link to='/entries' className="nav-buttons">{"Return to Entries"}</Link>
+      <div className="entries-container" >
         {/* <h1>Entries</h1> */}
         <div className="entry" style={{ position: 'relative'}}>
           <button className={`circ-btn ${entries[entries.length - 1].id === +entryId? 'hidden': ''}` }id="less-than"

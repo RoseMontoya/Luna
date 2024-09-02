@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllEntries } from "../../../redux/entries";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import "./EntriesList.css";
 import { BsDot } from "react-icons/bs";
 // import { csrfFetch } from "../../../redux/csrf";
@@ -12,11 +12,16 @@ import { getAllActivities } from "../../../redux/activities";
 import { getAllLevels } from "../../../redux/levels";
 import { DeleteEntryModal } from "../../modals";
 import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
+import { useNav } from "../../../context/navContext";
 
 function EntriesListPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state.session.user);
+  const { navOpen } = useNav();
+  console.log('navOpennnn', navOpen)
+
   const entriesObj = useSelector((state) => state.entries.allEntries);
   // const entriesObj = useLoaderData()
   const entries = entriesObj ? Object.values(entriesObj).sort((a, b) => new Date(b.datetime) - new Date(a.datetime)) : [];
@@ -44,9 +49,9 @@ function EntriesListPage() {
   if (!entriesObj || !icons || !allActsObj || !allLevels) return <Loading />;
 
   return (
-    <main className="nav-open">
+    <main className={`${navOpen? "nav-open" : ''}`}>
         <h1>Entries:</h1>
-      <div id="entries-container">
+      <div className="entries-container">
         {entries.length? entries.map((entry) => (
           <div className="entry" key={entry.id} onClick={() => navigate(`${entry.id}`)}>
             <div className="entry-header">

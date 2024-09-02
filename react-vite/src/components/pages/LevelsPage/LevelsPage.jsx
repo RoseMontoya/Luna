@@ -7,12 +7,14 @@ import LevelInput from "../../modals/LevelModals/LevelInput"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllLevels } from "../../../redux/levels"
 import { Loading } from "../../subcomponents"
+import { useNav } from "../../../context/navContext"
 
 function LevelsPage() {
     const {closeModal} = useModal()
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.session.user)
+    const { navOpen } = useNav()
     const levelsObj = useSelector(state => state.levels.allLevels)
 
     const levels = levelsObj? Object.values(levelsObj) : []
@@ -42,11 +44,11 @@ function LevelsPage() {
     }
 
     return (
-        <main className="nav-open">
+        <main className={`${navOpen? "nav-open" : ''}`}>
             <h1>Levels</h1>
-            <div className="container">
+            <div className="entries-container">
             <div id="levels-edit" >
-            <div style={{padding: '.25em 1em'}}>
+            <div className="container">
                 <div id="lvl-head" className="border-bottom">
                     <button style={{fontSize:'16px', padding: '0 5px'}} onClick={handleClick}>Add level</button>
                 </div>
