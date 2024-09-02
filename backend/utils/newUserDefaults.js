@@ -30,47 +30,47 @@ async function userDefaults (userId) {
     await Activity.bulkCreate([
         {
           "name": "Meditate",
-          "iconId": 6,
+          "iconId": 20,
           "userId": userId,
         },
         {
           "name": "Slept Well",
-          "iconId": 9,
+          "iconId": 30,
           "userId": userId,
         },
         {
           "name": "Read a Book",
-          "iconId": 10,
+          "iconId": 34,
           "userId": userId,
         },
         {
           "name": "Ate fruit",
-          "iconId": 11,
+          "iconId": 21,
           "userId": userId,
         },
         {
           "name": "Relaxing Bath",
-          "iconId": 14,
+          "iconId": 29,
           "userId": userId,
         },
         {
           "name": "Met water goal",
-          "iconId": 16,
+          "iconId": 62,
           "userId": userId,
         },
         {
           "name": "Studied",
-          "iconId": 17,
+          "iconId": 36,
           "userId": userId,
         },
         {
           "name": "Planning",
-          "iconId": 22,
+          "iconId": 42,
           "userId": userId,
         },
         {
           "name": "Camping",
-          "iconId": 24,
+          "iconId": 44,
           "userId": userId,
         },
 
