@@ -83,7 +83,7 @@ module.exports = (sequelize, DataTypes) => {
       // onDelete: 'SET NULL',
       validate: {
         min: 1,
-        max: 5
+        max: 19
       }
     },
     userId: {

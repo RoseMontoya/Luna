@@ -1,0 +1,67 @@
+#moon-cycle {
+    height: 30em;
+    width: 30em;
+    border: solid 2px salmon;
+    position: relative;
+    margin: 0 auto;
+}
+
+#moon-cycle img {
+    width: 7em;
+    height: 7em;
+    object-fit:contain;
+}
+
+#full {
+position: absolute;
+top: 0;
+left: 11.5em;
+/* transition: ; */
+}
+
+#waning-half {
+    position: absolute;
+    right: 4em;
+    top: 3em;
+}
+
+#waning-cres {
+     position: absolute;
+     right: 0;
+     top: 11.5em;
+}
+
+#waning-sliver {
+    position: absolute;
+    right: 4em;
+    top: 20em;
+}
+
+#new {
+ box-sizing: border-box;
+ width: 6em;
+ height: 6em;
+ border-radius: 100%;
+ border: 4px #b16119 solid;
+ position: absolute;
+ bottom: 0;
+ left: 12em;
+}
+
+#waxing-sliver {
+    position: absolute;
+    left: 4em;
+    top: 20em;
+}
+
+#waxing-cres {
+    position: absolute;
+    left: 0;
+    top: 11.5em;
+}
+
+#waxing-half {
+    position: absolute;
+    left: 4em;
+    top: 3em;
+}

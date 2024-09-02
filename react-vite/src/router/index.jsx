@@ -14,6 +14,7 @@ import {
   LevelsPage,
 } from "../components/pages";
 import Layout from "./Layout";
+import { FrontPageAnimation } from "../components/subcomponents";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ export const router = createBrowserRouter(
       </Route>
       <Route path="activities" element={<ActivitiesPage />} />
       <Route path="levels" element={<LevelsPage />} />
+      <Route path="moon" element={<FrontPageAnimation/>} />
     </Route>
   )
 );

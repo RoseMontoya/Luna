@@ -37,7 +37,7 @@ function EntryFormPage({ type }) {
 
   const allIcons = useSelector((state) => state.icons.allIcons);
   const icons = allIcons ? Object.values(allIcons) : [];
-  const moodIcons = icons.slice(0, 5);
+  const moodIcons = icons.slice(0, 19);
   const levelsObj = useSelector((state) => state.levels.allLevels);
   const levels = levelsObj ? Object.values(levelsObj) : [];
   const [levelRatings, setLevelsRating] = useState({});

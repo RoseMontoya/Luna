@@ -139,7 +139,7 @@ const demoEntries = [
   {
     "datetime": "2024-08-07 10:30:45",
     "mood": "Determined",
-    "overallMood": 7,
+    "overallMood": 8,
     "iconId": 2,
     "userId": 4,
     "note": "Had a few setbacks with a new project, but staying positive."
@@ -156,7 +156,7 @@ const demoEntries = [
     "datetime": "2024-08-12 08:50:15",
     "mood": "Optimistic",
     "overallMood": 7,
-    "iconId": 3,
+    "iconId": 4,
     "userId": 4,
     "note": "Had a tough morning, but a cup of coffee helped turn things around."
   },
@@ -164,7 +164,7 @@ const demoEntries = [
     "datetime": "2024-08-15 17:35:40",
     "mood": "Okay",
     "overallMood": 7,
-    "iconId": 2,
+    "iconId": 5,
     "userId": 4,
     "note": "Organized a community event, turnout was good but could be better."
   },
@@ -172,7 +172,7 @@ const demoEntries = [
     "datetime": "2024-08-18 13:00:30",
     "mood": "Energized",
     "overallMood": 8,
-    "iconId": 2,
+    "iconId": 3,
     "userId": 4,
     "note": "Met with a local business owner to discuss partnership opportunities."
   },
@@ -180,7 +180,7 @@ const demoEntries = [
     "datetime": "2024-08-20 11:45:50",
     "mood": "Energized",
     "overallMood": 9,
-    "iconId": 1,
+    "iconId": 2,
     "userId": 4,
     "note": "Had an incredibly productive morning. Accomplished all my goals!"
   },
@@ -188,10 +188,82 @@ const demoEntries = [
     "datetime": "2024-08-20 19:10:25",
     "mood": "Joyful",
     "overallMood": 10,
-    "iconId": 1,
+    "iconId": 3,
     "userId": 4,
     "note": "Ended the day with a Pawnee town hall meeting. Everyone left happy!"
   },
+ {
+  "datetime": "2024-08-21 08:30:45",
+  "mood": "Determined",
+  "overallMood": 9,
+  "iconId": 1, // FaRegFaceLaughBeam
+  "userId": 4,
+  "note": "Early morning meeting to plan the next Harvest Festival. Ready to make it the best one yet!"
+},
+{
+  "datetime": "2024-08-21 12:45:10",
+  "mood": "Proud",
+  "overallMood": 10,
+  "iconId": 15, // FaRegFaceGrinStars
+  "userId": 4,
+  "note": "Received a commendation for outstanding service to Pawnee!"
+},
+{
+  "datetime": "2024-08-22 15:20:33",
+  "mood": "Starstruck",
+  "overallMood": 10,
+  "iconId": 18, // FaRegFaceSurprise
+  "userId": 4,
+  "note": "Surprised by a visit from Joe Biden at the office. Best day ever!"
+},
+{
+  "datetime": "2024-08-24 18:00:00",
+  "mood": "Grateful",
+  "overallMood": 9,
+  "iconId": 13, // FaRegFaceGrinHearts
+  "userId": 4,
+  "note": "Had an amazing dinner with Ben. Feeling lucky to have such a supportive partner."
+},
+{
+  "datetime": "2024-08-22 09:00:00",
+  "mood": "Energetic",
+  "overallMood": 9,
+  "iconId": 1, // FaRegFaceLaughBeam
+  "userId": 4,
+  "note": "Started the day with a park cleanup event. So much energy and enthusiasm from the community!"
+},
+{
+  "datetime": "2024-08-22 11:30:15",
+  "mood": "Focused",
+  "overallMood": 8,
+  "iconId": 4, // FaRegFaceSmile
+  "userId": 4,
+  "note": "Working hard on the next city council proposal. It's all about the details!"
+},
+{
+  "datetime": "2024-08-22 14:50:45",
+  "mood": "Amused",
+  "overallMood": 9,
+  "iconId": 14, // FaRegFaceGrinSquint
+  "userId": 4,
+  "note": "Tom tried to pitch another crazy business idea. Can't help but laugh!"
+},
+{
+  "datetime": "2024-08-23 17:15:30",
+  "mood": "Satisfied",
+  "overallMood": 9,
+  "iconId": 5, // FaRegFaceGrinStars
+  "userId": 4,
+  "note": "Wrapped up a long day with a successful ribbon-cutting ceremony."
+},
+{
+  "datetime": "2024-08-22 20:30:00",
+  "mood": "Exhausted",
+  "overallMood": 7,
+  "iconId": 3, // FaRegFaceSmileBeam
+  "userId": 4,
+  "note": "Finally home after a non-stop day. Ready to recharge for tomorrow!"
+}
 ]
 
 /** @type {import('sequelize-cli').Migration} */

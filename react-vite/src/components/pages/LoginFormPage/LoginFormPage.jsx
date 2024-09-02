@@ -33,12 +33,12 @@ function LoginFormPage() {
   };
 
   const demoLogIn = async() => {
-    setEmail("bonnibel.bubblegum@candykindgom.com")
-    setPassword("sweetscience123")
+    setEmail("leslie.knope@pawnee.gov")
+    setPassword("wafflesrule456")
     console.log('inside of login')
     dispatch( login({
-      email: "bonnibel.bubblegum@candykindgom.com",
-      password: "sweetscience123",
+      email: "leslie.knope@pawnee.gov",
+      password: "wafflesrule456",
     }))
     .then(() => {
         navigate("/");
