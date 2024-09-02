@@ -16,6 +16,7 @@ function LoginFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({})
 
     dispatch( login({
         email,
@@ -57,10 +58,10 @@ function LoginFormPage() {
         <label>
           Email
           <input
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            // required
+            required
           />
         <p className={`${errors.email? 'error': "hidden-error" } `}>{errors.email}</p>
         </label>
@@ -69,8 +70,9 @@ function LoginFormPage() {
           <input
             type="password"
             value={password}
+            minLength={6}
             onChange={(e) => setPassword(e.target.value)}
-            // required
+            required
           />
         {errors.password? <p className={`${errors.password? 'error': "hidden-error" } `}>{errors.password}</p> : <p className={`${errors.credentials? 'error': "hidden-error" } `}>{errors.credentials}</p>}
 

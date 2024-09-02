@@ -66,19 +66,11 @@ function EntryDetailsPage() {
     })
   }
 
-  // const handleDelete = () => {
-  //   dispatch(deleteEntry(entryId))
-  //     .then(() => {
-  //       if (entries.length <= 1) navigate('/')
-  //       else navigate('/entries')
-  //     })
-  // }
 
   return (
     <main className={`${navOpen? "nav-open" : ''}`}>
         <Link to='/entries' className="nav-buttons">{"Return to Entries"}</Link>
       <div className="entries-container" >
-        {/* <h1>Entries</h1> */}
         <div className="entry" style={{ position: 'relative'}}>
           <button className={`circ-btn ${entries[entries.length - 1].id === +entryId? 'hidden': ''}` }id="less-than"
           onClick={() => handleLessClick()}><FaLessThan/></button>
