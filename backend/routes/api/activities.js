@@ -12,8 +12,8 @@ const validateActivity = [
     check('name')
         .exists({checkFalsy: true})
         .withMessage('Please name this activity.')
-        .isLength({ min: 2, max: 25 })
-        .withMessage('Activity name must be between 2-25 characters.'),
+        .isLength({ min: 2, max: 30 })
+        .withMessage('Activity name must be between 2-30 characters.'),
     check('name')
         .custom(async (value, req) => {
             if (value) {

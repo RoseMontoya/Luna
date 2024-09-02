@@ -33,6 +33,31 @@ const demoLevels = [
     "color": "#52006A",
     "userId": 1,
   },
+  {
+    "name": "Happiness",
+    "color": "#CD117C",
+    "userId": 4,
+  },
+  {
+    "name": "Energy",
+    "color": "#FFEA00",
+    "userId": 4,
+  },
+  {
+    "name": "Stress",
+    "color": "#CD113B",
+    "userId": 4,
+  },
+  {
+    "name": "Focus",
+    "color": "#FFA900",
+    "userId": 4,
+  },
+  {
+    "name": "Motivation",
+    "color": "#52006A",
+    "userId": 4,
+  },
 ]
 
 /** @type {import('sequelize-cli').Migration} */

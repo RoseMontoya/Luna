@@ -24,10 +24,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Activity.init({
     name: {
-      type: DataTypes.STRING(25),
+      type: DataTypes.STRING(30),
       allowNull: false,
       validate: {
-        len: [2, 25]
+        len: [2, 30]
       }
     },
     iconId: {

@@ -21,7 +21,7 @@ function ActivityFormModal({ allIcons, icons, prevAct, source }) {
         setErrors({})
 
         const errs = {}
-        if (!name || name.length < 3 || name.length > 25) errs.name = 'Activity name must be between 2-25 characters.'
+        if (!name || name.length < 3 || name.length > 30) errs.name = 'Activity name must be between 2-30 characters.'
         if (!iconId) errs.iconId = 'Please chose an icon to represent this activity.'
 
         if (Object.values(errs).length) return setErrors(errs)
@@ -37,9 +37,9 @@ function ActivityFormModal({ allIcons, icons, prevAct, source }) {
     }
 
     useEffect(() => {
-        if (name?.length > 25) {
+        if (name?.length > 30) {
             setName(name.slice(0, -1))
-            setErrors({name: 'Activity name cannot be longer than 25 characters.'})
+            setErrors({name: 'Activity name cannot be longer than 30 characters.'})
         }
     }, [name])
 

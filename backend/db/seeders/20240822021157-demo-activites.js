@@ -210,7 +210,7 @@ const activities = [
   },
   { // 42
     "name": "Host Fundraiser",
-    "iconId": 25,
+    "iconId": 52,
     "userId": 4
   },
   { // 43
@@ -265,7 +265,7 @@ const activities = [
   },
   { // 53
     "name":'Volunteer',
-    'iconId': 56,
+    'iconId': 60,
     'userId': 4
   },
   { // 54
@@ -280,7 +280,7 @@ const activities = [
   },
   { // 56
     "name":'Scrapbooking',
-    'iconId': 56,
+    'iconId': 68,
     'userId': 4
   },
   { // 57
@@ -288,6 +288,11 @@ const activities = [
     'iconId': 77,
     'userId': 4
   },
+  {
+    "name": "Time with Ben",
+    'iconId': 13,
+    'userId': 4
+  }
 ]
 
 /** @type {import('sequelize-cli').Migration} */

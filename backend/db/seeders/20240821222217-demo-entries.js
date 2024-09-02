@@ -117,7 +117,7 @@ const demoEntries = [
     "mood": "Energized",
     "overallMood": 9,
     "iconId": 1,
-    "userId": 4,
+    "userId": 3,
     "note": "Started the day with a delicious stack of waffles. Feeling energized!"
   },
   {
@@ -125,7 +125,7 @@ const demoEntries = [
     "mood": "Inspired",
     "overallMood": 10,
     "iconId": 1,
-    "userId": 4,
+    "userId": 3,
     "note": "Held a successful community meeting. Everyone left inspired!"
   },
   {
@@ -133,7 +133,7 @@ const demoEntries = [
     "mood": "Satisfied",
     "overallMood": 8,
     "iconId": 2,
-    "userId": 4,
+    "userId": 3,
     "note": "Worked late organizing files, but made a lot of progress."
   },
   {
@@ -141,7 +141,7 @@ const demoEntries = [
     "mood": "Determined",
     "overallMood": 8,
     "iconId": 2,
-    "userId": 4,
+    "userId": 3,
     "note": "Had a few setbacks with a new project, but staying positive."
   },
   {
@@ -149,7 +149,7 @@ const demoEntries = [
     "mood": "Joyful",
     "overallMood": 10,
     "iconId": 1,
-    "userId": 4,
+    "userId": 3,
     "note": "Received recognition for my hard work from the mayor. A great day!"
   },
   {
@@ -157,7 +157,7 @@ const demoEntries = [
     "mood": "Optimistic",
     "overallMood": 7,
     "iconId": 4,
-    "userId": 4,
+    "userId": 3,
     "note": "Had a tough morning, but a cup of coffee helped turn things around."
   },
   {
@@ -165,7 +165,7 @@ const demoEntries = [
     "mood": "Okay",
     "overallMood": 7,
     "iconId": 5,
-    "userId": 4,
+    "userId": 3,
     "note": "Organized a community event, turnout was good but could be better."
   },
   {
@@ -241,7 +241,7 @@ const demoEntries = [
   "note": "Working hard on the next city council proposal. It's all about the details!"
 },
 {
-  "datetime": "2024-08-22 14:50:45",
+  "datetime": "2024-08-18 14:50:45",
   "mood": "Amused",
   "overallMood": 9,
   "iconId": 14, // FaRegFaceGrinSquint
@@ -260,7 +260,7 @@ const demoEntries = [
   "datetime": "2024-08-22 20:30:00",
   "mood": "Exhausted",
   "overallMood": 7,
-  "iconId": 3, // FaRegFaceSmileBeam
+  "iconId": 10, // FaRegFaceSmileBeam
   "userId": 4,
   "note": "Finally home after a non-stop day. Ready to recharge for tomorrow!"
 }

@@ -104,6 +104,9 @@ router.post("/", requireAuth, validateEntry, async (req, res, next) => {
     activities.map((activity) => ({ activityId: activity, entryId: entry.id }))
   );
 
+  console.log('newLvls', newLvls)
+  console.log('activities', newacts)
+
   const newEntry = await Entry.findByPk(entry.id, {
     include: [EntryLevel, EntryActivity],
   });
@@ -197,6 +200,8 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   const updatedEntry = await Entry.findByPk(entryId, {
     include: [EntryLevel, EntryActivity],
   });
+
+  console.log('entry', updatedEntry)
 
   return res.json(updatedEntry);
 });
