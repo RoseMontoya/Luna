@@ -1,5 +1,7 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa6";
 // import ProfileButton from "./ProfileButton";
 
 import "./Navigation.css";
@@ -24,14 +26,25 @@ function Navigation() {
         </div>
         <div id="nav-container">
           <div id="nav-top">
+            <button id="logout-btn" onClick={() => dispatch(logout())}>Log out</button>
             <h1 id='welcome-title'>Welcome, {user.firstName}</h1>
             <NavLink to="/">Home</NavLink>
             <NavLink to="entries">Entries</NavLink>
             <NavLink to="levels">Levels</NavLink>
             <NavLink to="activities">Activities</NavLink>
           </div>
-          <div>
-            <button id="logout-btn" onClick={() => dispatch(logout())}>Log out</button>
+          <div id="about">
+            <h2 style={{fontSize:"16px"}}>Meet the developer</h2>
+            <div style={{alignItems:'center'}}>
+              <div><img src="../../public/images/profile-image.png" className="profile-image"/></div>
+              <div id="info">
+                <p style={{fontSize:"14px"}}>Rose Montoya</p>
+                <div style={{justifyContent: 'center'}}>
+                  <Link to="https://www.linkedin.com/in/rose-montoya/"><FaLinkedin /></Link>
+                  <Link to="https://github.com/RoseMontoya"><FaGithub /></Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </nav>

@@ -79,6 +79,7 @@ nav div {
   flex-direction: column;
   justify-content: space-between;
   padding: 2em;
+  padding-bottom: 1em;
 }
 
 #nav-container a:hover {
@@ -91,7 +92,8 @@ nav div {
 #welcome-title {
   font-family: "Inter", sans-serif;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 28px;
+  padding-top: .5em;
 }
 
 #logout-btn {
@@ -99,6 +101,7 @@ nav div {
   cursor: pointer;
   position: absolute;
   left: 1em;
+  top: 0;
 }
 
 #logged-out a {
@@ -110,4 +113,23 @@ nav div {
   box-shadow: none;
   background-color: transparent;
   text-decoration: underline;
+}
+
+.profile-image {
+  height: 4em;
+  width: 4em;
+  border-radius: 100%;
+  object-fit: cover;
+  border: #132C33 1px solid;
+}
+
+#about {
+  flex-direction: column;
+}
+
+#about #info {
+  flex-direction: column;
+  gap: .25em;
+  /* justify-content: space-between; */
+  /* margin: 0; */
 }
