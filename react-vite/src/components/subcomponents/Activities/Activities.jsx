@@ -10,9 +10,9 @@ function Activities({activities, icons, entryActs}) {
                 <div key={act.activityId} className='activity'>
                     {activities[act.activityId]? (
                         <>
-                    <div className={`${idx === 0 || (!activities[entryActs[0].activityId] && idx === 1)? 'hidden': ""}`}>
+                    {/* <div className={`${idx === 0 || (!activities[entryActs[0].activityId] && idx === 1)? 'hidden': ""}`}>
                         <BsDot />
-                    </div>
+                    </div> */}
                     <div className='icon'>
                         <Icon icons={icons} id={activities[act.activityId].iconId} />
                     </div>

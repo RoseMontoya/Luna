@@ -23,3 +23,9 @@
     gap: 1em;
 
 }
+
+#acts-con {
+    width: 75vw;
+    height: 75vh;
+    overflow: scroll;
+}

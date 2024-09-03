@@ -56,11 +56,7 @@ function ActivitiesPage() {
             {activities.map((activity) => (
               <div
                 key={activity.id}
-                style={{
-                  border: "1px solid black",
-                  padding: ".5em",
-                  borderRadius: "1em",
-                }}
+                className="act-container"
               >
                 <div className="activity">
                   <div className="icon">

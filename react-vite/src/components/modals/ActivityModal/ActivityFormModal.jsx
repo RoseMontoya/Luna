@@ -64,7 +64,7 @@ function ActivityFormModal({ allIcons, icons, prevAct, source }) {
             <p className={`${errors.name? 'error': "hidden-error" } `}>{errors.name}</p>
             {/* {errors?.name && <p className="error">{errors.name}</p>} */}
             <label >Choose an icon:</label>
-            <div className="activities">
+            <div className="activity-icons">
                 {icons.map(icon => (
                     <div key={icon.id} onClick={() => setIconId(icon.id)}
                     className={`${ icon.id === iconId ? "selectedAct" : ""} icon light-shadow`}

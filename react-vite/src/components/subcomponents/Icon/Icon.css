@@ -5,10 +5,11 @@
 .icon  * {
     min-width: 1rem;
     min-height: 1rem;
+    object-fit: fill;
     padding: .5em;
     color: #126E82;
     border: 1px solid #126E82;
-    border-radius: 100%;
+    border-radius: 44%;
 }
 
 .selectable-icon {

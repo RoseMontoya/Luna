@@ -33,34 +33,36 @@ function EditActivitiesModal({acts, setActs}) {
             />
           </div>
         </div>
-        <div className="activities">
-          {activities.map((activity) => (
-            <div key={activity.id} style={{border: '1px solid black', padding: '.5em', borderRadius: '1em'}} >
-              <div className="activity">
-                <div className="icon">
-                  <Icon icons={allIcons} id={activity.iconId} />
+        <div id="acts-con">
+          <div className="activities" >
+            {activities.map((activity) => (
+              <div key={activity.id} className="act-container" >
+                <div className="activity">
+                  <div className="icon">
+                    <Icon icons={allIcons} id={activity.iconId} />
+                  </div>
+                  <p>{activity.name}</p>
                 </div>
-                <p>{activity.name}</p>
+                <div className='act-btns'>
+                  <OpenModalButton
+                    buttonText="Edit"
+                    modalComponent={
+                      <ActivityFormModal
+                        activities={activities}
+                        allIcons={allIcons}
+                        icons={icons}
+                        prevAct={activity}
+                      />
+                    }
+                  />
+                  <OpenModalButton
+                    buttonText="Delete"
+                    modalComponent={<DeleteActivityModal activity={activity} acts={acts} setActs={setActs} />}
+                  />
+                </div>
               </div>
-              <div className='act-btns'>
-                <OpenModalButton
-                  buttonText="Edit"
-                  modalComponent={
-                    <ActivityFormModal
-                      activities={activities}
-                      allIcons={allIcons}
-                      icons={icons}
-                      prevAct={activity}
-                    />
-                  }
-                />
-                <OpenModalButton
-                  buttonText="Delete"
-                  modalComponent={<DeleteActivityModal activity={activity} acts={acts} setActs={setActs} />}
-                />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>
