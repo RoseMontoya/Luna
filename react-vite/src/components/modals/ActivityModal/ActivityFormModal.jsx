@@ -41,7 +41,21 @@ function ActivityFormModal({ allIcons, icons, prevAct, source }) {
             setName(name.slice(0, -1))
             setErrors({name: 'Activity name cannot be longer than 30 characters.'})
         }
-    }, [name])
+
+        if (name?.length > 2 && name?.length < 30) {
+            setErrors(prev => {
+                const { name, ...rest} = prev
+                return rest
+            })
+        }
+
+        if (iconId) {
+            setErrors(prev => {
+                const { iconId, ...rest} = prev
+                return rest
+            })
+        }
+    }, [name, iconId])
 
 
     return (

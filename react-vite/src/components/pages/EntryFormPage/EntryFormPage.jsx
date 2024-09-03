@@ -87,13 +87,27 @@ function EntryFormPage({ type }) {
 
   useEffect(() => {
     if (mood.length > 20) {
-      setMood(mood.slice(0, -1))
+      setMood(mood.slice(0, 21))
       setErrors({ mood : "Cannot be longer than 20 characters."})
     }
     if (note.length > 255 ) {
-      setNote(note.slice(0, -1))
+      setNote(note.slice(0, 256))
       setErrors({ note : "Note cannot be longer than 255 characters."})
     }
+
+    if (mood.length > 2 && mood.length <= 20) {
+      setErrors(prev => {
+          const { mood, ...rest} = prev
+          return rest
+      })
+  }
+  if (note.length > 9 && note.length <= 255) {
+    setErrors(prev => {
+        const { note, ...rest} = prev
+        return rest
+    })
+}
+
   }, [note, mood])
 
   if (!user) return <Navigate to="/" replace={true} />;

@@ -21,6 +21,10 @@ function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls
             setName(name.slice(0, -1))
             setError({name: 'Level name cannot be longer than 15 characters.'})
         }
+
+        if (name.length > 2 && name.length < 15) {
+            setError({})
+        }
     }, [name])
 
     const handleEdit = () => {

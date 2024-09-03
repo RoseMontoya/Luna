@@ -5,7 +5,7 @@ import './Activities.css'
 
 function Activities({activities, icons, entryActs}) {
     const actsFiltered = entryActs.filter(act => activities[act.activityId])
-    console.log('actsfilt', actsFiltered)
+
     return (
         <>
             {actsFiltered.map((act, idx) => (
