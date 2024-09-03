@@ -4,11 +4,13 @@ import './Activities.css'
 
 
 function Activities({activities, icons, entryActs}) {
+    const actsFiltered = entryActs.filter(act => activities[act.activityId])
+    console.log('actsfilt', actsFiltered)
     return (
         <>
-            {entryActs.map((act, idx) => (
+            {actsFiltered.map((act, idx) => (
                 <div key={act.activityId} className='activity'>
-                    {activities[act.activityId]? (
+                    {/* {activities[act.activityId]? ( */}
                         <>
                     {/* <div className={`${idx === 0 || (!activities[entryActs[0].activityId] && idx === 1)? 'hidden': ""}`}>
                         <BsDot />
@@ -18,7 +20,7 @@ function Activities({activities, icons, entryActs}) {
                     </div>
                     <p>{activities[act.activityId].name}</p>
                         </>
-                    ): ''}
+                    {/* ): null} */}
                 </div>
             ))}
         </>

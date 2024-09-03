@@ -57,8 +57,14 @@ function SignupFormPage() {
       return rest
     })}
 
+    if (email) {
+      setErrors(prev => {
+        const { email, ...rest} = prev
+        return rest
+      })
+    }
+
     if (password === confirmPassword) {
-      console.log('here')
       setErrors(prev => {
         const { confirmPassword, ...rest} = prev
         return rest
@@ -70,14 +76,16 @@ function SignupFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({})
+    // setErrors({})
 
     const errs = {}
     if (!firstName || firstName.length <3 ) errs.firstName = "Must be at least 2 characters long."
     if (!lastName || lastName.length < 3) errs.lastName = 'Must be at least 2 characters long.'
     if (!password || password.length < 7) errs.password = 'Password must be at least 6 characters.'
+    if (!email) errs.email = "Email is required."
 
-    if (Object.values(errs)) return setErrors(errs)
+    if (Object.values(errs).length) return setErrors(errs)
+    else setErrors({})
 
     dispatch(
       signup({

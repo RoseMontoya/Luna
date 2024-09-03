@@ -50,7 +50,7 @@ const activities = [
   },
   { // 9
     "name": "Met water goal",
-    "iconId": 16,
+    "iconId": 62,
     "userId": 1,
   },
   { // 10
@@ -125,7 +125,7 @@ const activities = [
   },
   { // 24
     "name": "Met water goal",
-    "iconId": 26,
+    "iconId": 62,
     "userId": 4,
   },
   { // 26

@@ -49,7 +49,7 @@ function Navigation() {
           <div id="about">
             <h2 style={{fontSize:"16px"}}>Meet the developer</h2>
             <div style={{alignItems:'center'}}>
-              <div><img src="../../public/images/profile-image.png" className="profile-image"/></div>
+              <div className="profile-image"></div>
               <div id="info">
                 <p style={{fontSize:"14px"}}>Rose Montoya</p>
                 <div style={{justifyContent: 'start', gap:'.5em'}}>

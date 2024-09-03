@@ -44,6 +44,8 @@ export const restoreUser = () => async dispatch => {
 
 // Signup
 export const signup = (payload) => async dispatch => {
+    console.log('in thunk for sign up')
+
     const response = await csrfFetch('/api/users', {
         method: 'post',
         body: JSON.stringify(payload)

@@ -72,7 +72,7 @@ function EntryDetailsPage() {
         <Link to='/entries' className="nav-buttons">{"Return to Entries"}</Link>
       <div className="entries-container" >
         <div className="entry" style={{ position: 'relative'}}>
-          <button className={`circ-btn ${entries[entries.length - 1].id === +entryId? 'hidden': ''}` }id="less-than"
+          <button className={`circ-btn lighthover ${entries[entries.length - 1].id === +entryId? 'hidden': ''}` }id="less-than"
           onClick={() => handleLessClick()}><FaLessThan/></button>
           <div className="entry-header">
             <div className="entry-info">

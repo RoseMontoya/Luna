@@ -58,9 +58,7 @@
     min-width: 60%;
 }
 
-.entry-info-text h3 {
-    text-transform: capitalize;
-}
+
 
 .entry-buttons {
     display: flex;
