@@ -2,15 +2,16 @@ import { useEffect, useState } from "react"
 // import LevelFormModal from "./LevelFormModal"
 // import LevelInput from "../../modals/LevelInput/LevelInpu÷t"
 import '../../modals/LevelModals/LevelModal.css'
-import { useModal } from "../../../context/Modal"
+// import { useModal } from "../../../context/Modal"
 import LevelInput from "../../modals/LevelModals/LevelInput"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllLevels } from "../../../redux/levels"
 import { Loading } from "../../subcomponents"
 import { useNav } from "../../../context/navContext"
+import { Navigate } from "react-router-dom"
 
 function LevelsPage() {
-    const {closeModal} = useModal()
+    // const {closeModal} = useModal()
     const dispatch = useDispatch()
 
     const user = useSelector(state => state.session.user)

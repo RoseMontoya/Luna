@@ -1,5 +1,5 @@
 import { Icon } from '../'
-import { BsDot } from "react-icons/bs";
+// import { BsDot } from "react-icons/bs";
 import './Activities.css'
 
 

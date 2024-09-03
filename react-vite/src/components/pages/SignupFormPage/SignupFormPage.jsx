@@ -63,7 +63,6 @@ function SignupFormPage() {
         const { confirmPassword, ...rest} = prev
         return rest
       })
-      console.log(errors)
     }
   }, [firstName, lastName, email, password, confirmPassword])
 
