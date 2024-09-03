@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Icon.init({
     name: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(),
       unique: true,
       allowNull: false
     },
