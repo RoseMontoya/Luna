@@ -52,7 +52,7 @@ function Navigation() {
               <div><img src="../../public/images/profile-image.png" className="profile-image"/></div>
               <div id="info">
                 <p style={{fontSize:"14px"}}>Rose Montoya</p>
-                <div style={{justifyContent: 'center'}}>
+                <div style={{justifyContent: 'start', gap:'.5em'}}>
                   <Link to="https://www.linkedin.com/in/rose-montoya/"><FaLinkedin /></Link>
                   <Link to="https://github.com/RoseMontoya"><FaGithub /></Link>
                 </div>
