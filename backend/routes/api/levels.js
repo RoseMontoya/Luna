@@ -1,7 +1,7 @@
 const express = require("express");
 const { requireAuth, authorization } = require("../../utils/auth");
-const { User, Entry, Level } = require("../../db/models");
-const { notFound, titleCase } = require("../../utils/helper");
+const { User, Level } = require("../../db/models");
+const { notFound } = require("../../utils/helper");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -18,7 +18,7 @@ const validateLevel = [
       if (value) {
         const level = await Level.findOne({
           where: {
-            name: value, //.toLowerCase(),
+            name: value,
             userId: req.req.user.id
           },
         });

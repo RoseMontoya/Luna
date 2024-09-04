@@ -431,6 +431,22 @@
     }
     ```
 
+- **Error response:** Entry not found
+  - **Status Code:** 404
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Not found",
+      "message": "Not found",
+      "errors": {
+          "message": "Entry not found."
+      },
+    }
+    ```
+
 ### Create a new entry
 
 - **Purpose:** Creates a new entry for a user
@@ -499,6 +515,27 @@
       "userId": 4
     }
   ```
+
+- **Error response:** Body validation errors
+
+  - **Status Code:** 400
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Validation error",
+      "message": "Validation error",
+      "errors": {
+          "datetime": "Date is required." || "Entry date cannot be in the future." || "Date cannot be before the year 2000.",
+          "mood": "Please give a word to describe how you are feeling." || "Cannot be longer than 20 characters.",
+          "overallMood": "Please choose a number between 1-10.",
+          "iconId": "Please choose an icon.",
+          "note": "If you choose to leave a note, it must be longer than 10 characters." || "Note cannot be longer than 255 characters."
+      },
+    }
+    ```
 
 ### edit an entry
 
@@ -569,6 +606,43 @@
     }
     ```
 
+- **Error response:** Body validation errors
+
+  - **Status Code:** 400
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Validation error",
+      "message": "Validation error",
+      "errors": {
+          "datetime": "Date is required." || "Entry date cannot be in the future." || "Date cannot be before the year 2000.",
+          "mood": "Please give a word to describe how you are feeling." || "Cannot be longer than 20 characters.",
+          "overallMood": "Please choose a number between 1-10.",
+          "iconId": "Please choose an icon.",
+          "note": "If you choose to leave a note, it must be longer than 10 characters." || "Note cannot be longer than 255 characters."
+      },
+    }
+    ```
+
+- **Error response:** Entry not found
+  - **Status Code:** 404
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Not found",
+      "message": "Not found",
+      "errors": {
+          "message": "Entry not found."
+      },
+    }
+    ```
+
 ### Delete an entry
 - **Purpose:** Deletes a previous entry
 - **Require Authentication:** true
@@ -589,6 +663,22 @@
     ```json
     {
       "message": "Success"
+    }
+    ```
+
+- **Error response:** Entry not found
+  - **Status Code:** 404
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Not found",
+      "message": "Not found",
+      "errors": {
+          "message": "Entry not found."
+      },
     }
     ```
 
@@ -621,6 +711,22 @@
         "updatedAt": "2024-09-02T22:42:48.336Z"
       },
     ]
+    ```
+
+- **Error response:** Icons not found
+  - **Status Code:** 404
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Not found",
+      "message": "Not found",
+      "errors": {
+          "message": "Icons not found."
+      },
+    }
     ```
 
 ## Activities
@@ -689,6 +795,26 @@
     }
   ```
 
+- **Error response:** Body validation errors
+
+  - **Status Code:** 400
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Validation error",
+    "message": "Validation error",
+    "errors": {
+        "name": "Please name this activity." || "Activity name must be between 2-30 characters." || "Activity with this name already exists.",
+        "iconId": "Please choose an icon to represent this activity."
+    },
+    }
+    ```
+
+
+
 ### Edit an activity
 
 - **Purpose:** Update and returns an activity
@@ -709,7 +835,7 @@
 
 - **Successful Response:**
 
-  - **Status Code:** 201
+  - **Status Code:** 200
   - **Headers:**
     - Content-Type: application/json
   - **Body:**
@@ -722,6 +848,40 @@
       "userId": 4
     }
   ```
+
+- **Error response:** Body validation errors
+
+  - **Status Code:** 400
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Validation error",
+    "message": "Validation error",
+    "errors": {
+        "name": "Please name this activity." || "Activity name must be between 2-30 characters." || "Activity with this name already exists.",
+        "iconId": "Please choose an icon to represent this activity."
+    },
+    }
+    ```
+
+- **Error response:** Activity not found
+  - **Status Code:** 404
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Not found",
+      "message": "Not found",
+      "errors": {
+          "message": "Activity not found."
+      },
+    }
+    ```
 
 ### Delete an activity
 - **Purpose:** Deletes an activity
@@ -743,6 +903,22 @@
     ```json
     {
       "message": "Success"
+    }
+    ```
+
+- **Error response:** Activity not found
+  - **Status Code:** 404
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Not found",
+      "message": "Not found",
+      "errors": {
+          "message": "Activity not found."
+      },
     }
     ```
 
@@ -812,6 +988,24 @@
     }
   ```
 
+- **Error response:** Body validation errors
+
+  - **Status Code:** 400
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Validation error",
+      "message": "Validation error",
+      "errors": {
+          "name": "Please provide a name." || "Level name must between 2 and 15 characters." || "Level with this name already exists.",
+      },
+    }
+    ```
+
+
 ### Edit an level
 
 PUT `/api/levels/:levelId`
@@ -851,6 +1045,39 @@ PUT `/api/levels/:levelId`
     }
   ```
 
+- **Error response:** Body validation errors
+
+  - **Status Code:** 400
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Validation error",
+      "message": "Validation error",
+      "errors": {
+          "name": "Please provide a name." || "Level name must between 2 and 15 characters." || "Level with this name already exists.",
+      },
+    }
+    ```
+
+- **Error response:** Level not found
+  - **Status Code:** 404
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Not found",
+      "message": "Not found",
+      "errors": {
+          "message": "Level not found."
+      },
+    }
+    ```
+
 ### Delete an level
 
 - **Purpose:** Deletes a level
@@ -872,5 +1099,21 @@ PUT `/api/levels/:levelId`
     ```json
     {
       "message": "Successful"
+    }
+    ```
+
+- **Error response:** Level not found
+  - **Status Code:** 404
+  - **Headers:**
+    - Content-Type: application/json
+  - **Body:**
+
+    ```json
+    {
+      "title": "Not found",
+      "message": "Not found",
+      "errors": {
+          "message": "Level not found."
+      },
     }
     ```

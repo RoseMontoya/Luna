@@ -1,7 +1,6 @@
 const express = require("express");
 const { requireAuth, authorization } = require("../../utils/auth");
 const {
-  User,
   Entry,
   Level,
   EntryActivity,
@@ -53,19 +52,6 @@ const validateEntry = [
   handleValidationErrors,
 ];
 
-router.get("/", async (req, res) => {
-  return res.json({ message: "made here" });
-});
-
-router.get("/:entryId/activities", requireAuth, async (req, res, next) => {
-  const { entryId } = req.params;
-
-  const activities = await EntryActivity.findAll({
-    where: {
-      entryId: entryId,
-    },
-  });
-});
 
 router.get("/:entryId", requireAuth, async (req, res, next) => {
   const { entryId } = req.params;

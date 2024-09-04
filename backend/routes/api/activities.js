@@ -1,7 +1,7 @@
 const express = require('express')
 const { requireAuth, authorization } = require('../../utils/auth');
 const { Activity, User } = require('../../db/models');
-const { notFound, titleCase } = require('../../utils/helper');
+const { notFound } = require('../../utils/helper');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { where } = require('sequelize');
@@ -34,7 +34,7 @@ const validateActivity = [
         }),
     check('iconId')
         .exists({checkFalsy: true})
-        .withMessage('Please chose an icon to represent this activity.'),
+        .withMessage('Please choose an icon to represent this activity.'),
     handleValidationErrors
 ]
 
