@@ -24,13 +24,13 @@ export const getAllIcons = () => async dispatch => {
     return data
 }
 
-export const getMoodIcons = () => async dispatch => {
-    const response = await csrfFetch(`/api/icons/mood`)
+// export const getMoodIcons = () => async dispatch => {
+//     const response = await csrfFetch(`/api/icons/mood`)
 
-    const icons = await response.json()
-    dispatch(addMoodIcons(icons))
-    return icons
-}
+//     const icons = await response.json()
+//     dispatch(addMoodIcons(icons))
+//     return icons
+// }
 
 const iconReducer = (state = {}, action) => {
     switch (action.type) {
@@ -41,13 +41,13 @@ const iconReducer = (state = {}, action) => {
             })
             return {...state, allIcons: icons}
         }
-        case ADD_MOOD_ICONS: {
-            const icons = {}
-            action.icons.forEach(icon => {
-                icons[icon.id] = icon
-            })
-            return {...state, moodIcons: icons}
-        }
+        // case ADD_MOOD_ICONS: {
+        //     const icons = {}
+        //     action.icons.forEach(icon => {
+        //         icons[icon.id] = icon
+        //     })
+        //     return {...state, moodIcons: icons}
+        // }
         default:
             return state;
     }

@@ -20,9 +20,4 @@ router.use('/entries', entriesRouter)
 router.use('/activities', activitiesRouter)
 router.use('/levels', levelsRouter)
 
-
-// router.post('/test', (req, res) => {
-//     res.json({ requestBody: req.body });
-// });
-
 module.exports = router;

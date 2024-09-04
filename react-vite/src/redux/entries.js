@@ -85,6 +85,7 @@ export const getEntryById = (entryId) => async dispatch => {
 
     const entry = formatDate(await response.json())
 
+    console.log('entry', entry)
     dispatch(entryById(entry))
     return entry
 }
@@ -96,6 +97,7 @@ export const getEntriesToday = (userId) => async dispatch => {
     data.map(entry => {
         formatDate(entry)
     })
+
     dispatch(addEntriesToday(data))
     return data
 }

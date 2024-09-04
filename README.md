@@ -4,13 +4,15 @@
 
 ![luna-database-schema]
 
-[luna-database-schema]: ./images/db-schema.png
+[luna-database-schema]: ./images/luna-db-schema.png
 
 ## Frontend Routes
 
 ### Landing Page
 
 `/`
+
+###
 
 ### All entries
 
@@ -35,10 +37,8 @@
 
 ### All endpoints that require authentication
 
-All endpoints that require a current user to be logged in.
-
-* Request: endpoints that require authentication
-* Error Response: Require authentication
+- **Purpose:** endpoints that require authentication
+- **Error Response:** Require authentication
   * Status Code: 401
   * Headers:
     * Content-Type: application/json
@@ -52,11 +52,8 @@ All endpoints that require a current user to be logged in.
 
 ### All endpoints that require proper authorization
 
-All endpoints that require authentication and the current user does not have the
-correct role(s) or permission(s).
-
-* Request: endpoints that require proper authorization
-* Error Response: Require proper authorization
+- **Purpose:** All endpoints that require authentication and the current user does not have the correct role(s) or permission(s).
+- **Error Response:** Require proper authorization
   * Status Code: 403
   * Headers:
     * Content-Type: application/json
@@ -68,21 +65,22 @@ correct role(s) or permission(s).
     }
     ```
 
+## Session
+
 ### Get the Current User
 
-Returns the information about the current user that is logged in.
+- **Purpose:** Returns the information about the current user that is logged in.
+- **Require Authentication:** false
+- **Request:**
+  * **Method:** GET
+  * **URL:** `/api/session`
+  * **Body:** none
 
-* Require Authentication: false
-* Request
-  * Method: GET
-  * URL: /api/session
-  * Body: none
-
-* Successful Response when there is a logged in user
-  * Status Code: 200
-  * Headers:
+- **Successful Response:** when there is a logged in user
+  * **Status Code:** 200
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
@@ -95,11 +93,11 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-* Successful Response when there is no logged in user
-  * Status Code: 200
-  * Headers:
+- **Successful Response:** when there is no logged in user
+  * **Status Code:** 200
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
@@ -109,29 +107,27 @@ Returns the information about the current user that is logged in.
 
 ### Log In a User
 
-Logs in a current user with valid credentials and returns the current user's
-information.
-
-* Require Authentication: false
-* Request
-  * Method: POST
-  * URL: /api/session
-  * Headers:
+- **Purpose:** Logs in a current user with valid credentials and returns the current user's information.
+- **Require Authentication:** false
+- **Request:**
+  * **Method:** POST
+  * **URL:** `/api/session`
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
-      "credential": "john.smith@gmail.com",
+      "email": "john.smith@gmail.com",
       "password": "secret password"
     }
     ```
 
-* Successful Response
-  * Status Code: 200
-  * Headers:
+- **Successful Response:**
+  * **Status Code:** 200
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
@@ -144,34 +140,34 @@ information.
     }
     ```
 
-* Error Response: Invalid credentials
-  * Status Code: 401
-  * Headers:
+- **Error Response:** Invalid credentials
+  * **Status Code:** 401
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
      "title": "Login failed",
     "message": "Invalid credentials",
     "errors": {
-        "message": "Invalid credentials"
+        "credentials": "Invalid credentials"
     },
     }
     ```
 
-* Error response: Body validation errors
-  * Status Code: 400
-  * Headers:
+- **Error response:** Body validation errors
+  * **Status Code:** 400
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
-      "title": "Bad request",
-      "message": "Bad request",
+      "title": "Validation error",
+      "message": "Validation error",
       "errors": {
-        "credential": "Email is required",
+        "email": "Email is required",
         "password": "Password is required"
     },
     }
@@ -179,16 +175,14 @@ information.
 
 ### Sign Up a User
 
-Creates a new user, logs them in as the current user, and returns the current
-user's information.
-
-* Require Authentication: false
-* Request
-  * Method: POST
-  * URL: /api/users
-  * Headers:
+- **Purpose:** Creates a new user, logs them in as the current user, and returns the current user's information.
+- **Require Authentication:** false
+- **Request:**
+  * **Method:** POST
+  * **URL:** `/api/users`
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
@@ -199,11 +193,11 @@ user's information.
     }
     ```
 
-* Successful Response
-  * Status Code: 200
-  * Headers:
+- **Successful Response:**
+  * **Status Code:** 200
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
@@ -216,11 +210,11 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified email
-  * Status Code: 500
-  * Headers:
+- **Error response:** User already exists with the specified email
+  * **Status Code:** 500
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
@@ -232,22 +226,43 @@ user's information.
     }
     ```
 
-* Error response: Body validation errors
-  * Status Code: 400
-  * Headers:
+- **Error response:** Body validation errors
+  * **Status Code:** 400
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     {
-      "title": "Bad request",
-    "message": "Bad request",
+      "title": "Validation error",
+    "message": "Validation error",
     "errors": {
-        "firstName": "First Name is required",
-        "lastName": "Last Name is required",
-        "email": "Invalid email",
-        "password": "Password is required"
+        "firstName": "First Name is required" || "Name must be at least 2 characters long." || "Name cannot be longer than 30 characters.",
+        "lastName": "Last Name is required" || "Name must be at least 2 characters long." || "Name cannot be longer than 75 characters.",
+        "email": "Email is required" || "Please provide a valid email.",
+        "password": "Password is required" || "Password must be at least 6 characters."
     },
+    }
+    ```
+
+### Log Out a User
+- **Purpose:** Log out user
+- **Require Authentication:** false
+- **Request:**
+  * **Method:** DELETE
+  * **URL:** `/api/session`
+  * **Headers:** none
+  * **Body:** none
+
+- **Successful Response:**
+  * **Status Code:** 200
+  * **Headers:**
+    * Content-Type: application/json
+  * **Body:**
+
+    ```json
+    {
+      "message": "success"
     }
     ```
 
@@ -255,66 +270,119 @@ user's information.
 
 ### Get all entries
 
-Returns all of a user entries.
+- **Purpose:** Returns all of a user entries.
+- **Require Authentication:** true
+- *Require proper authorization*
+- **Request:**
+  * **Method:** GET
+  * **URL:** `/api/users/:userId/entries`
+  * **Body:** none
 
-* Require Authentication: true
-* Require proper authorization
-* Request
-  * Method: GET
-  * URL: `/api/entries`
-  * Body: none
-
-* Successful Response
-  * Status Code: 200
-  * Headers:
+- **Successful Response:**
+  * **Status Code:** 200
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
     [
-        {
-          "id": 1,
-          "userId": 1,
-          "date": "Tuesday, Feb 14",
-          "time": "12:18 AM",
-          "overallMood": 10,
-          "note": "Today was a great day. I went to the beach with friends. I was a bit cool, but still warm enought to walk on the shore line.",
-          "iconId": 1,
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36"
-        },
-      ]
+      {
+        "EntryActivities": [
+          { "entryId": 33, "activityId": 18 },
+          { "entryId": 33, "activityId": 19 },
+        ],
+        "EntryLevels": [
+          { "entryId": 33, "levelId": 6, "rating": 4, "createdAt": "2024-09-03T02:14:33.714Z" },
+          { "entryId": 33, "levelId": 7, "rating": 4, "createdAt": "2024-09-03T02:14:33.714Z" },
+        ],
+        "date": "Monday, Sep 2",
+        "datetime": "2024-09-03T02:13:00.000Z",
+        "iconId": 9,
+        "id": 33,
+        "mood": "Okay",
+        "note": "Had an amazing dinner with Ben. Feeling lucky to have such a supportive partner.",
+        "overallMood": 3,
+        "time": "7:13 PM",
+        "userId": 4
+      },
+    ]
+    ```
+
+### Get all entries for today for a user
+- **Purpose:** Returns all of a user's entries for the current day.
+- **Require Authentication:** true
+- *Require proper authorization*
+- **Request:**
+  * Method: GET
+  * URL: `/api/users/:userId/today`
+  * Body: none
+
+- **Successful Response:**
+  * **Status Code:** 200
+  * **Headers:**
+    * Content-Type: application/json
+  * **Body:**
+
+    ```json
+    [
+      {
+        "EntryActivities": [
+          { "entryId": 33, "activityId": 18 },
+          { "entryId": 33, "activityId": 19 },
+        ],
+        "EntryLevels": [
+          { "entryId": 33, "levelId": 6, "rating": 4, "createdAt": "2024-09-03T02:14:33.714Z" },
+          { "entryId": 33, "levelId": 7, "rating": 4, "createdAt": "2024-09-03T02:14:33.714Z" },
+        ],
+        "date": "Monday, Sep 2",
+        "datetime": "2024-09-03T02:13:00.000Z",
+        "iconId": 9,
+        "id": 33,
+        "mood": "Okay",
+        "note": "Had an amazing dinner with Ben. Feeling lucky to have such a supportive partner.",
+        "overallMood": 3,
+        "time": "7:13 PM",
+        "userId": 4
+      },
+    ]
     ```
 
 ### Get an entry by id
 
-Returns an entry by entry id.
-
-* Require Authentication: true
-* Require proper authorization
-* Request
+- **Purpose:** Returns an entry by entry id.
+- **Require Authentication:** true
+- *Require proper authorization*
+- **Request:**
   * Method: GET
   * URL: `/api/entries/:entriesId`
   * Body: none
 
-* Successful Response
-  * Status Code: 200
-  * Headers:
+- **Successful Response:**
+  * **Status Code:** 200
+  * **Headers:**
     * Content-Type: application/json
-  * Body:
+  * **Body:**
 
     ```json
-        {
-          "id": 1,
-          "userId": 1,
-          "date": "Tuesday, Feb 14",
-          "time": "12:18 AM",
-          "overallMood": 10,
-          "note": "Today was a great day. I went to the beach with friends. I was a bit cool, but still warm enought to walk on the shore line.",
-          "iconId": 1,
-          "createdAt": "2021-11-19 20:39:36",
-          "updatedAt": "2021-11-19 20:39:36"
-        }
+      {
+        "EntryActivities": [
+          { "entryId": 33, "activityId": 18 },
+          { "entryId": 33, "activityId": 19 },
+        ],
+        "EntryLevels": [
+          { "entryId": 33, "levelId": 6, "rating": 4, "createdAt": "2024-09-03T02:14:33.714Z" },
+          { "entryId": 33, "levelId": 7, "rating": 4, "createdAt": "2024-09-03T02:14:33.714Z" },
+        ],
+        "date": "Monday, Sep 2",
+        "datetime": "2024-09-03T02:13:00.000Z",
+        "iconId": 9,
+        "id": 33,
+        "mood": "Okay",
+        "note": "Had an amazing dinner with Ben. Feeling lucky to have such a supportive partner.",
+        "overallMood": 3,
+        "time": "7:13 PM",
+        "userId": 4
+      }
     ```
 
 ### Create a new entry

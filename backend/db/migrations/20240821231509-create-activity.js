@@ -26,7 +26,6 @@ module.exports = {
           model: 'Icons'
         },
         onUpdate: 'CASCADE',
-        // onDelete: "SET NULL"
       },
       userId: {
         type: Sequelize.INTEGER,

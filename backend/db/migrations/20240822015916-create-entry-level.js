@@ -25,6 +25,7 @@ module.exports = {
       },
       levelId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: "Levels"
         },
