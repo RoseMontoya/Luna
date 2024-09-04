@@ -10,12 +10,12 @@ const getIcons = (icons) => {
     }
 }
 
-const addMoodIcons = (icons) => {
-    return {
-        type: ADD_MOOD_ICONS,
-        icons
-    }
-}
+// const addMoodIcons = (icons) => {
+//     return {
+//         type: ADD_MOOD_ICONS,
+//         icons
+//     }
+// }
 
 export const getAllIcons = () => async dispatch => {
     const response = await csrfFetch(`/api/icons`)

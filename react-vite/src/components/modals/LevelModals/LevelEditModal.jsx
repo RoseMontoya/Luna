@@ -9,7 +9,6 @@ function LevelEditModal({levelsObj}) {
     const levels = Object.values(levelsObj)
     const [lvls, setLvls] = useState(levels || [])
     const [selected, setSelected] = useState('')
-    console.log('lvls', lvls)
 
     const handleClick =() => {
         const newLvl = [...lvls, {id: lvls[lvls.length -1].id + 1}]

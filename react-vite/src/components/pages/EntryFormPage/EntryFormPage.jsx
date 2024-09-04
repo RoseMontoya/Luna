@@ -117,7 +117,6 @@ function EntryFormPage({ type }) {
     setErrors({});
 
     const errs = entryValidation({date, mood, overallMood, selectedIcon, note})
-    console.log('errors', errs)
 
     if (Object.values(errs).length) return setErrors(errs)
 
@@ -127,7 +126,6 @@ function EntryFormPage({ type }) {
         lvls.push({ levelId: Number(levelId), rating: Number(rating) });
       }
     }
-    console.log('lvls', lvls, 'levelRating', levelRatings)
 
     const entriesActs = [];
     for (const actId of acts.values()) {
@@ -135,8 +133,6 @@ function EntryFormPage({ type }) {
         entriesActs.push(Number(actId));
       }
     }
-
-    console.log('entriesActs', entriesActs)
 
     const payload = {
       datetime: date,

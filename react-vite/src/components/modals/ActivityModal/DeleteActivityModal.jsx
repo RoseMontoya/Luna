@@ -17,7 +17,6 @@ function DeleteActivityModal({activity, acts, setActs, source}) {
                     const actsCopy = new Set(acts)
                     actsCopy.delete(activity.id)
                     setActs(actsCopy)
-                    console.log('in acts delete', actsCopy)
 
                 }
                 closeModal()

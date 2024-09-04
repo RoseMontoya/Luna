@@ -20,10 +20,9 @@ function EntriesListPage() {
 
   const user = useSelector((state) => state.session.user);
   const { navOpen } = useNav();
-  console.log('navOpennnn', navOpen)
 
   const entriesObj = useSelector((state) => state.entries.allEntries);
-  // const entriesObj = useLoaderData()
+
   const entries = entriesObj ? Object.values(entriesObj).sort((a, b) => new Date(b.datetime) - new Date(a.datetime)) : [];
   const icons = useSelector(state => state.icons.allIcons)
 

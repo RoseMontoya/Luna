@@ -1,6 +1,6 @@
 function entryValidation({ date, mood, overallMood, selectedIcon, note}) {
     const errs = {}
-    console.log("date", selectedIcon)
+
     if (!date) errs.datetime = 'Date is required.'
     if (new Date(date) > new Date()) errs.datetime = 'Entry date cannot be in the future.'
     if (new Date(date) < new Date('01-01-2000')) errs.datetime = 'Entry date cannot be before the year 2000.'

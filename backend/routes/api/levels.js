@@ -16,17 +16,12 @@ const validateLevel = [
     .withMessage('Level name must between 2 and 15 characters.')
     .custom(async (value, req) => {
       if (value) {
-        console.log('req', req.req.user.id)
         const level = await Level.findOne({
           where: {
             name: value, //.toLowerCase(),
             userId: req.req.user.id
           },
         });
-        // console.log('level', level.id, 'body id', req.req.body, 'res', level?.id !== req.req.body?.id)
-        // console.log('method', req.req.method)
-        console.log('total if', (req.req.method === "POST" && level) ||
-        (req.req.method === "PUT" && level?.id !== req.req.body?.id))
         if (
           (req.req.method === "POST" && level) ||
           (req.req.method === "PUT" && level?.id !== req.req.body?.id)

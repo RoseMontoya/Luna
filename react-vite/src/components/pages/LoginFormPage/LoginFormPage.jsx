@@ -35,7 +35,6 @@ function LoginFormPage() {
   const demoLogIn = async() => {
     setEmail("leslie.knope@pawnee.gov")
     setPassword("wafflesrule456")
-    console.log('inside of login')
     dispatch( login({
       email: "leslie.knope@pawnee.gov",
       password: "wafflesrule456",

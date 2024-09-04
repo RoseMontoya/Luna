@@ -21,8 +21,6 @@ function LevelsPage() {
     const levels = levelsObj? Object.values(levelsObj) : []
     const [lvls, setLvls] = useState(levels || [])
     const [selected, setSelected] = useState('')
-    console.log('lvls', lvls)
-    console.log('levels', levelsObj)
 
     useEffect(() => {
         if (!levelsObj) {

@@ -104,9 +104,6 @@ router.post("/", requireAuth, validateEntry, async (req, res, next) => {
     activities.map((activity) => ({ activityId: activity, entryId: entry.id }))
   );
 
-  console.log('newLvls', newLvls)
-  console.log('activities', newacts)
-
   const newEntry = await Entry.findByPk(entry.id, {
     include: [EntryLevel, EntryActivity],
   });
@@ -148,11 +145,11 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   const actsToAdd = [...newActsId].filter((act) => !oldActsIds.has(act));
   const actsToDelete = [...oldActsIds].filter((act) => !newActsId.has(act));
 
-  console.log('oldActs', oldActs)
-  console.log('oldActsIds', oldActsIds)
-  console.log('newActsIds',newActsId)
-  console.log('acts to add',actsToAdd)
-  console.log('acts to delete', actsToDelete)
+  // console.log('oldActs', oldActs)
+  // console.log('oldActsIds', oldActsIds)
+  // console.log('newActsIds',newActsId)
+  // console.log('acts to add',actsToAdd)
+  // console.log('acts to delete', actsToDelete)
 
   await EntryActivity.bulkCreate(
     actsToAdd.map((act) => ({ userId: userId, activityId: act, entryId: entry.id }))
@@ -200,8 +197,6 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   const updatedEntry = await Entry.findByPk(entryId, {
     include: [EntryLevel, EntryActivity],
   });
-
-  console.log('entry', updatedEntry)
 
   return res.json(updatedEntry);
 });

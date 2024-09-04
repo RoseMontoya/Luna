@@ -10,7 +10,6 @@ import { Navigate } from "react-router-dom"
 function ActivityFormModal({ allIcons, icons, prevAct, source }) {
     const dispatch = useDispatch()
     const { closeModal } = useModal()
-    console.log("previous act", prevAct)
 
     const [name, setName] = useState('' || prevAct?.name)
     const [iconId, setIconId] = useState('' || prevAct?.iconId)

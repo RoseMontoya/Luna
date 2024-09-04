@@ -5,7 +5,6 @@ import DeleteLevelModal from "./DeleteLevelModal"
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 
 function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls}) {
-    // console.log('do we get here??')
     const dispatch = useDispatch()
     const [error, setError] = useState({})
 
@@ -14,7 +13,6 @@ function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls
 
     const inputRef = useRef(null)
     const editBtnRef = useRef(null)
-    // console.log("inputRef",inputRxef)
 
     useEffect(() => {
         if (name.length > 15 ) {
@@ -57,7 +55,6 @@ function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls
     // }, [setSelected])
 
     const handleSave = async () => {
-        console.log('level', level, 'name', name)
         setError({})
         if (!name || name.length < 3 || name.length > 15) {
             return setError({name: 'Level name must between 2 and 15 characters.'})
@@ -75,7 +72,6 @@ function LevelInput({level, levelsObj, idx, setSelected, selected, lvls, setLvls
             }
             setSelected("")
         } catch (e) {
-            console.log('error', e)
             const err = await e.json()
             setError(err.errors)
         }

@@ -62,6 +62,7 @@ export const editLevel = (level) => async dispatch => {
     })
 
     const data = await response.json()
+
     dispatch(updateLevel(data))
     return data
 }
@@ -70,6 +71,7 @@ export const deleteLevel = (levelId) => async dispatch => {
     const response = await csrfFetch(`/api/levels/${levelId}`, { method: 'DELETE' })
 
     const data = await response.json()
+    console.log('response', data)
     dispatch(removeLevel(levelId))
     return data
 }
