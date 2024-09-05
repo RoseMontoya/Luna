@@ -73,6 +73,17 @@ Check out the live version Luna here:
 
 ## Technologies
 
+  * ### React
+    *
+  * ### Redux
+  * ### Express.js
+  * ### JavaScript
+  * ### HTML
+  * ### CSS, CSSGrid, and CSSFlex
+  * ### Sequelize
+  * ### PostgreSQL
+  * ### Node
+
 
 ## Screenshots
 **Landing Page** ![Landing Page](./react-vite/public/images/site-images/landing-page.png)
@@ -80,7 +91,7 @@ Check out the live version Luna here:
 ### Entries
 **Home Page** ![Home Page](./react-vite/public/images/site-images/home-page.png)
 
-**Entries Page** ![Entries Page](./react-vite/public/images/site-images/all-entries.png)
+**Entries Page** ![Entries Page](./react-vite/public/images/site-images/tab-open-close.mov)
 
 **Entry Details Page** ![Entry Details Page](./react-vite/public/images/site-images/entry-details.png)
 
