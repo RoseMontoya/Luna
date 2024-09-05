@@ -1,4 +1,4 @@
-# Luna-AA-Capstone
+# Luna
 
 Luna is a web application made to help a user track and organize their life. Luna was inspired by my own personal journey and usage of many mood trackers, habit trackers and journals, with [daylio][daylio-link] being the biggest source of inspiration. I wanted to create a site that combined  my favorite features from different apps I've used over the years. Plus the additional freedoms I've always wanted from them. All combined in an orginized, stylish, and easy to use format. I hope you enjoy Luna!
 
@@ -73,16 +73,13 @@ Check out the live version Luna here:
 
 ## Technologies
 
-  * ### React
-    *
-  * ### Redux
-  * ### Express.js
-  * ### JavaScript
-  * ### HTML
-  * ### CSS, CSSGrid, and CSSFlex
-  * ### Sequelize
-  * ### PostgreSQL
-  * ### Node
+  1. **React** for building a single-page application and creating reusable components.
+  2. **Redux** for centralized state management across the app.
+  3. **Node.js** for its non-blocking architecture and easy code modifications.
+  4. **Express.js** for building a RESTful API and handling HTTP requests efficiently.
+  5. **Sequelize** for interacting with relational databases and managing database models securely.
+  6. **PostgreSQL/SQLite** as databases for local development and deployment.
+  7. **CSS Grid/Flex** for dynamic and visually organized layouts.
 
 
 ## Screenshots
@@ -91,13 +88,12 @@ Check out the live version Luna here:
 ### Entries
 **Home Page** ![Home Page](./react-vite/public/images/site-images/home-page.png)
 
-**Entries Page** ![Entries Page](./react-vite/public/images/site-images/tab-open-close.mov)
+**Entries Page** ![Entries Page](./react-vite/public/images/site-images/tab-open-close.gif)
 
 **Entry Details Page** ![Entry Details Page](./react-vite/public/images/site-images/entry-details.png)
 
 **Entry Form Page**
-![Entry Form Page One](./react-vite/public/images/site-images/entry-form.png)
-![Entry Form Page Two](./react-vite/public/images/site-images/entry-form2.png)
+![Entry Form Page](./react-vite/public/images/site-images/create-new-entry.gif)
 
 **Delete Entry Modal** ![Delete Entry Modal](./react-vite/public/images/site-images/delete-entry.png)
 
