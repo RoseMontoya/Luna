@@ -4,6 +4,7 @@ const { requireAuth, notFound } = require("../../utils");
 
 const router = express.Router();
 
+// Get all Icons
 router.get("/", requireAuth, async (_req, res, next) => {
   const icons = await Icon.findAll();
 

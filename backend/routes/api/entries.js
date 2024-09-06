@@ -16,6 +16,7 @@ const { check } = require("express-validator");
 
 const router = express.Router();
 
+// Validation for creating and editing an entry
 const validateEntry = [
   check("datetime")
     .exists({ checkFalsy: true })
@@ -23,7 +24,6 @@ const validateEntry = [
   check("datetime").custom((value) => {
     const entryDate = new Date(value);
     const current = new Date();
-
     if (entryDate >= current) {
       throw new Error("Entry date cannot be in the future.");
     } else return true;
@@ -55,6 +55,7 @@ const validateEntry = [
   handleValidationErrors,
 ];
 
+// Get an entry by entry Id
 router.get("/:entryId", requireAuth, async (req, res, next) => {
   const { entryId } = req.params;
 
@@ -70,11 +71,14 @@ router.get("/:entryId", requireAuth, async (req, res, next) => {
   return res.json(entry);
 });
 
+// Create a new entry
 router.post("/", requireAuth, validateEntry, async (req, res, next) => {
   const { user } = req;
+
   const { datetime, mood, overallMood, iconId, note, levels, activities } =
     req.body;
 
+  // Create Entry
   const entry = await Entry.create({
     userId: user.id,
     datetime,
@@ -84,14 +88,17 @@ router.post("/", requireAuth, validateEntry, async (req, res, next) => {
     note,
   });
 
+  // Create Levels for entry
   const newLvls = await EntryLevel.bulkCreate(
     levels.map((level) => ({ ...level, entryId: entry.id }))
   );
 
+  // Create activities for entry
   const newacts = await EntryActivity.bulkCreate(
     activities.map((activity) => ({ activityId: activity, entryId: entry.id }))
   );
 
+  // Compile new entry to return
   const newEntry = await Entry.findByPk(entry.id, {
     include: [EntryLevel, EntryActivity],
   });
@@ -99,6 +106,7 @@ router.post("/", requireAuth, validateEntry, async (req, res, next) => {
   res.status(201).json(newEntry);
 });
 
+// Edit an entry by id
 router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   const { datetime, mood, overallMood, iconId, note, levels, activities } =
     req.body;
@@ -109,10 +117,13 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
     include: [Level, Activity],
   });
 
+  // Check if entry exists
   if (!entry) return next(notFound("Entry"));
+  // Check if entry belongs to user
   if (entry.userId !== req.user.id)
     return next(authorization(req, entry.userId));
 
+  // Update Entry
   await entry.update({
     datetime,
     mood,
@@ -121,15 +132,19 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
     note,
   });
 
+  // Get id's from the old entry activities
   const oldActs = entry.Activities;
   const oldActsIds = new Set(
     oldActs.map((act) => {
       return act.id;
     })
   );
+  // Get id's for the new entry activities
   const newActsId = new Set(activities);
 
+  // Look at new activity ids and find ones that are not in the old activity ids
   const actsToAdd = [...newActsId].filter((act) => !oldActsIds.has(act));
+  // Look at old activities id and find ones that are not in the new activity ids
   const actsToDelete = [...oldActsIds].filter((act) => !newActsId.has(act));
 
   // console.log('oldActs', oldActs)
@@ -138,6 +153,7 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   // console.log('acts to add',actsToAdd)
   // console.log('acts to delete', actsToDelete)
 
+  // Add new activities to entry
   await EntryActivity.bulkCreate(
     actsToAdd.map((act) => ({
       userId: userId,
@@ -146,6 +162,7 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
     }))
   );
 
+  // Delete activities that were removed
   await Promise.all(
     oldActs.map((act) => {
       if (actsToDelete.includes(act.id)) {
@@ -154,22 +171,28 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
     })
   );
 
+  // Flatten old levels to easily find level by id and the associated rating
   const levelsObj = {};
   entry.Levels.forEach((level) => {
     levelsObj[level.id] = level.EntryLevel?.rating;
   });
 
+  // Format new levels to easily find level by id  and the associated rating
   const newLvls = {};
   levels.forEach((level) => {
     newLvls[level.levelId] = level.rating;
   });
 
+  // Grab all of the old levels id
   const oldLvlsIds = entry.Levels.map((lvl) => lvl.id);
 
+  // Find any levels that no longer attached to entry
   const lvlToDelete = [...oldLvlsIds].filter((lvl) => !newLvls[lvl]);
 
+  // Remove levels no longer in use from entry
   await Promise.all(lvlToDelete.map((lvlId) => entry.removeLevel(lvlId)));
 
+  // Add or update level if new level rating does not match old level rating
   await Promise.all(
     levels.map((level) => {
       if (level.rating !== levelsObj[level.levelId]) {
@@ -181,6 +204,7 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
     })
   );
 
+  // Compile entry data to return
   const updatedEntry = await Entry.findByPk(entryId, {
     include: [EntryLevel, EntryActivity],
   });
@@ -188,12 +212,16 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   return res.json(updatedEntry);
 });
 
+
+// Delete an entry by id
 router.delete("/:entryId", requireAuth, async (req, res, next) => {
   const { entryId } = req.params;
 
   const entry = await Entry.findByPk(entryId);
 
+  // Check if entry exists
   if (!entry) return next(notFound("Entry"));
+  // Check if entry belongs to user
   if (entry.userId !== req.user.id)
     return next(authorization(req, entry.userId));
 

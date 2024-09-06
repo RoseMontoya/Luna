@@ -86,6 +86,7 @@ router.post("/", validateSignup, async (req, res, next) => {
   });
 });
 
+// Get all of a user entries
 router.get("/:userId/entries", requireAuth, async (req, res, next) => {
   const { userId } = req.params;
   const entries = await Entry.findAll({
@@ -102,6 +103,7 @@ router.get("/:userId/entries", requireAuth, async (req, res, next) => {
   return res.json(entries);
 });
 
+// Get all entries for a user that match the current date
 router.get("/:userId/today", requireAuth, async (req, res, next) => {
   const { userId } = req.params;
 

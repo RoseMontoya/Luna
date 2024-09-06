@@ -1,5 +1,6 @@
 const { Level, Activity } = require("../db/models");
 
+// Established defaults for a user about sign up
 async function userDefaults(userId) {
   await Level.bulkCreate([
     {
