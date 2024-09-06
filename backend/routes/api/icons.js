@@ -1,30 +1,14 @@
-const express =require('express')
-const { Icon } = require('../../db/models')
-const { requireAuth } = require('../../utils/auth');
-const { Op } = require('sequelize');
-const { notFound } = require('../../utils/helper');
+const express = require("express");
+const { Icon } = require("../../db/models");
+const { requireAuth, notFound } = require("../../utils");
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', requireAuth, async (req, res, next) => {
-    const icons = await Icon.findAll()
+router.get("/", requireAuth, async (_req, res, next) => {
+  const icons = await Icon.findAll();
 
-    if (!icons) return next(notFound('Icons'))
-    res.json(icons)
-})
+  if (!icons) return next(notFound("Icons"));
+  res.json(icons);
+});
 
-router.get('/mood', requireAuth, async (req, res, next) => {
-    const moodIcons = await Icon.findAll({
-        where: {
-            id: {
-                [Op.lte]: 5
-            }
-        }
-    })
-
-    if (!moodIcons) return next(notFound('Icons'))
-
-    return res.json(moodIcons)
-})
-
-module.exports = router
+module.exports = router;

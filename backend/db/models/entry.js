@@ -1,7 +1,5 @@
 'use strict';
 
-// const {Level, Activity} = require('./')
-
 const {
   Model
 } = require('sequelize');
@@ -107,45 +105,8 @@ module.exports = (sequelize, DataTypes) => {
       attributes: {
         exclude: ['updateAt', 'createAt']
       },
-      // include: [
-      //   {
-      //     model: sequelize.models.EntryActivity,
-      //     attributes: {
-      //       exclude: ['updatedAt', 'createdAt', 'userId']
-      //     }
-      //   },
-      //   {
-      //     model: sequelize.models.EntryLevel,
-      //     attributes: {
-      //       exclude: ['updateAt', 'createdAt']
-      //     }
-      //   }
-      // ]
     }
   });
-
-  // const { Activity, Level } = sequelize.models
-
-
-  // Entry.addScope('defaultScope', {
-  //   attributes: {
-  //     exclude: ['updateAt', 'createAt']
-  //   },
-  //   include: [
-  //     {
-  //       model: Activity,
-  //       attributes: {
-  //         exclude: ['updatedAt', 'createdAt', 'userId']
-  //       }
-  //     },
-  //     {
-  //       model: Level,
-  //       attributes: {
-  //         exclude: ['updateAt', 'createdAt']
-  //       }
-  //     }
-  //   ]
-  // }, { override: true });
 
   return Entry;
 };

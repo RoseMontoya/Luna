@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   entries: entriesReducer,
   icons: iconReducer,
   levels: levelsReducer,
-  activities: activitiesReducer
+  activities: activitiesReducer,
 });
 
 let enhancer;

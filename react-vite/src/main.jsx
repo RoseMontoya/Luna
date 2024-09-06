@@ -4,20 +4,19 @@ import { Provider as ReduxProvider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import * as sessionActions from "./redux/session";
-import configureStore, { restoreCSRF, csrfFetch } from './redux';
+import configureStore, { restoreCSRF, csrfFetch } from "./redux";
 import "./index.css";
 
 const store = configureStore();
 
-
-if (import.meta.env.MODE !== 'production') {
+if (import.meta.env.MODE !== "production") {
   restoreCSRF();
 
   window.csrfFetch = csrfFetch;
   window.store = store;
   window.sessionActions = sessionActions;
 }
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   window.store = store;
 }
 

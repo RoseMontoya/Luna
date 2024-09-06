@@ -1,5 +1,10 @@
 const express = require("express");
-const { requireAuth, authorization } = require("../../utils/auth");
+const {
+  requireAuth,
+  authorization,
+  notFound,
+  handleValidationErrors,
+} = require("../../utils");
 const {
   Entry,
   Level,
@@ -7,9 +12,7 @@ const {
   EntryLevel,
   Activity,
 } = require("../../db/models");
-const { notFound } = require("../../utils/helper");
 const { check } = require("express-validator");
-const { handleValidationErrors } = require("../../utils/validation");
 
 const router = express.Router();
 
@@ -51,7 +54,6 @@ const validateEntry = [
     .withMessage("Note cannot be longer than 255 characters."),
   handleValidationErrors,
 ];
-
 
 router.get("/:entryId", requireAuth, async (req, res, next) => {
   const { entryId } = req.params;
@@ -101,7 +103,7 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   const { datetime, mood, overallMood, iconId, note, levels, activities } =
     req.body;
   const { entryId } = req.params;
-  const userId = req.user.id
+  const userId = req.user.id;
 
   const entry = await Entry.findByPk(entryId, {
     include: [Level, Activity],
@@ -118,7 +120,6 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
     iconId,
     note,
   });
-
 
   const oldActs = entry.Activities;
   const oldActsIds = new Set(
@@ -138,7 +139,11 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
   // console.log('acts to delete', actsToDelete)
 
   await EntryActivity.bulkCreate(
-    actsToAdd.map((act) => ({ userId: userId, activityId: act, entryId: entry.id }))
+    actsToAdd.map((act) => ({
+      userId: userId,
+      activityId: act,
+      entryId: entry.id,
+    }))
   );
 
   await Promise.all(
@@ -154,22 +159,20 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
     levelsObj[level.id] = level.EntryLevel?.rating;
   });
 
-  const newLvls = {}
-  levels.forEach(level => {
-    newLvls[level.levelId] = level.rating
-  })
+  const newLvls = {};
+  levels.forEach((level) => {
+    newLvls[level.levelId] = level.rating;
+  });
 
-  const oldLvlsIds = entry.Levels.map((lvl) => lvl.id)
+  const oldLvlsIds = entry.Levels.map((lvl) => lvl.id);
 
   const lvlToDelete = [...oldLvlsIds].filter((lvl) => !newLvls[lvl]);
 
-  await Promise.all(
-    lvlToDelete.map(lvlId => entry.removeLevel(lvlId))
-  );
+  await Promise.all(lvlToDelete.map((lvlId) => entry.removeLevel(lvlId)));
 
   await Promise.all(
     levels.map((level) => {
-      if ((level.rating !== levelsObj[level.levelId])) {
+      if (level.rating !== levelsObj[level.levelId]) {
         return entry.addLevel(level.levelId, {
           through: { rating: level.rating, userId: userId },
         });
@@ -177,8 +180,6 @@ router.put("/:entryId", requireAuth, validateEntry, async (req, res, next) => {
       return Promise.resolve();
     })
   );
-
-
 
   const updatedEntry = await Entry.findByPk(entryId, {
     include: [EntryLevel, EntryActivity],

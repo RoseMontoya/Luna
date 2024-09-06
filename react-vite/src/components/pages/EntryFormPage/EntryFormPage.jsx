@@ -1,22 +1,31 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { format } from "date-fns";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+// Library Imports
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { getAllIcons } from "../../../redux/icons";
-import { Icon, Loading } from "../../subcomponents";
-import "./EntryForm.css";
-import { createEntry, getEntryById, editEntry } from "../../../redux/entries";
-import { getAllLevels } from "../../../redux/levels";
-import { getAllActivities } from "../../../redux/activities";
-import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
-import { EditActivitiesModal, LevelEditModal } from "../../modals";
+import { format } from "date-fns";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+
+//  Components/Redux Imports
+import { Icon, Loading } from "../../subcomponents";
+import {
+  createEntry,
+  getEntryById,
+  editEntry,
+  getAllIcons,
+  getAllLevels,
+  getAllActivities,
+} from "../../../redux";
+import {
+  EditActivitiesModal,
+  LevelEditModal,
+  OpenModalButton,
+} from "../../modals";
 import entryValidation from "./entryValidation";
 import { useNav } from "../../../context/navContext";
-// import { BsDot } from "react-icons/bs";
+
+// Design Imports
+import "react-datepicker/dist/react-datepicker.css";
+import "./EntryForm.css";
 
 function EntryFormPage({ type }) {
   const dispatch = useDispatch();
@@ -24,7 +33,7 @@ function EntryFormPage({ type }) {
   const { entryId } = useParams();
 
   const user = useSelector((state) => state.session.user);
-  const { navOpen } = useNav()
+  const { navOpen } = useNav();
   const entry = useSelector((state) => state.entries.entriesById?.[entryId]);
 
   const [date, setDate] = useState(new Date());
@@ -87,28 +96,27 @@ function EntryFormPage({ type }) {
 
   useEffect(() => {
     if (mood.length > 20) {
-      setMood(mood.slice(0, 21))
-      setErrors({ mood : "Cannot be longer than 20 characters."})
+      setMood(mood.slice(0, 21));
+      setErrors({ mood: "Cannot be longer than 20 characters." });
     }
-    if (note.length > 255 ) {
-      setNote(note.slice(0, 256))
-      setErrors({ note : "Note cannot be longer than 255 characters."})
+    if (note.length > 255) {
+      setNote(note.slice(0, 256));
+      setErrors({ note: "Note cannot be longer than 255 characters." });
     }
 
     if (mood.length > 2 && mood.length <= 20) {
-      setErrors(prev => {
-          const { mood, ...rest} = prev
-          return rest
-      })
-  }
-  if (note.length > 9 && note.length <= 255) {
-    setErrors(prev => {
-        const { note, ...rest} = prev
-        return rest
-    })
-}
-
-  }, [note, mood])
+      setErrors((prev) => {
+        const { mood, ...rest } = prev;
+        return rest;
+      });
+    }
+    if (note.length > 9 && note.length <= 255) {
+      setErrors((prev) => {
+        const { note, ...rest } = prev;
+        return rest;
+      });
+    }
+  }, [note, mood]);
 
   if (!user) return <Navigate to="/" replace={true} />;
 
@@ -116,9 +124,15 @@ function EntryFormPage({ type }) {
     e.preventDefault();
     setErrors({});
 
-    const errs = entryValidation({date, mood, overallMood, selectedIcon, note})
+    const errs = entryValidation({
+      date,
+      mood,
+      overallMood,
+      selectedIcon,
+      note,
+    });
 
-    if (Object.values(errs).length) return setErrors(errs)
+    if (Object.values(errs).length) return setErrors(errs);
 
     const lvls = [];
     for (const [levelId, rating] of Object.entries(levelRatings)) {
@@ -170,10 +184,10 @@ function EntryFormPage({ type }) {
   };
 
   return (
-    <main className={`${navOpen? "nav-open" : ''}`}>
-        <p className="nav-buttons" onClick={() => navigate(-1)}>
-          Back
-        </p>
+    <main className={`${navOpen ? "nav-open" : ""}`}>
+      <p className="nav-buttons" onClick={() => navigate(-1)}>
+        Back
+      </p>
       <div id="entry-form" className="entries-container">
         <form
           className="container"
@@ -181,12 +195,6 @@ function EntryFormPage({ type }) {
           onSubmit={(e) => handleSubmit(e)}
         >
           <h1 style={{ textAlign: "center" }}>How are you?</h1>
-          {/* <input
-            className="date-input"
-            type="datetime-local"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          /> */}
           <div className="date-container">
             <div>
               <DatePicker
@@ -207,7 +215,6 @@ function EntryFormPage({ type }) {
               {errors.datetime}
             </p>
           </div>
-          {/* {errors?.datetime && <p className="error">{errors.datetime}</p>} */}
           <div className="border-bottom">
             <label>
               In one word, how are you feeling?
@@ -220,7 +227,6 @@ function EntryFormPage({ type }) {
                 {errors.mood}
               </p>
             </label>
-            {/* {errors?.mood && <p className="error">{errors.mood}</p>} */}
             <label>
               {`On a scale of 1 to 10, how would rating your overall mood?  `}
               <select
@@ -242,9 +248,6 @@ function EntryFormPage({ type }) {
                 {errors.overallMood}
               </p>
             </label>
-            {/* {errors?.overallMood && (
-              <p className="error">{errors.overallMood}</p>
-            )} */}
             <label>
               Choose an icon that best represents your mood:
               <div className="icons-container">
@@ -264,7 +267,6 @@ function EntryFormPage({ type }) {
                 {errors.iconId}
               </p>
             </label>
-            {/* {errors?.iconId && <p className="error">{errors.iconId}</p>} */}
             <div className="note-form-container">
               <label>Would you like to add a small note to this entry?</label>
               <textarea
@@ -276,7 +278,6 @@ function EntryFormPage({ type }) {
                 {errors.note}
               </p>
             </div>
-            {/* {errors?.note && <p className="error">{errors.note}</p>} */}
           </div>
           <div className="border-bottom">
             <h2>Levels</h2>
@@ -302,9 +303,6 @@ function EntryFormPage({ type }) {
                       </option>
                     ))}
                   </select>
-                  {/* {errors?.levels?.[level.id] && (
-                    <p className="error">{errors.levels[level.id]}</p>
-                  )} */}
                 </div>
               ))}
             </div>

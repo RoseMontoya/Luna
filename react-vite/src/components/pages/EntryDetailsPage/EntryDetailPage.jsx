@@ -1,45 +1,55 @@
+// React Imports
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, Navigate, useNavigate, Link } from "react-router-dom";
-import { getAllEntries } from "../../../redux/entries";
+
+// Component/Redux Imports
+import {
+  getAllEntries,
+  getAllIcons,
+  getAllActivities,
+  getAllLevels,
+} from "../../../redux";
 import { Loading, Icon, Activities, Levels } from "../../subcomponents";
+import { DeleteEntryModal, OpenModalButton } from "../../modals";
+import { useNav } from "../../../context/navContext";
+
+// Design Imports
 import { BsDot } from "react-icons/bs";
 import { FaGreaterThan, FaLessThan } from "react-icons/fa6";
-import './EntryDetail.css'
-import { getAllIcons } from "../../../redux/icons";
-import { getAllActivities } from "../../../redux/activities";
-import { getAllLevels } from "../../../redux/levels";
-import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
-import { DeleteEntryModal } from "../../modals";
-import { useNav } from "../../../context/navContext";
+import "./EntryDetail.css";
 
 function EntryDetailsPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { entryId } = useParams();
   const user = useSelector((state) => state.session.user);
-  const { navOpen } = useNav()
+  const { navOpen } = useNav();
   const entriesObj = useSelector((state) => state.entries.allEntries);
 
-  const entries = entriesObj ? Object.values(entriesObj).sort((a, b) => new Date(b.datetime) - new Date(a.datetime)) : [];
-  const entry = entriesObj?.[entryId]
+  const entries = entriesObj
+    ? Object.values(entriesObj).sort(
+        (a, b) => new Date(b.datetime) - new Date(a.datetime)
+      )
+    : [];
+  const entry = entriesObj?.[entryId];
 
-  const icons = useSelector(state => state.icons.allIcons)
-  const allActsObj = useSelector((state) => state.activities.allActivities)
-  const allLevels = useSelector(state => state.levels.allLevels)
+  const icons = useSelector((state) => state.icons.allIcons);
+  const allActsObj = useSelector((state) => state.activities.allActivities);
+  const allLevels = useSelector((state) => state.levels.allLevels);
 
   useEffect(() => {
     if (!entriesObj) {
       dispatch(getAllEntries(user.id));
     }
     if (!icons) {
-      dispatch(getAllIcons())
+      dispatch(getAllIcons());
     }
     if (!allActsObj) {
-      dispatch(getAllActivities())
+      dispatch(getAllActivities());
     }
     if (!allLevels) {
-      dispatch(getAllLevels())
+      dispatch(getAllLevels());
     }
   }, [dispatch, entryId, entriesObj, icons, user, allActsObj, allLevels]);
 
@@ -47,33 +57,40 @@ function EntryDetailsPage() {
 
   if (!entriesObj || !icons || !allActsObj || !allLevels) return <Loading />;
 
-
   const handleLessClick = () => {
     entries.forEach((entry, idx) => {
       if (entry.id === +entryId) {
-        const next = entries[idx + 1]
-        return navigate(`/entries/${next.id}`)
+        const next = entries[idx + 1];
+        return navigate(`/entries/${next.id}`);
       }
-    })
-  }
+    });
+  };
 
   const handleGreaterClick = () => {
     entries.forEach((entry, idx) => {
       if (entry.id === +entryId) {
-        const next = entries[idx - 1]
-        return navigate(`/entries/${next.id}`)
+        const next = entries[idx - 1];
+        return navigate(`/entries/${next.id}`);
       }
-    })
-  }
-
+    });
+  };
 
   return (
-    <main className={`${navOpen? "nav-open" : ''}`}>
-        <Link to='/entries' className="nav-buttons">{"Return to Entries"}</Link>
-      <div className="entries-container" >
-        <div className="entry" style={{ position: 'relative'}}>
-          <button className={`circ-btn lighthover ${entries[entries.length - 1].id === +entryId? 'hidden': ''}` }id="less-than"
-          onClick={() => handleLessClick()}><FaLessThan/></button>
+    <main className={`${navOpen ? "nav-open" : ""}`}>
+      <Link to="/entries" className="nav-buttons">
+        {"Return to Entries"}
+      </Link>
+      <div className="entries-container">
+        <div className="entry" style={{ position: "relative" }}>
+          <button
+            className={`circ-btn lighthover ${
+              entries[entries.length - 1].id === +entryId ? "hidden" : ""
+            }`}
+            id="less-than"
+            onClick={() => handleLessClick()}
+          >
+            <FaLessThan />
+          </button>
           <div className="entry-header">
             <div className="entry-info">
               <div className="mood-icon">
@@ -86,16 +103,24 @@ function EntryDetailsPage() {
               </div>
             </div>
             <div className="entry-buttons">
-              <p onClick={(e) => {e.stopPropagation(); navigate(`edit`)}}>Edit</p>
+              <p
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`edit`);
+                }}
+              >
+                Edit
+              </p>
               <BsDot />
               {/* <p onClick={(e) => {e.stopPropagation(); handleDelete()}}>Delete</p> */}
               <OpenModalButton
-                className='delete-entry-btn'
+                className="delete-entry-btn"
                 buttonText="Delete"
-                modalComponent={<DeleteEntryModal  entry={entry} entries={entries}/>}
+                modalComponent={
+                  <DeleteEntryModal entry={entry} entries={entries} />
+                }
               />
             </div>
-
           </div>
           <div className="entry-details">
             <div className="levels-container container">
@@ -103,12 +128,16 @@ function EntryDetailsPage() {
                 <h2>Overall: </h2>
                 <div className="rating">{entry.overallMood}</div>
               </div>
-              <Levels levels={allLevels} entryLvls={entry.EntryLevels}/>
+              <Levels levels={allLevels} entryLvls={entry.EntryLevels} />
             </div>
             <div className="activities-container container">
               <h2>What have you been up to?</h2>
               <div className="acts">
-                <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities}/>
+                <Activities
+                  icons={icons}
+                  activities={allActsObj}
+                  entryActs={entry.EntryActivities}
+                />
               </div>
             </div>
             <div className="note-container container">
@@ -116,7 +145,13 @@ function EntryDetailsPage() {
               <p>{entry.note}</p>
             </div>
           </div>
-          <button className={`circ-btn ${entries[0].id === +entryId? 'hidden' : ''}`} id="greater-than" onClick={() => handleGreaterClick()}><FaGreaterThan/></button>
+          <button
+            className={`circ-btn ${entries[0].id === +entryId ? "hidden" : ""}`}
+            id="greater-than"
+            onClick={() => handleGreaterClick()}
+          >
+            <FaGreaterThan />
+          </button>
         </div>
       </div>
     </main>

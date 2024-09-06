@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { login } from "../../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import { login } from "../../../redux";
 import "./LoginForm.css";
 
 function LoginFormPage() {
@@ -12,41 +12,44 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  if (!sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({})
+    setErrors({});
 
-    dispatch( login({
+    dispatch(
+      login({
         email,
         password,
-      }))
+      })
+    )
       .then(() => {
-          navigate("/");
+        navigate("/");
       })
-      .catch(async res => {
-        const errs = await res.json()
+      .catch(async (res) => {
+        const errs = await res.json();
         setErrors(errs.errors);
-      })
-
+      });
   };
 
-  const demoLogIn = async() => {
-    setEmail("leslie.knope@pawnee.gov")
-    setPassword("wafflesrule456")
-    dispatch( login({
-      email: "leslie.knope@pawnee.gov",
-      password: "wafflesrule456",
-    }))
-    .then(() => {
+  const demoLogIn = async () => {
+    setEmail("leslie.knope@pawnee.gov");
+    setPassword("wafflesrule456");
+    dispatch(
+      login({
+        email: "leslie.knope@pawnee.gov",
+        password: "wafflesrule456",
+      })
+    )
+      .then(() => {
         navigate("/");
-    })
-    .catch(async res => {
-      const errs = await res.json()
-      setErrors(errs.errors);
-    })
-  }
+      })
+      .catch(async (res) => {
+        const errs = await res.json();
+        setErrors(errs.errors);
+      });
+  };
 
   return (
     <main id="login-page">
@@ -62,7 +65,9 @@ function LoginFormPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        <p className={`${errors.email? 'error': "hidden-error" } `}>{errors.email}</p>
+          <p className={`${errors.email ? "error" : "hidden-error"} `}>
+            {errors.email}
+          </p>
         </label>
         <label>
           Password
@@ -73,12 +78,29 @@ function LoginFormPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        {errors.password? <p className={`${errors.password? 'error': "hidden-error" } `}>{errors.password}</p> : <p className={`${errors.credentials? 'error': "hidden-error" } `}>{errors.credentials}</p>}
-
+          {errors.password ? (
+            <p className={`${errors.password ? "error" : "hidden-error"} `}>
+              {errors.password}
+            </p>
+          ) : (
+            <p className={`${errors.credentials ? "error" : "hidden-error"} `}>
+              {errors.credentials}
+            </p>
+          )}
         </label>
 
-        <button className="submit-btn" onClick={e => {demoLogIn(e)}} style={{marginBottom: '1.5em'}}>Log in as demo user</button>
-        <button className="submit-btn" type="submit">Log In</button>
+        <button
+          className="submit-btn"
+          onClick={(e) => {
+            demoLogIn(e);
+          }}
+          style={{ marginBottom: "1.5em" }}
+        >
+          Log in as demo user
+        </button>
+        <button className="submit-btn" type="submit">
+          Log In
+        </button>
       </form>
     </main>
   );

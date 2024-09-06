@@ -1,27 +1,35 @@
-// import { useDispatch } from 'react-redux'
+// React Imports
 import { useEffect } from "react";
-import "./HomePage.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Loading, Icon, Activities, Levels } from "../../subcomponents";
-import { getEntriesToday } from "../../../redux/entries";
-import { getAllIcons } from "../../../redux/icons";
-import { BsDot } from "react-icons/bs";
-import { getAllLevels } from "../../../redux/levels";
-import { getAllActivities } from "../../../redux/activities";
-import { DeleteEntryModal } from "../../modals";
-import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
 
+// Component/Redux Imports
+import { Loading, Icon, Activities, Levels } from "../../subcomponents";
+import {
+  getEntriesToday,
+  getAllIcons,
+  getAllActivities,
+  getAllLevels,
+} from "../../../redux";
+import { DeleteEntryModal, OpenModalButton } from "../../modals";
+
+// Design Imports
+import { BsDot } from "react-icons/bs";
+import "./HomePage.css";
 
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.session.user);
   const entriesObj = useSelector((state) => state.entries.today);
-  const icons = useSelector(state => state.icons.allIcons)
-  const entries = entriesObj? Object.values(entriesObj).sort((a, b) => new Date(b.datetime) - new Date(a.datetime)) : []
-  const allActsObj = useSelector((state) => state.activities.allActivities)
-  const allLevels = useSelector(state => state.levels.allLevels)
+  const icons = useSelector((state) => state.icons.allIcons);
+  const entries = entriesObj
+    ? Object.values(entriesObj).sort(
+        (a, b) => new Date(b.datetime) - new Date(a.datetime)
+      )
+    : [];
+  const allActsObj = useSelector((state) => state.activities.allActivities);
+  const allLevels = useSelector((state) => state.levels.allLevels);
 
   useEffect(() => {
     if (user) {
@@ -29,27 +37,28 @@ function Home() {
         dispatch(getEntriesToday(user.id));
       }
       if (!icons) {
-          dispatch(getAllIcons())
+        dispatch(getAllIcons());
       }
       if (!allActsObj) {
-        dispatch(getAllActivities())
+        dispatch(getAllActivities());
       }
       if (!allLevels) {
-        dispatch(getAllLevels())
+        dispatch(getAllLevels());
       }
     }
   }, [dispatch, user, entriesObj, icons, allActsObj, allLevels]);
 
-  if (user && (!entriesObj || !icons || !allActsObj || !allLevels)) return <Loading />;
+  if (user && (!entriesObj || !icons || !allActsObj || !allLevels))
+    return <Loading />;
 
   return (
     <main id="landing-page">
       {user ? (
-          <div className="nav-open">
-            <h1 style={{paddingTop: '32px'}}>Today:</h1>
-            {entries.length? <div className="entries-container">
-            {entries
-              .map((entry) => (
+        <div className="nav-open">
+          <h1 style={{ paddingTop: "32px" }}>Today:</h1>
+          {entries.length ? (
+            <div className="entries-container">
+              {entries.map((entry) => (
                 <div
                   className="entry"
                   key={entry.id}
@@ -67,15 +76,24 @@ function Home() {
                       </div>
                     </div>
                     <div className="entry-buttons">
-                    <p onClick={(e) => {e.stopPropagation(); navigate(`entries/${entry.id}/edit`)}}>Edit</p>
-                <BsDot />
-                <div onClick={(e) => e.stopPropagation()}>
-                  <OpenModalButton
-                  className='delete-entry-btn'
-                  buttonText="Delete"
-                  modalComponent={<DeleteEntryModal  entry={entry} entries={entries}/>}
-                                />
-                </div>
+                      <p
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`entries/${entry.id}/edit`);
+                        }}
+                      >
+                        Edit
+                      </p>
+                      <BsDot />
+                      <div onClick={(e) => e.stopPropagation()}>
+                        <OpenModalButton
+                          className="delete-entry-btn"
+                          buttonText="Delete"
+                          modalComponent={
+                            <DeleteEntryModal entry={entry} entries={entries} />
+                          }
+                        />
+                      </div>
                     </div>
                   </div>
                   <div className="entry-details">
@@ -84,12 +102,19 @@ function Home() {
                         <h2>Overall: </h2>
                         <div className="rating">{entry.overallMood}</div>
                       </div>
-                        <Levels levels={allLevels}  entryLvls={entry.EntryLevels} />
+                      <Levels
+                        levels={allLevels}
+                        entryLvls={entry.EntryLevels}
+                      />
                     </div>
                     <div className="activities-container container">
                       <h2>What have you been up to?</h2>
                       <div className="acts">
-                        <Activities icons={icons} activities={allActsObj} entryActs={entry.EntryActivities} />
+                        <Activities
+                          icons={icons}
+                          activities={allActsObj}
+                          entryActs={entry.EntryActivities}
+                        />
                       </div>
                     </div>
                     <div className="note-container container">
@@ -99,26 +124,31 @@ function Home() {
                   </div>
                 </div>
               ))}
-          </div>:
-          <div className="no-entries">
-            <p>No entries available for today</p>
-            <Link to='entries/new'>New Entry</Link>
-          </div>}
-
+            </div>
+          ) : (
+            <div className="no-entries">
+              <p>No entries available for today</p>
+              <Link to="entries/new">New Entry</Link>
+            </div>
+          )}
         </div>
       ) : (
-        <div >
+        <div>
           <div id="home-logged-out">
             <div>
-              <h1 className="title-font" id="title">Welcome to Luna</h1>
+              <h1 className="title-font" id="title">
+                Welcome to Luna
+              </h1>
               <p>Here to help you be mindful of your life.</p>
               <p>Chart how you feel. Track what you do.</p>
             </div>
-          <h2 className="title-font" >
-            No matter what phase I am in, I always remain whole
-          </h2>
+            <h2 className="title-font">
+              No matter what phase I am in, I always remain whole
+            </h2>
           </div>
-          <div id='luna-image'><img src="./images/home-page-image.png" /></div>
+          <div id="luna-image">
+            <img src="./images/home-page-image.png" />
+          </div>
         </div>
       )}
     </main>

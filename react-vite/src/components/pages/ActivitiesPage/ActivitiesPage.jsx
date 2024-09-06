@@ -1,12 +1,16 @@
+// React Imports
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllActivities } from "../../../redux/activities";
-import { getAllIcons } from "../../../redux/icons";
 import { Navigate } from "react-router-dom";
+
+// Component/Redux Imports
+import { getAllActivities, getAllIcons } from "../../../redux";
 import { Icon, Loading } from "../../subcomponents";
-import OpenModalButton from "../../modals/OpenModalButton/OpenModalButton";
-import { ActivityFormModal } from "../../modals";
-import DeleteActivityModal from "../../modals/ActivityModal/DeleteActivityModal";
+import {
+  ActivityFormModal,
+  OpenModalButton,
+  DeleteActivityModal,
+} from "../../modals";
 import { useNav } from "../../../context/navContext";
 
 function ActivitiesPage() {
@@ -54,10 +58,7 @@ function ActivitiesPage() {
           </div>
           <div className="activities">
             {activities.map((activity) => (
-              <div
-                key={activity.id}
-                className="act-container"
-              >
+              <div key={activity.id} className="act-container">
                 <div className="activity">
                   <div className="icon">
                     <Icon icons={allIcons} id={activity.iconId} />

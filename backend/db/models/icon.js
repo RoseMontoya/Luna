@@ -10,13 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       Icon.hasMany(models.Entry, {
         foreignKey: 'iconId',
         onUpdate: 'CASCADE',
-        // onDelete: 'SET NULL'
       })
 
       Icon.hasMany(models.Activity, {
         foreignKey: 'iconId',
         onUpdate: 'CASCADE',
-        // onDelete: 'SET NULL'
       })
     }
   }

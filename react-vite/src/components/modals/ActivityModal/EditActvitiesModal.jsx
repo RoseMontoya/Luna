@@ -1,13 +1,13 @@
+import { useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { Icon } from "../../subcomponents";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import ActivityFormModal from "./ActivityFormModal";
-import "./ActivityModal.css";
 import DeleteActivityModal from "./DeleteActivityModal";
-import { useSelector } from "react-redux";
+import "./ActivityModal.css";
 
-function EditActivitiesModal({acts, setActs}) {
-  const { closeModal } = useModal()
+function EditActivitiesModal({ acts, setActs }) {
+  const { closeModal } = useModal();
   const allIcons = useSelector((state) => state.icons.allIcons);
   const icons = allIcons ? Object.values(allIcons) : [];
   const actsObj = useSelector((state) => state.activities.allActivities);
@@ -15,8 +15,10 @@ function EditActivitiesModal({acts, setActs}) {
 
   return (
     <div>
-      <p className="nav-buttons" onClick={() => closeModal()}>Close</p>
-      <div style={{padding: '.25em 1em'}}>
+      <p className="nav-buttons" onClick={() => closeModal()}>
+        Close
+      </p>
+      <div style={{ padding: ".25em 1em" }}>
         <div id="act-head" className="border-bottom">
           <h2>Activities:</h2>
           <div onClick={(e) => e.preventDefault()}>
@@ -34,16 +36,16 @@ function EditActivitiesModal({acts, setActs}) {
           </div>
         </div>
         <div id="acts-con">
-          <div className="activities" >
+          <div className="activities">
             {activities.map((activity) => (
-              <div key={activity.id} className="act-container" >
+              <div key={activity.id} className="act-container">
                 <div className="activity">
                   <div className="icon">
                     <Icon icons={allIcons} id={activity.iconId} />
                   </div>
                   <p>{activity.name}</p>
                 </div>
-                <div className='act-btns'>
+                <div className="act-btns">
                   <OpenModalButton
                     buttonText="Edit"
                     modalComponent={
@@ -57,7 +59,13 @@ function EditActivitiesModal({acts, setActs}) {
                   />
                   <OpenModalButton
                     buttonText="Delete"
-                    modalComponent={<DeleteActivityModal activity={activity} acts={acts} setActs={setActs} />}
+                    modalComponent={
+                      <DeleteActivityModal
+                        activity={activity}
+                        acts={acts}
+                        setActs={setActs}
+                      />
+                    }
                   />
                 </div>
               </div>

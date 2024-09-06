@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import { signup } from "../../../redux/session";
-import './SignupForm.css'
+import { signup } from "../../../redux";
+import "./SignupForm.css";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -16,76 +16,88 @@ function SignupFormPage() {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-
     // First Name Validations
     if (firstName.length > 30) {
       // If first name is too long, disallow any more characters to be add and give error message to let user know why.
-      setFirstName(firstName.slice(0, -1))
-      setErrors(prev => ({...prev, firstName: "Cannot be longer than 30 characters."}))
+      setFirstName(firstName.slice(0, -1));
+      setErrors((prev) => ({
+        ...prev,
+        firstName: "Cannot be longer than 30 characters.",
+      }));
     }
 
     if (lastName.length > 75) {
       // If last name is too long, disallow any more characters to be add and give error message to let user know why.
-      setLastName(lastName.slice(0, -1))
-      setErrors(prev => ({...prev, lastName: "Cannot be longer than 75 characters."}))
+      setLastName(lastName.slice(0, -1));
+      setErrors((prev) => ({
+        ...prev,
+        lastName: "Cannot be longer than 75 characters.",
+      }));
     }
 
     if (password !== confirmPassword) {
-      setErrors(prev => ({...prev, confirmPassword: 'Passwords do not match.'}))
+      setErrors((prev) => ({
+        ...prev,
+        confirmPassword: "Passwords do not match.",
+      }));
     }
-
 
     // Clear errors that are no longer applicable
     if (30 > firstName.length && firstName.length > 2) {
-      setErrors(prev => {
-      // delete prev.firstName
-      const { firstName, ...rest } = prev
-      return rest
-    })}
+      setErrors((prev) => {
+        // delete prev.firstName
+        const { firstName, ...rest } = prev;
+        return rest;
+      });
+    }
 
     if (75 > lastName.length && lastName.length > 2) {
-      setErrors(prev => {
-      // delete prev.lastName
-      const { lastName, ...rest} = prev
-      return rest
-    })}
+      setErrors((prev) => {
+        // delete prev.lastName
+        const { lastName, ...rest } = prev;
+        return rest;
+      });
+    }
 
     if (password.length > 5) {
-      setErrors(prev => {
-      // delete prev.password
-      const { password, ...rest} = prev
-      return rest
-    })}
+      setErrors((prev) => {
+        // delete prev.password
+        const { password, ...rest } = prev;
+        return rest;
+      });
+    }
 
     if (email) {
-      setErrors(prev => {
-        const { email, ...rest} = prev
-        return rest
-      })
+      setErrors((prev) => {
+        const { email, ...rest } = prev;
+        return rest;
+      });
     }
 
     if (password === confirmPassword) {
-      setErrors(prev => {
-        const { confirmPassword, ...rest} = prev
-        return rest
-      })
+      setErrors((prev) => {
+        const { confirmPassword, ...rest } = prev;
+        return rest;
+      });
     }
-  }, [firstName, lastName, email, password, confirmPassword])
+  }, [firstName, lastName, email, password, confirmPassword]);
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setErrors({})
 
-    const errs = {}
-    if (!firstName || firstName.length <3 ) errs.firstName = "Must be at least 2 characters long."
-    if (!lastName || lastName.length < 3) errs.lastName = 'Must be at least 2 characters long.'
-    if (!password || password.length < 7) errs.password = 'Password must be at least 6 characters.'
-    if (!email) errs.email = "Email is required."
+    const errs = {};
+    if (!firstName || firstName.length < 3)
+      errs.firstName = "Must be at least 2 characters long.";
+    if (!lastName || lastName.length < 3)
+      errs.lastName = "Must be at least 2 characters long.";
+    if (!password || password.length < 7)
+      errs.password = "Password must be at least 6 characters.";
+    if (!email) errs.email = "Email is required.";
 
-    if (Object.values(errs).length) return setErrors(errs)
-    else setErrors({})
+    if (Object.values(errs).length) return setErrors(errs);
+    else setErrors({});
 
     dispatch(
       signup({
@@ -95,30 +107,30 @@ function SignupFormPage() {
         password,
       })
     )
-    .then(() => {
-      navigate("/");
-    })
-    .catch(async res => {
-      const errs = await res.json()
-      setErrors(errs.errors)
-    })
-
+      .then(() => {
+        navigate("/");
+      })
+      .catch(async (res) => {
+        const errs = await res.json();
+        setErrors(errs.errors);
+      });
   };
 
   return (
-    <main id='signup-page'>
+    <main id="signup-page">
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit} id="signup-form">
-      <label>
+        <label>
           First Name
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            // required
           />
-          <p className={`${errors.firstName? 'error': "hidden-error" } `}>{errors.firstName}</p>
+          <p className={`${errors.firstName ? "error" : "hidden-error"} `}>
+            {errors.firstName}
+          </p>
         </label>
         <label>
           Last Name
@@ -126,9 +138,10 @@ function SignupFormPage() {
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            // required
           />
-          <p className={`${errors.lastName? 'error': "hidden-error" } `}>{errors.lastName}</p>
+          <p className={`${errors.lastName ? "error" : "hidden-error"} `}>
+            {errors.lastName}
+          </p>
         </label>
         <label>
           Email
@@ -136,9 +149,10 @@ function SignupFormPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            // required
           />
-          <p className={`${errors.email? 'error': "hidden-error" } `}>{errors.email}</p>
+          <p className={`${errors.email ? "error" : "hidden-error"} `}>
+            {errors.email}
+          </p>
         </label>
         <label>
           Password
@@ -146,9 +160,10 @@ function SignupFormPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            // required
           />
-          <p className={`${errors.password? 'error': "hidden-error" } `}>{errors.password}</p>
+          <p className={`${errors.password ? "error" : "hidden-error"} `}>
+            {errors.password}
+          </p>
         </label>
         <label>
           Confirm Password
@@ -156,12 +171,16 @@ function SignupFormPage() {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            // required
           />
-          <p className={`${errors.confirmPassword? 'error': "hidden-error" } `}>{errors.confirmPassword}</p>
+          <p
+            className={`${errors.confirmPassword ? "error" : "hidden-error"} `}
+          >
+            {errors.confirmPassword}
+          </p>
         </label>
-        {/* {errors.confirmPassword && <p>{errors.confirmPassword}</p>} */}
-        <button className="submit-btn" type="submit">Sign Up</button>
+        <button className="submit-btn" type="submit">
+          Sign Up
+        </button>
       </form>
     </main>
   );
