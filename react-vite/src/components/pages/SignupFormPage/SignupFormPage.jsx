@@ -8,6 +8,8 @@ function SignupFormPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const sessionUser = useSelector((state) => state.session.user);
+
+  // use states for form
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,7 +47,6 @@ function SignupFormPage() {
     // Clear errors that are no longer applicable
     if (30 > firstName.length && firstName.length > 2) {
       setErrors((prev) => {
-        // delete prev.firstName
         const { firstName, ...rest } = prev;
         return rest;
       });
@@ -53,7 +54,6 @@ function SignupFormPage() {
 
     if (75 > lastName.length && lastName.length > 2) {
       setErrors((prev) => {
-        // delete prev.lastName
         const { lastName, ...rest } = prev;
         return rest;
       });
@@ -61,7 +61,6 @@ function SignupFormPage() {
 
     if (password.length > 5) {
       setErrors((prev) => {
-        // delete prev.password
         const { password, ...rest } = prev;
         return rest;
       });
@@ -82,11 +81,13 @@ function SignupFormPage() {
     }
   }, [firstName, lastName, email, password, confirmPassword]);
 
+  // if user is logged in, navigate to home
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Frontend validations
     const errs = {};
     if (!firstName || firstName.length < 3)
       errs.firstName = "Must be at least 2 characters long.";

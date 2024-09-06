@@ -2,13 +2,14 @@ import { csrfFetch } from "./csrf";
 import { format } from "date-fns";
 
 // * Helper Funcs
+// Formats datetime from entries
 const formatDate = (entry) => {
   const formattedDate = format(entry.datetime, "EEEE, MMM d . h:mm a").split(
     " . "
   );
   entry.date = formattedDate[0];
   entry.time = formattedDate[1];
-  // delete entry.datetime
+
   return entry;
 };
 
@@ -68,6 +69,7 @@ export const clearEntries = () => ({
 });
 
 // * Thunk
+// Get all entries
 export const getAllEntries = (userId) => async (dispatch) => {
   const response = await csrfFetch(`/api/users/${userId}/entries`);
 
@@ -81,6 +83,7 @@ export const getAllEntries = (userId) => async (dispatch) => {
   return data;
 };
 
+// Get entry by id
 export const getEntryById = (entryId) => async (dispatch) => {
   const response = await csrfFetch(`/api/entries/${entryId}`);
 
@@ -90,6 +93,7 @@ export const getEntryById = (entryId) => async (dispatch) => {
   return entry;
 };
 
+// Get all of a user's entries for the current day
 export const getEntriesToday = (userId) => async (dispatch) => {
   const response = await csrfFetch(`/api/users/${userId}/today`);
 
@@ -102,6 +106,7 @@ export const getEntriesToday = (userId) => async (dispatch) => {
   return data;
 };
 
+// Create entry
 export const createEntry = (payload) => async (dispatch) => {
   const response = await csrfFetch(`/api/entries`, {
     method: "POST",
@@ -113,6 +118,7 @@ export const createEntry = (payload) => async (dispatch) => {
   return data;
 };
 
+// Edit entry
 export const editEntry = (payload, entryId) => async (dispatch) => {
   const response = await csrfFetch(`/api/entries/${entryId}`, {
     method: "PUT",
@@ -124,6 +130,7 @@ export const editEntry = (payload, entryId) => async (dispatch) => {
   return data;
 };
 
+// Delete entry
 export const deleteEntry = (entryId) => async (dispatch) => {
   const response = await csrfFetch(`/api/entries/${entryId}`, {
     method: "DELETE",
@@ -136,6 +143,7 @@ export const deleteEntry = (entryId) => async (dispatch) => {
 
 const initialState = {};
 
+// * Entries reducer
 const entriesReducer = (state = initialState, action) => {
   switch (action.type) {
     case ALL_ENTRIES: {
@@ -161,16 +169,19 @@ const entriesReducer = (state = initialState, action) => {
     case ADD_ENTRY: {
       const newState = {};
 
+      // if allEntries exists in state
       if (state.allEntries) {
         const newAll = { ...state.allEntries };
         newAll[action.payload.id] = action.payload;
         newState["allEntries"] = newAll;
       }
+
       const isToday =
         new Date(action.payload.datetime).toDateString() ===
         new Date().toDateString();
 
-      if (isToday) {
+      // if entry is for today and today exist in state
+      if (isToday && state.today) {
         const newToday = { ...state.today };
         newToday[action.payload.id] = action.payload;
 
@@ -182,7 +193,8 @@ const entriesReducer = (state = initialState, action) => {
     case UPDATE_ENTRY: {
       const newState = {};
 
-      if (state.allEntries) {
+      // if entry is in allEntries state
+      if (state.allEntries?.[action.payload.id]) {
         const newAll = { ...state.allEntries };
         newAll[action.payload.id] = action.payload;
         newState["allEntries"] = newAll;
@@ -191,17 +203,15 @@ const entriesReducer = (state = initialState, action) => {
       const isToday =
         new Date(action.payload.datetime).toDateString() ===
         new Date().toDateString();
-      console.log("isToday?", isToday);
 
+      // if entry is for today and today exist in state
       if (isToday && state.today) {
         const newToday = { ...state.today };
-
         newToday[action.payload.id] = action.payload;
         newState["today"] = newToday;
       }
 
-      console.log("action.payload", action.payload.id);
-
+      // If entry exists in the entriesById state
       if (state.entriesById?.[action.payload.id]) {
         const newById = { ...state.entriesById };
         newById[action.payload.id] = action.payload;
@@ -214,12 +224,14 @@ const entriesReducer = (state = initialState, action) => {
     case REMOVE_ENTRY: {
       const newState = {};
 
-      if (state.allEntries[action.entryId]) {
+      // if entry exists in allEntries state
+      if (state.allEntries?.[action.entryId]) {
         const newAll = { ...state.allEntries };
         delete newAll[action.entryId];
         newState["allEntries"] = newAll;
       }
 
+      // if entry exists in today state
       if (state.today?.[action.entryId]) {
         const newToday = { ...state.today };
 
@@ -228,6 +240,7 @@ const entriesReducer = (state = initialState, action) => {
         newState["today"] = newToday;
       }
 
+      // If entry exists in the entriesById state
       if (state.entriesById?.[action.entryId]) {
         const newById = { ...state.entriesById };
         delete newById[action.entryId];

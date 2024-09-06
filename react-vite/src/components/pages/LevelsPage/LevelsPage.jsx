@@ -13,14 +13,13 @@ import "../../modals/LevelModals/LevelModal.css";
 
 function LevelsPage() {
   const dispatch = useDispatch();
+  const { navOpen } = useNav();
 
   const user = useSelector((state) => state.session.user);
-  const { navOpen } = useNav();
   const levelsObj = useSelector((state) => state.levels.allLevels);
-
   const levels = levelsObj ? Object.values(levelsObj) : [];
   const [lvls, setLvls] = useState(levels || []);
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState(""); // Keep track of which level is enabled for editting
 
   useEffect(() => {
     if (!levelsObj) {
@@ -30,12 +29,16 @@ function LevelsPage() {
     }
   }, [dispatch, levelsObj]);
 
+  // If no there is no user logged in, navigate to home page
   if (!user) return <Navigate to="/" replace={true} />;
+  // If info hasn't loaded in, return loading component
   if (!levelsObj) return <Loading />;
 
   const handleClick = () => {
+    // Give new level a temporary id and add in level to lvls state
     const newLvl = [...lvls, { id: lvls[lvls.length - 1].id + 1 }];
     setLvls(newLvl);
+    // Set new level as selected so it is editable
     setSelected(lvls[lvls.length - 1].id + 1);
   };
 

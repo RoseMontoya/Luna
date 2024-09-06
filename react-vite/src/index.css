@@ -18,16 +18,9 @@ main {
 
 a {
     text-decoration: none;
-    /* color: #FCDEBA; */
     border-radius: 16px;
     width: fit-content;
     padding: .25em;
-}
-
-a:hover {
-    /* box-shadow: 0px 0px 8px 3px #132C33;
-    background-color: #132C33; */
-    /* font-size: 18px; */
 }
 
 a:hover  {
@@ -57,8 +50,6 @@ form {
 input {
     width: 100%;
     margin-top: .25em;
-    /* margin-bottom: 1em; */
-    /* text-transform: capitalize; */
 }
 
 input:focus-visible {
@@ -82,7 +73,6 @@ h1 {
 button {
     border: none;
     padding: .5em 1em;
-    /* background-color: white; */
     cursor: pointer;
     margin-bottom: 5px;
     border-radius: 16px;
@@ -90,10 +80,6 @@ button {
 }
 
 button:hover {
-    /* padding: .5em 1em; */
-    /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
-    border-radius: 16px; */
-    /* text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25); */
     color: #D8E3E7;
 }
 

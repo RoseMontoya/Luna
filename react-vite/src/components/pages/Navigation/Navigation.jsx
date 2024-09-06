@@ -11,13 +11,13 @@ import "./Navigation.css";
 function Navigation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
-
   const { toggleNav, navOpen } = useNav();
+  const user = useSelector((state) => state.session.user);
 
   return (
     <>
       {user ? (
+        // Navigation for logged in user
         <nav id="logged-in-nav">
           <div>
             <button id="add-button" onClick={() => navigate("/entries/new")}>
@@ -25,6 +25,7 @@ function Navigation() {
               <FaPlus />
             </button>
           </div>
+          {/* if nav bar is open */}
           {navOpen ? (
             <div id="nav-container">
               <div id="nav-top">
@@ -42,6 +43,8 @@ function Navigation() {
                 <NavLink to="levels">Levels</NavLink>
                 <NavLink to="activities">Activities</NavLink>
               </div>
+
+              {/* About section */}
               <div id="about">
                 <h2 style={{ fontSize: "16px" }}>Meet the developer</h2>
                 <div style={{ alignItems: "center" }}>
@@ -67,6 +70,7 @@ function Navigation() {
           )}
         </nav>
       ) : (
+        // if no user is logged in
         <nav id="logged-out">
           <NavLink to="/">Home</NavLink>
           <div>

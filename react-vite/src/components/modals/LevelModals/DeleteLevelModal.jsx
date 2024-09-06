@@ -17,7 +17,9 @@ function DeleteLevelModal({
 
   const handleDelete = () => {
     dispatch(deleteLevel(level.id)).then(() => {
+      // disable level
       setSelected("");
+      // Remove levels lvls object
       const newLvls = [...lvls];
       newLvls.splice(idx, 1);
       setLvls(newLvls);

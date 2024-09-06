@@ -1,3 +1,5 @@
+// Create context to tell if nav bar is open or closed
+
 import { createContext, useContext, useState } from "react";
 
 const NavContext = createContext();

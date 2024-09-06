@@ -23,15 +23,18 @@ function EntryDetailsPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { entryId } = useParams();
-  const user = useSelector((state) => state.session.user);
   const { navOpen } = useNav();
-  const entriesObj = useSelector((state) => state.entries.allEntries);
 
+  const user = useSelector((state) => state.session.user);
+  // Get all entries, so use can flip through them
+  const entriesObj = useSelector((state) => state.entries.allEntries);
   const entries = entriesObj
     ? Object.values(entriesObj).sort(
         (a, b) => new Date(b.datetime) - new Date(a.datetime)
       )
     : [];
+
+  // Find specific entry user is looking at
   const entry = entriesObj?.[entryId];
 
   const icons = useSelector((state) => state.icons.allIcons);
@@ -53,10 +56,12 @@ function EntryDetailsPage() {
     }
   }, [dispatch, entryId, entriesObj, icons, user, allActsObj, allLevels]);
 
+  // If no there is no user logged in, navigate to home page
   if (!user) return <Navigate to="/" replace={true} />;
-
+  // If info hasn't loaded in, return loading component
   if (!entriesObj || !icons || !allActsObj || !allLevels) return <Loading />;
 
+  // Function to go to the next entry before current
   const handleLessClick = () => {
     entries.forEach((entry, idx) => {
       if (entry.id === +entryId) {
@@ -66,6 +71,7 @@ function EntryDetailsPage() {
     });
   };
 
+  // Function to go to the next entry after current
   const handleGreaterClick = () => {
     entries.forEach((entry, idx) => {
       if (entry.id === +entryId) {
@@ -82,6 +88,8 @@ function EntryDetailsPage() {
       </Link>
       <div className="entries-container">
         <div className="entry" style={{ position: "relative" }}>
+
+          {/* Less than click */}
           <button
             className={`circ-btn lighthover ${
               entries[entries.length - 1].id === +entryId ? "hidden" : ""
@@ -91,6 +99,8 @@ function EntryDetailsPage() {
           >
             <FaLessThan />
           </button>
+
+            {/* Entry */}
           <div className="entry-header">
             <div className="entry-info">
               <div className="mood-icon">
@@ -102,6 +112,8 @@ function EntryDetailsPage() {
                 <p>{entry.time}</p>
               </div>
             </div>
+
+            {/* Entry Buttons */}
             <div className="entry-buttons">
               <p
                 onClick={(e) => {
@@ -112,7 +124,6 @@ function EntryDetailsPage() {
                 Edit
               </p>
               <BsDot />
-              {/* <p onClick={(e) => {e.stopPropagation(); handleDelete()}}>Delete</p> */}
               <OpenModalButton
                 className="delete-entry-btn"
                 buttonText="Delete"
@@ -122,7 +133,9 @@ function EntryDetailsPage() {
               />
             </div>
           </div>
+
           <div className="entry-details">
+            {/* Levels */}
             <div className="levels-container container">
               <div className="level">
                 <h2>Overall: </h2>
@@ -130,6 +143,7 @@ function EntryDetailsPage() {
               </div>
               <Levels levels={allLevels} entryLvls={entry.EntryLevels} />
             </div>
+            {/* Activities */}
             <div className="activities-container container">
               <h2>What have you been up to?</h2>
               <div className="acts">
@@ -145,6 +159,8 @@ function EntryDetailsPage() {
               <p>{entry.note}</p>
             </div>
           </div>
+
+          {/* Greater than button */}
           <button
             className={`circ-btn ${entries[0].id === +entryId ? "hidden" : ""}`}
             id="greater-than"

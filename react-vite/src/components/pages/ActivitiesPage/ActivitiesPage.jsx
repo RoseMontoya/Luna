@@ -15,14 +15,19 @@ import { useNav } from "../../../context/navContext";
 
 function ActivitiesPage() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
   const { navOpen } = useNav();
 
+  const user = useSelector((state) => state.session.user);
+
+  // Icons
   const allIcons = useSelector((state) => state.icons.allIcons);
   const icons = allIcons ? Object.values(allIcons) : [];
+
+  // Activities
   const actsObj = useSelector((state) => state.activities.allActivities);
   const activities = actsObj ? Object.values(actsObj) : [];
 
+  // Use effect to dispatch thunks if info is not in store
   useEffect(() => {
     if (!actsObj) {
       dispatch(getAllActivities());
@@ -32,7 +37,10 @@ function ActivitiesPage() {
     }
   }, [dispatch, actsObj, allIcons]);
 
+  // If no user logged in, navigate to home
   if (!user) return <Navigate to="/" replace={true} />;
+
+  // if activities or icons have not loaded, return loading component
   if (!actsObj || !allIcons) return <Loading />;
 
   return (

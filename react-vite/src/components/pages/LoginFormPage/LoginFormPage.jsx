@@ -7,12 +7,14 @@ import "./LoginForm.css";
 function LoginFormPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
-  if (!sessionUser) return <Navigate to="/" replace={true} />;
+  // If user is logged in, navigate to home page
+  if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +35,7 @@ function LoginFormPage() {
       });
   };
 
+  // Log in as demo user
   const demoLogIn = async () => {
     setEmail("leslie.knope@pawnee.gov");
     setPassword("wafflesrule456");

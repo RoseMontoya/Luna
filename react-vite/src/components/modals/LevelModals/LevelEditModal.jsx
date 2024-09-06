@@ -5,13 +5,18 @@ import { useModal } from "../../../context/Modal";
 
 function LevelEditModal({ levelsObj }) {
   const { closeModal } = useModal();
+
+  // make levels array
   const levels = Object.values(levelsObj);
+
   const [lvls, setLvls] = useState(levels || []);
   const [selected, setSelected] = useState("");
 
   const handleClick = () => {
+    // Give new level a temporary id and add in level to lvls state
     const newLvl = [...lvls, { id: lvls[lvls.length - 1].id + 1 }];
     setLvls(newLvl);
+    // Set new level as selected so it is editable
     setSelected(lvls[lvls.length - 1].id + 1);
   };
 

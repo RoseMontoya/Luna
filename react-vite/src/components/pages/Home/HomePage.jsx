@@ -20,17 +20,22 @@ import "./HomePage.css";
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Grab info from state
   const user = useSelector((state) => state.session.user);
-  const entriesObj = useSelector((state) => state.entries.today);
   const icons = useSelector((state) => state.icons.allIcons);
-  const entries = entriesObj
-    ? Object.values(entriesObj).sort(
-        (a, b) => new Date(b.datetime) - new Date(a.datetime)
-      )
-    : [];
   const allActsObj = useSelector((state) => state.activities.allActivities);
   const allLevels = useSelector((state) => state.levels.allLevels);
 
+  // Entries
+  const entriesObj = useSelector((state) => state.entries.today);
+  const entries = entriesObj
+  ? Object.values(entriesObj).sort(
+    (a, b) => new Date(b.datetime) - new Date(a.datetime)
+  )
+  : [];
+
+  // Thunk dispatches
   useEffect(() => {
     if (user) {
       if (!entriesObj) {
@@ -48,14 +53,19 @@ function Home() {
     }
   }, [dispatch, user, entriesObj, icons, allActsObj, allLevels]);
 
+  // If info hasn't loaded in and there is a user logged in, return loading component
   if (user && (!entriesObj || !icons || !allActsObj || !allLevels))
     return <Loading />;
 
   return (
     <main id="landing-page">
+
+      {/* Logged in home page */}
       {user ? (
         <div className="nav-open">
           <h1 style={{ paddingTop: "32px" }}>Today:</h1>
+
+          {/* Entries */}
           {entries.length ? (
             <div className="entries-container">
               {entries.map((entry) => (
@@ -75,6 +85,8 @@ function Home() {
                         <p>{entry.time}</p>
                       </div>
                     </div>
+
+                    {/* Entry Buttons */}
                     <div className="entry-buttons">
                       <p
                         onClick={(e) => {
@@ -97,6 +109,8 @@ function Home() {
                     </div>
                   </div>
                   <div className="entry-details">
+
+                    {/* Levels */}
                     <div className="levels-container container">
                       <div className="level">
                         <h2>Overall: </h2>
@@ -107,6 +121,8 @@ function Home() {
                         entryLvls={entry.EntryLevels}
                       />
                     </div>
+
+                    {/* Activities */}
                     <div className="activities-container container">
                       <h2>What have you been up to?</h2>
                       <div className="acts">
@@ -134,6 +150,8 @@ function Home() {
         </div>
       ) : (
         <div>
+
+          {/* Logged out home page */}
           <div id="home-logged-out">
             <div>
               <h1 className="title-font" id="title">

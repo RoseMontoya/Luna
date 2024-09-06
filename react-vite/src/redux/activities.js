@@ -6,6 +6,7 @@ const UPDATE_ACTIVITY = "activities/updateActivity";
 const REMOVE_ACTIVITY = "activities/removeActivity";
 const CLEAR = "activities/clearActivities";
 
+// * Actions
 const getActivities = (activities) => {
   return {
     type: GET_ACTIVITIES,
@@ -36,6 +37,8 @@ const removeActivity = (activityId) => {
 
 export const clearActivities = () => ({ type: CLEAR });
 
+// * Thunks
+// thunk to get all activities
 export const getAllActivities = () => async (dispatch) => {
   const response = await csrfFetch("/api/activities");
 
@@ -44,6 +47,7 @@ export const getAllActivities = () => async (dispatch) => {
   return activities;
 };
 
+// create a new activity
 export const createActivity = (payload) => async (dispatch) => {
   const response = await csrfFetch(`/api/activities`, {
     method: "POST",
@@ -55,6 +59,7 @@ export const createActivity = (payload) => async (dispatch) => {
   return activity;
 };
 
+// Edit activity
 export const editActivity = (payload) => async (dispatch) => {
   const response = await csrfFetch(`/api/activities/${payload.id}`, {
     method: "PUT",
@@ -66,6 +71,7 @@ export const editActivity = (payload) => async (dispatch) => {
   return data;
 };
 
+// Delete activity
 export const deleteActivity = (actitvityId) => async (dispatch) => {
   const response = await csrfFetch(`/api/activities/${actitvityId}`, {
     method: "DELETE",
@@ -76,6 +82,7 @@ export const deleteActivity = (actitvityId) => async (dispatch) => {
   return data;
 };
 
+// * Activities reducer
 const activitiesReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_ACTIVITIES: {

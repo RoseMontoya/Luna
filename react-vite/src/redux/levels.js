@@ -6,6 +6,7 @@ const UPDATE_LEVEL = "levels/updateLevel";
 const REMOVE_LEVEL = "levels/removeLevel";
 const CLEAR = "levels/clearLevels";
 
+// * Actions
 const getLevels = (levels) => {
   return {
     type: GET_LEVELS,
@@ -36,6 +37,8 @@ const removeLevel = (levelId) => {
 
 export const clearLevels = () => ({ type: CLEAR });
 
+// * Thunks
+// get all levels
 export const getAllLevels = () => async (dispatch) => {
   const response = await csrfFetch("/api/levels");
 
@@ -44,6 +47,7 @@ export const getAllLevels = () => async (dispatch) => {
   return levels;
 };
 
+// create a level
 export const createLevel = (level) => async (dispatch) => {
   const response = await csrfFetch(`/api/levels`, {
     method: "POST",
@@ -55,6 +59,7 @@ export const createLevel = (level) => async (dispatch) => {
   return data;
 };
 
+// edit a level
 export const editLevel = (level) => async (dispatch) => {
   const response = await csrfFetch(`/api/levels/${level.id}`, {
     method: "PUT",
@@ -67,6 +72,7 @@ export const editLevel = (level) => async (dispatch) => {
   return data;
 };
 
+// delete a level
 export const deleteLevel = (levelId) => async (dispatch) => {
   const response = await csrfFetch(`/api/levels/${levelId}`, {
     method: "DELETE",
@@ -78,6 +84,7 @@ export const deleteLevel = (levelId) => async (dispatch) => {
   return data;
 };
 
+// * Reducer
 const levelsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_LEVELS: {

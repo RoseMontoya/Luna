@@ -14,38 +14,20 @@ function ActivityFormModal({ allIcons, icons, prevAct, source }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
+  // useStates
   const [name, setName] = useState("" || prevAct?.name);
   const [iconId, setIconId] = useState("" || prevAct?.iconId);
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors({});
-
-    const errs = {};
-    if (!name || name.length < 3 || name.length > 30)
-      errs.name = "Activity name must be between 2-30 characters.";
-    if (!iconId)
-      errs.iconId = "Please chose an icon to represent this activity.";
-
-    if (Object.values(errs).length) return setErrors(errs);
-
-    const thunk = prevAct ? editActivity : createActivity;
-
-    dispatch(thunk({ name: name.toLowerCase(), iconId, id: prevAct?.id }))
-      .then(closeModal)
-      .catch(async (res) => {
-        const errs = await res.json();
-        setErrors(errs.errors);
-      });
-  };
-
   useEffect(() => {
+    // Real time validations
     if (name?.length > 30) {
-      setName(name.slice(0, -1));
+      // If name is longer than 30 character, slice off extra characters
+      setName(name.slice(0, 31));
       setErrors({ name: "Activity name cannot be longer than 30 characters." });
     }
 
+    // Remove errors if no longer applicable
     if (name?.length > 2 && name?.length < 30) {
       setErrors((prev) => {
         const { name, ...rest } = prev;
@@ -61,8 +43,33 @@ function ActivityFormModal({ allIcons, icons, prevAct, source }) {
     }
   }, [name, iconId]);
 
+  // handle submit of new activity
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrors({});
+
+    // Frontend validations
+    const errs = {};
+    if (!name || name.length < 3 || name.length > 30)
+      errs.name = "Activity name must be between 2-30 characters.";
+    if (!iconId)
+      errs.iconId = "Please chose an icon to represent this activity.";
+
+    if (Object.values(errs).length) return setErrors(errs);
+
+    // Check if there is a previous activity we are editing, and choose the appropriate thunk
+    const thunk = prevAct ? editActivity : createActivity;
+
+    dispatch(thunk({ name: name, iconId, id: prevAct?.id }))
+      .then(closeModal)
+      .catch(async (res) => {
+        const errs = await res.json();
+        setErrors(errs.errors);
+      });
+  };
   return (
     <div>
+      {/* Cancel Button */}
       <OpenModalButton
         className="nav-buttons"
         buttonText="Cancel"
@@ -70,13 +77,14 @@ function ActivityFormModal({ allIcons, icons, prevAct, source }) {
           source === "page" ? Navigate(-1) : <EditActivitiesModal />
         }
       />
+
+        {/* Activity Form */}
       <form id="act-form" onSubmit={(e) => handleSubmit(e)}>
         <label>
           Enter activity:
           <input
             type="text"
             value={name}
-            // maxLength={25}
             onChange={(e) => setName(e.target.value)}
           />
         </label>

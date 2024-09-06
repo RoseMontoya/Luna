@@ -1,6 +1,5 @@
 #landing-page {
     height: 95vh;
-    /* min-height: 33em; */
     padding: 0 2em;
 }
 
@@ -16,8 +15,6 @@
 }
 
 #luna-image {
- /* display: flex; */
- /* justify-content: center; */
  position: fixed;
  width: 50vw;
  left: 25vw;

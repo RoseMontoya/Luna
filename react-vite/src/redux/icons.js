@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const GET_ICONS = "icons/getIcons";
 
+// * Actions
 const getIcons = (icons) => {
   return {
     type: GET_ICONS,
@@ -9,6 +10,7 @@ const getIcons = (icons) => {
   };
 };
 
+// * Thunks
 export const getAllIcons = () => async (dispatch) => {
   const response = await csrfFetch(`/api/icons`);
   const data = await response.json();
@@ -16,6 +18,7 @@ export const getAllIcons = () => async (dispatch) => {
   return data;
 };
 
+// * Reducer
 const iconReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_ICONS: {

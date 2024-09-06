@@ -12,6 +12,7 @@ function DeleteEntryModal({ entry, entries }) {
   const handleDelete = () => {
     dispatch(deleteEntry(entry.id)).then(() => {
       closeModal();
+      // if user has no more entries, navigate to home page. Else navigate to all entries
       if (entries.length <= 1) navigate("/");
       else navigate("/entries");
     });

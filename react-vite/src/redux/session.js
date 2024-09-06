@@ -6,7 +6,7 @@ import { clearLevels } from "./levels";
 const SET_CURRENT_USER = "/store/session/SET_CURRENT_USER";
 const REMOVE_USER = "/store/session/REMOVE_USER";
 
-// Actions
+// * Actions
 const setCurrentUser = (user) => {
   return {
     type: SET_CURRENT_USER,
@@ -68,7 +68,7 @@ export const logout = () => async (dispatch) => {
   return response;
 };
 
-// Reducer
+// * Reducer
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {

@@ -1,3 +1,4 @@
+// Validations for entries
 function entryValidation({ date, mood, overallMood, selectedIcon, note}) {
     const errs = {}
 

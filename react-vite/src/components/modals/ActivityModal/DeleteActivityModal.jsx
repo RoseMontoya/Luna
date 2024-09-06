@@ -13,8 +13,10 @@ function DeleteActivityModal({ activity, acts, setActs, source }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
+  // Function to handle deletion of an activity
   const handleDelete = () => {
     dispatch(deleteActivity(activity.id)).then(() => {
+      // Remove activity from acts set
       if (acts && acts.has(activity.id)) {
         const actsCopy = new Set(acts);
         actsCopy.delete(activity.id);

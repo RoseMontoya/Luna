@@ -8,8 +8,12 @@ import "./ActivityModal.css";
 
 function EditActivitiesModal({ acts, setActs }) {
   const { closeModal } = useModal();
+
+  // Icons
   const allIcons = useSelector((state) => state.icons.allIcons);
   const icons = allIcons ? Object.values(allIcons) : [];
+
+  // Activities
   const actsObj = useSelector((state) => state.activities.allActivities);
   const activities = actsObj ? Object.values(actsObj) : [];
 

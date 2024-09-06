@@ -31,28 +31,38 @@ function EntryFormPage({ type }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { entryId } = useParams();
-
-  const user = useSelector((state) => state.session.user);
   const { navOpen } = useNav();
+
+  // Grab info from redux state
+  const user = useSelector((state) => state.session.user);
   const entry = useSelector((state) => state.entries.entriesById?.[entryId]);
 
+  // Icons
+  const allIcons = useSelector((state) => state.icons.allIcons);
+  const icons = allIcons ? Object.values(allIcons) : [];
+  const moodIcons = icons.slice(0, 19); // Grab specific icons for mood representation
+
+  // Levels
+  const levelsObj = useSelector((state) => state.levels.allLevels);
+  const levels = levelsObj ? Object.values(levelsObj) : [];
+
+  // Activities
+  const activitiesObj = useSelector((state) => state.activities.allActivities);
+  const activities = activitiesObj ? Object.values(activitiesObj) : [];
+
+  // Use states for entry information
   const [date, setDate] = useState(new Date());
   const [mood, setMood] = useState("");
   const [overallMood, setOverallMood] = useState("");
   const [selectedIcon, setSelectedIcon] = useState({});
   const [note, setNote] = useState("");
+
   const [acts, setActs] = useState(new Set());
+  const [levelRatings, setLevelsRating] = useState({});
+
   const [errors, setErrors] = useState({});
 
-  const allIcons = useSelector((state) => state.icons.allIcons);
-  const icons = allIcons ? Object.values(allIcons) : [];
-  const moodIcons = icons.slice(0, 19);
-  const levelsObj = useSelector((state) => state.levels.allLevels);
-  const levels = levelsObj ? Object.values(levelsObj) : [];
-  const [levelRatings, setLevelsRating] = useState({});
-  const activitiesObj = useSelector((state) => state.activities.allActivities);
-  const activities = activitiesObj ? Object.values(activitiesObj) : [];
-
+  // Dispatches to get information
   useEffect(() => {
     if (!allIcons) {
       dispatch(getAllIcons());
@@ -65,11 +75,14 @@ function EntryFormPage({ type }) {
     }
   }, [dispatch, allIcons, levelsObj, activitiesObj, levelRatings]);
 
+  // Restore data if editing
   useEffect(() => {
+    // If form type is edit, check if entry exists in state
     if (!entry && type === "edit") {
       dispatch(getEntryById(entryId));
     }
 
+    // if everything is loaded, update state with information
     if (type === "edit" && entry && allIcons && !overallMood) {
       setDate(format(entry.datetime, "yyyy-MM-dd HH:mm"));
       setMood(entry.mood);
@@ -77,8 +90,8 @@ function EntryFormPage({ type }) {
       setSelectedIcon(allIcons[entry.iconId]);
       setNote(entry.note || "");
 
+      // Format levels so it is easy to grab ratings by level id
       const startStateLevels = {};
-
       entry.EntryLevels.forEach((level) => {
         if (level.rating > 0) {
           startStateLevels[level.levelId] = level.rating;
@@ -86,6 +99,7 @@ function EntryFormPage({ type }) {
       });
       setLevelsRating(startStateLevels);
 
+      // Create set of activity ids
       const activities = new Set();
       entry.EntryActivities.forEach((act) => {
         activities.add(act.activityId);
@@ -94,7 +108,9 @@ function EntryFormPage({ type }) {
     }
   }, [dispatch, entry, type, entryId, allIcons, overallMood]);
 
+  // Entry form validations
   useEffect(() => {
+    // if longer than specified length, slice off extra characters
     if (mood.length > 20) {
       setMood(mood.slice(0, 21));
       setErrors({ mood: "Cannot be longer than 20 characters." });
@@ -104,6 +120,7 @@ function EntryFormPage({ type }) {
       setErrors({ note: "Note cannot be longer than 255 characters." });
     }
 
+    // Remove errors that are no longer applicable
     if (mood.length > 2 && mood.length <= 20) {
       setErrors((prev) => {
         const { mood, ...rest } = prev;
@@ -118,12 +135,16 @@ function EntryFormPage({ type }) {
     }
   }, [note, mood]);
 
+  // If no there is no user logged in, navigate to home page
   if (!user) return <Navigate to="/" replace={true} />;
+  // If info hasn't loaded in, return loading component
+  if (!allIcons || !levelsObj || !activitiesObj) return <Loading />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
 
+    // Frontend validations
     const errs = entryValidation({
       date,
       mood,
@@ -131,9 +152,9 @@ function EntryFormPage({ type }) {
       selectedIcon,
       note,
     });
-
     if (Object.values(errs).length) return setErrors(errs);
 
+    // Format levels information
     const lvls = [];
     for (const [levelId, rating] of Object.entries(levelRatings)) {
       if (levelsObj[levelId] && rating > 0) {
@@ -141,6 +162,7 @@ function EntryFormPage({ type }) {
       }
     }
 
+    // Format activity information
     const entriesActs = [];
     for (const actId of acts.values()) {
       if (activitiesObj[actId]) {
@@ -158,6 +180,7 @@ function EntryFormPage({ type }) {
       activities: entriesActs,
     };
 
+    // Choose appropriate thunk type
     const thunk = type === "edit" ? editEntry : createEntry;
 
     dispatch(thunk(payload, entryId))
@@ -170,14 +193,15 @@ function EntryFormPage({ type }) {
       });
   };
 
-  if (!allIcons || !levelsObj || !activitiesObj) return <Loading />;
 
   const handleSelect = (actId) => {
+    // if the acts set has actId, remove from set
     if (acts.has(actId)) {
       const newA = new Set(acts);
       newA.delete(actId);
       setActs(newA);
     } else {
+      // else add to set
       const newA = new Set(acts);
       setActs(newA.add(actId));
     }
@@ -195,6 +219,8 @@ function EntryFormPage({ type }) {
           onSubmit={(e) => handleSubmit(e)}
         >
           <h1 style={{ textAlign: "center" }}>How are you?</h1>
+
+          {/* DATE */}
           <div className="date-container">
             <div>
               <DatePicker
@@ -216,6 +242,8 @@ function EntryFormPage({ type }) {
             </p>
           </div>
           <div className="border-bottom">
+
+            {/* MOOD */}
             <label>
               In one word, how are you feeling?
               <input
@@ -227,6 +255,8 @@ function EntryFormPage({ type }) {
                 {errors.mood}
               </p>
             </label>
+
+            {/* OVERALL MOOD RATING */}
             <label>
               {`On a scale of 1 to 10, how would rating your overall mood?  `}
               <select
@@ -248,6 +278,8 @@ function EntryFormPage({ type }) {
                 {errors.overallMood}
               </p>
             </label>
+
+            {/* MOOD ICON */}
             <label>
               Choose an icon that best represents your mood:
               <div className="icons-container">
@@ -267,6 +299,8 @@ function EntryFormPage({ type }) {
                 {errors.iconId}
               </p>
             </label>
+
+            {/* NOTE */}
             <div className="note-form-container">
               <label>Would you like to add a small note to this entry?</label>
               <textarea
@@ -280,6 +314,8 @@ function EntryFormPage({ type }) {
             </div>
           </div>
           <div className="border-bottom">
+
+            {/* LEVELS */}
             <h2>Levels</h2>
             <div className="lvls-container">
               {levels.map((level) => (
@@ -314,6 +350,8 @@ function EntryFormPage({ type }) {
             </div>
           </div>
           <div>
+
+            {/* ACTIVITIES */}
             <h2>Activities</h2>
             <div className="activities">
               {activities.map((activity) => (

@@ -13,14 +13,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     max-width: 13em;
 }
 
-/* .date-container * {
-    display: flex;
-    justify-content: center;
-} */
 
 .date-input {
     border: none;
@@ -46,16 +41,13 @@
     max-width: 15em;
     border: #126E82 solid 1px;
     border-radius: 16px;
-    /* margin: .5em 0; */
+
     display: flex;
     flex-direction: column;
     gap: .5em;
 
 }
 
-.lvl {
-
-}
 .edit-btn {
     display: flex;
     justify-content: end;
@@ -71,10 +63,7 @@
     /* display: flex; */
     /* background-color: #126E82; */
 }
-/* .note-form-container {
-    display: flex;
-    flex-direction: column;
-} */
+
 .note {
     width: 90%;
     margin: .5em 2.3em 0  2.3em;

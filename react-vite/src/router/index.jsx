@@ -19,9 +19,11 @@ import { FrontPageAnimation } from "../components/subcomponents";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
+
       <Route index element={<Home />} />
       <Route path="login" element={<LoginFormPage />} />
       <Route path="signup" element={<SignupFormPage />} />
+
       <Route path="entries">
         <Route index element={<EntriesListPage />} />
         <Route path=":entryId">
@@ -30,6 +32,7 @@ export const router = createBrowserRouter(
         </Route>
         <Route path="new" element={<EntryFormPage />} />
       </Route>
+
       <Route path="activities" element={<ActivitiesPage />} />
       <Route path="levels" element={<LevelsPage />} />
       <Route path="moon" element={<FrontPageAnimation/>} />

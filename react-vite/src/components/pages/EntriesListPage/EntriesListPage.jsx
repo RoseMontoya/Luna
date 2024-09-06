@@ -21,22 +21,25 @@ import "./EntriesList.css";
 function EntriesListPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const user = useSelector((state) => state.session.user);
   const { navOpen } = useNav();
 
-  const entriesObj = useSelector((state) => state.entries.allEntries);
+  const user = useSelector((state) => state.session.user);
 
+  // Entries
+  const entriesObj = useSelector((state) => state.entries.allEntries);
   const entries = entriesObj
     ? Object.values(entriesObj).sort(
+         // Sort entries by date
         (a, b) => new Date(b.datetime) - new Date(a.datetime)
       )
     : [];
-  const icons = useSelector((state) => state.icons.allIcons);
 
+  const icons = useSelector((state) => state.icons.allIcons);
   const allActsObj = useSelector((state) => state.activities.allActivities);
   const allLevels = useSelector((state) => state.levels.allLevels);
+
   useEffect(() => {
+    // dispatches to get info from backend if it does not exists in state
     if (!entriesObj && user) {
       dispatch(getAllEntries(user.id));
     }
@@ -51,8 +54,9 @@ function EntriesListPage() {
     }
   }, [dispatch, entriesObj, user, icons, allActsObj, allLevels]);
 
+  // If no there is no user logged in, navigate to home page
   if (!user) return <Navigate to="/" replace={true} />;
-  //
+  // If info hasn't loaded in, return loading component
   if (!entriesObj || !icons || !allActsObj || !allLevels) return <Loading />;
 
   return (
@@ -66,6 +70,8 @@ function EntriesListPage() {
               key={entry.id}
               onClick={() => navigate(`${entry.id}`)}
             >
+
+              {/* Entry */}
               <div className="entry-header">
                 <div className="entry-info">
                   <div className="mood-icon">
@@ -99,6 +105,8 @@ function EntriesListPage() {
                 </div>
               </div>
               <div className="entry-details">
+
+                {/* Level */}
                 <div className="levels-container container">
                   <div className="level">
                     <h2>Overall: </h2>
@@ -106,6 +114,8 @@ function EntriesListPage() {
                   </div>
                   <Levels levels={allLevels} entryLvls={entry.EntryLevels} />
                 </div>
+
+                {/* Activities */}
                 <div className="activities-container container">
                   <h2>What have you been up to?</h2>
                   <div className="acts">
