@@ -2,7 +2,8 @@
 
 body {
     font-family: "Inter", sans-serif;
-    background-color: rgba(18, 110, 130, 0.37);
+    /* background-color: rgba(18, 110, 130, 0.37); */
+    background: linear-gradient(#0a5063 20%, rgba(18, 110, 130, 0.37)) no-repeat;
     margin: 0;
     color: #132C33;
 }
@@ -14,6 +15,7 @@ body * {
 
 main {
     padding: 2em;
+    min-height: 90vh;
 }
 
 a {
@@ -42,7 +44,7 @@ form {
     justify-content: center;
     padding: 2em;
     margin: 2em;
-    background-color: white;
+    background-color: aliceblue;
     border-radius: 1em;
     /* gap: 1em */
 }
@@ -69,6 +71,8 @@ h1 {
     font-family: "Kaisei Decol", serif;;
     font-size: 57px;
     margin: 0;
+    color: aliceblue;
+    font-weight: 200;
 }
 
 button {

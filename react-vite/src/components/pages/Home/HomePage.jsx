@@ -4,7 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 // Component/Redux Imports
-import { Loading, Icon, Activities, Levels, FrontPageAnimation } from "../../subcomponents";
+import {
+  Loading,
+  Icon,
+  Activities,
+  Levels,
+  FrontPageAnimation,
+} from "../../subcomponents";
 import {
   getEntriesToday,
   getAllIcons,
@@ -30,10 +36,10 @@ function Home() {
   // Entries
   const entriesObj = useSelector((state) => state.entries.today);
   const entries = entriesObj
-  ? Object.values(entriesObj).sort(
-    (a, b) => new Date(b.datetime) - new Date(a.datetime)
-  )
-  : [];
+    ? Object.values(entriesObj).sort(
+        (a, b) => new Date(b.datetime) - new Date(a.datetime)
+      )
+    : [];
 
   // Thunk dispatches
   useEffect(() => {
@@ -59,7 +65,6 @@ function Home() {
 
   return (
     <main id="landing-page">
-
       {/* Logged in home page */}
       {user ? (
         <div className="nav-open">
@@ -109,7 +114,6 @@ function Home() {
                     </div>
                   </div>
                   <div className="entry-details">
-
                     {/* Levels */}
                     <div className="levels-container container">
                       <div className="level">
@@ -149,23 +153,28 @@ function Home() {
           )}
         </div>
       ) : (
-        <div>
-
-          {/* Logged out home page */}
+        // <div>
+          // {/* Logged out home page */}
           <div id="home-logged-out">
             <div>
               <h1 className="title-font" id="title">
                 Welcome to Luna
               </h1>
-              <p>Here to help you be mindful of your life.</p>
-              <p>Chart how you feel. Track what you do.</p>
+              <p id="p1">Be mindful of your life.</p>
+              <p id="p2" style={{ textAlign: "center" }}>
+                Chart how you feel.
+              </p>{" "}
+              <p id="p3" style={{ textAlign: "right" }}>
+                {" "}
+                Track what you do.
+              </p>
             </div>
             <h2 className="title-font">
               No matter what phase I am in, I always remain whole
             </h2>
-          </div>
             <FrontPageAnimation />
-        </div>
+          </div>
+        // </div>
       )}
     </main>
   );

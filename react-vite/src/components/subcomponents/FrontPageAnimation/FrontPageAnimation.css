@@ -2,8 +2,8 @@
   height: 520px;
   width: 500px;
   position: absolute;
-  top: 5em;
-  right: 5em;
+  top: 3em;
+  right: 0;
   display: flex;
   /* justify-content: center; */
   align-items: center;
