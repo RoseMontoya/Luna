@@ -60,7 +60,7 @@ function EntriesListPage() {
   if (!entriesObj || !icons || !allActsObj || !allLevels) return <Loading />;
 
   return (
-    <main className={`${navOpen ? "nav-open" : ""}`}>
+    <main className={`${navOpen ? "nav-open" : ""} side-nav`}>
       <h1>Entries:</h1>
       <div className="entries-container">
         {entries.length ? (

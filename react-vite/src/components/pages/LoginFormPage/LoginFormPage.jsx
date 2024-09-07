@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { login } from "../../../redux";
 import "./LoginForm.css";
+import { FrontPageAnimation } from "../../subcomponents";
 
 function LoginFormPage() {
   const navigate = useNavigate();
@@ -55,56 +56,58 @@ function LoginFormPage() {
   };
 
   return (
-    <main id="login-page">
-      <h1>Log In</h1>
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit} id="login-form">
-        <label>
-          Email
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <p className={`${errors.email ? "error" : "hidden-error"} `}>
-            {errors.email}
-          </p>
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            minLength={6}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {errors.password ? (
-            <p className={`${errors.password ? "error" : "hidden-error"} `}>
-              {errors.password}
+    <main >
+      <div id="login-page">
+        <h1>Log In</h1>
+        {errors.length > 0 &&
+          errors.map((message) => <p key={message}>{message}</p>)}
+        <form onSubmit={handleSubmit} id="login-form">
+          <label>
+            Email
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <p className={`${errors.email ? "error" : "hidden-error"} `}>
+              {errors.email}
             </p>
-          ) : (
-            <p className={`${errors.credentials ? "error" : "hidden-error"} `}>
-              {errors.credentials}
-            </p>
-          )}
-        </label>
-
-        <button
-          className="submit-btn"
-          onClick={(e) => {
-            demoLogIn(e);
-          }}
-          style={{ marginBottom: "1.5em" }}
-        >
-          Log in as demo user
-        </button>
-        <button className="submit-btn" type="submit">
-          Log In
-        </button>
-      </form>
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              minLength={6}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            {errors.password ? (
+              <p className={`${errors.password ? "error" : "hidden-error"} `}>
+                {errors.password}
+              </p>
+            ) : (
+              <p className={`${errors.credentials ? "error" : "hidden-error"} `}>
+                {errors.credentials}
+              </p>
+            )}
+          </label>
+          <button
+            className="submit-btn"
+            onClick={(e) => {
+              demoLogIn(e);
+            }}
+            style={{ marginBottom: "1.5em" }}
+          >
+            Log in as demo user
+          </button>
+          <button className="submit-btn" type="submit">
+            Log In
+          </button>
+        </form>
+        <FrontPageAnimation />
+      </div>
     </main>
   );
 }

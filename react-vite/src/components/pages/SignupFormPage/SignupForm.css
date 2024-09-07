@@ -1,8 +1,13 @@
 #signup-page {
-    padding: 2em;
-    max-width: 30em;
+    max-width: 1024px;
+    position: relative;
+    margin: 0 auto;
 }
 
 #signup-form {
     margin: 2em;
+    max-width: 20em;
+    position: relative;
+    z-index: 1;
+
 }

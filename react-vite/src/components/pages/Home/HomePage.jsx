@@ -18,6 +18,7 @@ import {
   getAllLevels,
 } from "../../../redux";
 import { DeleteEntryModal, OpenModalButton } from "../../modals";
+import { useNav } from "../../../context/navContext";
 
 // Design Imports
 import { BsDot } from "react-icons/bs";
@@ -26,6 +27,7 @@ import "./HomePage.css";
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { navOpen } = useNav();
 
   // Grab info from state
   const user = useSelector((state) => state.session.user);
@@ -67,7 +69,7 @@ function Home() {
     <main id="landing-page">
       {/* Logged in home page */}
       {user ? (
-        <div className="nav-open">
+        <div className={`${navOpen ? "nav-open" : ""} side-nav`}>
           <h1 style={{ paddingTop: "32px" }}>Today:</h1>
 
           {/* Entries */}

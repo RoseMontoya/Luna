@@ -218,7 +218,7 @@ function EntryFormPage({ type }) {
           style={{ padding: "2em 4em", margin: 0 }}
           onSubmit={(e) => handleSubmit(e)}
         >
-          <h1 style={{ textAlign: "center" }}>How are you?</h1>
+          <h1 style={{ textAlign: "center", color: "#132C33" }}>How are you?</h1>
 
           {/* DATE */}
           <div className="date-container">

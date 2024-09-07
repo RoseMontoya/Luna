@@ -82,7 +82,7 @@ function EntryDetailsPage() {
   };
 
   return (
-    <main className={`${navOpen ? "nav-open" : ""}`}>
+    <main className={`${navOpen ? "nav-open" : ""} side-nav`}>
       <Link to="/entries" className="nav-buttons">
         {"Return to Entries"}
       </Link>

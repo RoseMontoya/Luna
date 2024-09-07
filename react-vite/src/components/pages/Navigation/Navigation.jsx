@@ -47,8 +47,8 @@ function Navigation() {
               {/* About section */}
               <div id="about">
                 <h2 style={{ fontSize: "16px" }}>Meet the developer</h2>
-                <div style={{ alignItems: "center" }}>
-                  <div className="profile-image"></div>
+                <div style={{ alignItems: "center" , minHeight: "4em"}}>
+                  <div className="profile-image"><div></div></div>
                   <div id="info">
                     <p style={{ fontSize: "14px" }}>Rose Montoya</p>
                     <div style={{ justifyContent: "start", gap: ".5em" }}>

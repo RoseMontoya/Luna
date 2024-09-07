@@ -44,14 +44,14 @@ function ActivitiesPage() {
   if (!actsObj || !allIcons) return <Loading />;
 
   return (
-    <main className={`${navOpen ? "nav-open" : ""}`}>
+    <main className={`${navOpen ? "nav-open" : ""} side-nav`}>
       <h1>Activities:</h1>
       <div className="entries-container">
         <div className="container">
           <div id="act-head" className="border-bottom">
             <div onClick={(e) => e.preventDefault()}>
               <OpenModalButton
-                className="add-act-btn"
+                className="submit-btn"
                 buttonText="Add"
                 modalComponent={
                   <ActivityFormModal

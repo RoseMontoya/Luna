@@ -1,7 +1,7 @@
 #landing-page {
-    min-height: 95vh;
+    min-height: 93vh;
     padding: 0 2em;
-    background: linear-gradient(#0a5063, rgba(18, 110, 130, 0.37)) no-repeat;
+    /* background: linear-gradient(#0a5063, rgba(18, 110, 130, 0.37)) no-repeat; */
 
 }
 
@@ -21,15 +21,6 @@
     font-weight: 200;
     padding: .5em 1em;
     /* text-align: center; */
-}
-
-#luna-image {
- position: absolute;
- width: 50vw;
- left: 25vw;
- height: 70vh;
- z-index: -1;
- top: 5vh;
 }
 
 #luna-image img{
@@ -80,6 +71,12 @@
   font-weight: 200;
 }
 
+.side-nav {
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Animations */
 #p1{
     animation: FI 8s -4.8s ease-in;
 }

@@ -43,14 +43,15 @@ function LevelsPage() {
   };
 
   return (
-    <main className={`${navOpen ? "nav-open" : ""}`}>
+    <main className={`${navOpen ? "nav-open" : ""} side-nav`}>
       <h1>Levels</h1>
       <div className="entries-container">
         <div id="levels-edit">
           <div className="container">
             <div id="lvl-head" className="border-bottom">
               <button
-                style={{ fontSize: "16px", padding: "0 5px" }}
+                style={{ padding: ".5em 1em" }}
+                className="submit-btn"
                 onClick={handleClick}
               >
                 Add level

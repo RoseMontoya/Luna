@@ -1,5 +1,7 @@
 .nav-open {
     margin-left: 20vw;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .entries-container {
