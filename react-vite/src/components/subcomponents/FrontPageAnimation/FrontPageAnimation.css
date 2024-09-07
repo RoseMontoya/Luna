@@ -1,75 +1,67 @@
 #moon-cycle {
-    height: 520px;
-    width: 500px;
-    position: absolute;
-    top: 5em;
-    left: 50%;
-    transform: translate(-50%, 0%);
+  height: 520px;
+  width: 500px;
+  position: absolute;
+  top: 5em;
+  right: 5em;
 }
 
 #moon-cycle img {
-    width: 90px;
-    height: 90px;
-    border-radius: 100%;
-    object-fit:contain;
+  width: 90px;
+  height: 90px;
+  border-radius: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 215px;
+  left: 205px;
 }
 
 #full {
-position: absolute;
-top: 0;
-left: 12.8em;
-/* transition: ; */
+  animation: CWC 20s infinite linear;
 }
 
 #waning-sliver {
-    position: absolute;
-    right: 4.8em;
-    top: 2.6em;
+  animation: CWC 20s -2s infinite linear;
 }
 
 #waning-gibbous {
-    position: absolute;
-    right: 0em;
-    top: 9.35em;
+  animation: CWC 20s -4s infinite linear;
 }
 
 #waning-half {
-    position: absolute;
-    right: 0em;
-    bottom: 9.25em;
+  animation: CWC 20s -6s infinite linear;
 }
 #waning-cres {
-     position: absolute;
-     right: 4.8em;
-     bottom: 2.6em;
+  animation: CWC 20s -8s infinite linear;
 }
 
 #new {
- position: absolute;
- bottom: 0;
- left: 12.8em;
+  animation: CWC 20s -10s infinite linear;
 }
 
 #waxing-sliver {
-    position: absolute;
-    left: 4.9em;
-    bottom: 2.5em;
+  animation: CWC 20s -12s infinite linear;
 }
 
 #waxing-cres {
-    position: absolute;
-    left: 0;
-    bottom: 9.25em;
+  animation: CWC 20s -14s infinite linear;
 }
 
 #waxing-half {
-    position: absolute;
-    left: 0em;
-    top: 9.35em;
+  animation: CWC 20s -16s infinite linear;
 }
 
 #waxing-gibbous {
-    position: absolute;
-    left: 4.9em;
-    top: 2.6em;
+  animation: CWC 20s -18s infinite linear;
+}
+
+/* Clock-wise Circle */
+@keyframes CWC {
+  0% {
+    transform: rotate(0deg) translateY(215px) rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg) translateY(215px) rotate(-360deg);
+  }
 }
