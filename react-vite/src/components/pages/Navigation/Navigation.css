@@ -91,6 +91,12 @@ nav div {
   padding-top: .5em;
 }
 
+#logged-out {
+  background-color: #0a5063;
+  /* border-bottom: #132C33 solid 2px;
+  box-shadow: 5px 5px 10px  20px rgb(234, 38, 38); */
+}
+
 #logout-btn {
   border: none;
   cursor: pointer;

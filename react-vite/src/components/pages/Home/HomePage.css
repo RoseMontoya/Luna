@@ -1,17 +1,23 @@
 #landing-page {
-    height: 95vh;
+    min-height: 95vh;
     padding: 0 2em;
+    background: linear-gradient(#0a5063, rgba(18, 110, 130, 0.37)) no-repeat;
+
 }
 
 #home-logged-out * {
-    color: #AC7D6B;
+    /* color: #AC7D6B; */
+    color:aliceblue
 }
 
 #home-logged-out p {
-    font-family: "Kaisei Decol", serif;
+    /* font-family: "Kaisei Decol", serif; */
     font-size: 30px;
     max-width: 12em;
     margin: 0;
+    /* font-family: "Macondo", cursive; */
+    font-weight: 200;
+
 }
 
 #luna-image {
@@ -39,6 +45,11 @@
     min-height: 40em;
 }
 
+#home-logged-out {
+    /* background: linear-gradient(#0a5063, rgba(18, 110, 130, 0.37)) no-repeat; */
+
+}
+
 #home-logged-out h2 {
     /* position: absolute; */
     /* top: 56vh; */
@@ -49,10 +60,10 @@
     font-size: 40px;
     /* transform: translate(-50%, 0%); */
     /* color: #126E82; */
-    font-family: "Macondo", cursive;
+    /* font-family: "Macondo", cursive; */
+    font-family: fantasy;
 
 }
 .title-font {
-    font-family: "IM Fell Double Pica SC", serif;
-    font-size: 57px;
+  padding: 1rem;
 }

@@ -4,6 +4,9 @@
   position: absolute;
   top: 5em;
   right: 5em;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
 }
 
 #moon-cycle img {
@@ -14,48 +17,218 @@
   position: absolute;
   top: 215px;
   left: 205px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
 }
 
+#polar-star {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 240px;
+    left: 230px;
+    animation: 4s FIFO infinite alternate;
+
+}
+
+#polar-star * {
+    width: 100%;
+    height: 100%;
+    color: aliceblue;
+    /* color: #FCDEBA; */
+
+}
+
+#diamonds * {
+    /* width: 30px;
+    height: 30px; */
+    position: absolute;
+    top: 252px;
+    left: 242px;
+    color: aliceblue;
+
+}
+
+#stars * {
+    /* width: 24px;
+    height: 24px; */
+    position: absolute;
+    top: 252px;
+    left: 242px;
+    /* color: rgb(235, 233, 229); */
+    color: #FCDEBA;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
+
+}
+
+#dots * {
+    position: absolute;
+    top: 252px;
+    left: 242px;
+    color: #FCDEBA;
+
+}
+
+
+/* Animations */
+/* Moon animations */
 #full {
-  animation: CWC 20s infinite linear;
+  animation: CWC 30s infinite linear;
 }
 
 #waning-sliver {
-  animation: CWC 20s -2s infinite linear;
+  animation: CWC 30s -3s infinite linear;
 }
 
 #waning-gibbous {
-  animation: CWC 20s -4s infinite linear;
+  animation: CWC 30s -6s infinite linear;
 }
 
 #waning-half {
-  animation: CWC 20s -6s infinite linear;
+  animation: CWC 30s -9s infinite linear;
 }
 #waning-cres {
-  animation: CWC 20s -8s infinite linear;
+  animation: CWC 30s -12s infinite linear;
 }
 
 #new {
-  animation: CWC 20s -10s infinite linear;
+  animation: CWC 30s -15s infinite linear;
 }
 
 #waxing-sliver {
-  animation: CWC 20s -12s infinite linear;
+  animation: CWC 30s -18s infinite linear;
 }
 
 #waxing-cres {
-  animation: CWC 20s -14s infinite linear;
+  animation: CWC 30s -21s infinite linear;
 }
 
 #waxing-half {
-  animation: CWC 20s -16s infinite linear;
+  animation: CWC 30s -24s infinite linear;
 }
 
 #waxing-gibbous {
-  animation: CWC 20s -18s infinite linear;
+  animation: CWC 30s -27s infinite linear;
 }
 
-/* Clock-wise Circle */
+/* Diamonds */
+#d-1 {
+  animation: CWC 30s -1.5s infinite linear;
+}
+
+#d-2 {
+    animation: CWC 30s -4.5s infinite linear;
+  }
+  #d-3 {
+    animation: CWC 30s -7.5s infinite linear;
+  }
+  #d-4 {
+    animation: CWC 30s -10.5s infinite linear;
+  }
+  #d-5 {
+    animation: CWC 30s -13.5s infinite linear;
+  }
+  #d-6 {
+    animation: CWC 30s -16.5s infinite linear;
+  }
+  #d-7 {
+    animation: CWC 30s -19.5s infinite linear;
+  }
+  #d-8 {
+    animation: CWC 30s -22.5s infinite linear;
+  }
+  #d-9 {
+    animation: CWC 30s -25.5s infinite linear;
+  }
+  #d-10 {
+    animation: CWC 30s -28.5s infinite linear;
+  }
+
+/* Stars */
+
+#s-1 {
+    animation: CCWC 40s -4s infinite linear;
+}
+
+#s-2 {
+    animation: CCWC 40s -8s infinite linear;
+}
+
+#s-3 {
+    animation: CCWC 40s -12s infinite linear;
+}
+
+#s-4 {
+    animation: CCWC 40s -16s infinite linear;
+}
+
+#s-5 {
+    animation: CCWC 40s -20s infinite linear;
+}
+
+#s-6 {
+    animation: CCWC 40s -24s infinite linear;
+}
+
+#s-7 {
+    animation: CCWC 40s -28s infinite linear;
+}
+
+#s-8 {
+    animation: CCWC 40s -32s infinite linear;
+}
+
+#s-9 {
+    animation: CCWC 40s -36s infinite linear;
+}
+
+#s-10 {
+    animation: CCWC 40s  infinite linear;
+}
+
+/* Dots */
+
+#dot-1 {
+    animation: CCWC 40s -2s infinite linear;
+}
+
+#dot-2 {
+    animation: CCWC 40s -6s infinite linear;
+}
+
+#dot-3 {
+    animation: CCWC 40s -10s infinite linear;
+}
+
+#dot-4 {
+    animation: CCWC 40s -14s infinite linear;
+}
+
+#dot-5 {
+    animation: CCWC 40s -18s infinite linear;
+}
+
+#dot-6 {
+    animation: CCWC 40s -22s infinite linear;
+}
+
+#dot-7 {
+    animation: CCWC 40s -26s infinite linear;
+}
+
+#dot-8 {
+    animation: CCWC 40s -30s infinite linear;
+}
+
+#dot-9 {
+    animation: CCWC 40s -34s infinite linear;
+}
+
+#dot-10 {
+    animation: CCWC 40s -38s infinite linear;
+}
+
+/* Clockwise Circle */
 @keyframes CWC {
   0% {
     transform: rotate(0deg) translateY(215px) rotate(0deg);
@@ -64,4 +237,28 @@
   100% {
     transform: rotate(360deg) translateY(215px) rotate(-360deg);
   }
+}
+
+/* Counter-Clockwise Circle */
+@keyframes CCWC {
+    100% {
+      transform: rotate(0deg) translateY(100px) rotate(0deg);
+    }
+
+    0% {
+      transform: rotate(360deg) translateY(100px) rotate(-360deg);
+    }
+  }
+
+  /* Fade in fade out */
+@keyframes FIFO {
+    0% {
+        /* transition: 0 250ms ease-in; */
+        transform: scale(1.25);
+        /* transition: opacity(0) 1s ease-in opacity(1); */
+    }
+    100% {
+        transform: scale(1);
+        /* transition: opacity 1, 1ms ease-in, opacity 0; */
+    }
 }

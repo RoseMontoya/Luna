@@ -164,9 +164,7 @@ function Home() {
               No matter what phase I am in, I always remain whole
             </h2>
           </div>
-          {/* <div id="luna-image"> */}
             <FrontPageAnimation />
-          {/* </div> */}
         </div>
       )}
     </main>

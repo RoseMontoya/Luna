@@ -65,7 +65,8 @@ textarea:focus-visible {
 }
 
 h1 {
-    font-family: "IM Fell Double Pica SC", serif;
+    /* font-family: "IM Fell Double Pica SC", serif; */
+    font-family: "Kaisei Decol", serif;;
     font-size: 57px;
     margin: 0;
 }
