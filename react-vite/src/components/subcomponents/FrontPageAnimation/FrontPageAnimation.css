@@ -1,67 +1,73 @@
 #moon-cycle {
-    height: 30em;
-    width: 30em;
-    border: solid 2px salmon;
+    height: 520px;
+    width: 500px;
     position: relative;
     margin: 0 auto;
 }
 
 #moon-cycle img {
-    width: 7em;
-    height: 7em;
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
     object-fit:contain;
 }
 
 #full {
 position: absolute;
 top: 0;
-left: 11.5em;
+left: 12.8em;
 /* transition: ; */
-}
-
-#waning-half {
-    position: absolute;
-    right: 4em;
-    top: 3em;
-}
-
-#waning-cres {
-     position: absolute;
-     right: 0;
-     top: 11.5em;
 }
 
 #waning-sliver {
     position: absolute;
-    right: 4em;
-    top: 20em;
+    right: 4.8em;
+    top: 2.6em;
+}
+
+#waning-gibbous {
+    position: absolute;
+    right: 0em;
+    top: 9.35em;
+}
+
+#waning-half {
+    position: absolute;
+    right: 0em;
+    bottom: 9.25em;
+}
+#waning-cres {
+     position: absolute;
+     right: 4.8em;
+     bottom: 2.6em;
 }
 
 #new {
- box-sizing: border-box;
- width: 6em;
- height: 6em;
- border-radius: 100%;
- border: 4px #b16119 solid;
  position: absolute;
  bottom: 0;
- left: 12em;
+ left: 12.8em;
 }
 
 #waxing-sliver {
     position: absolute;
-    left: 4em;
-    top: 20em;
+    left: 4.9em;
+    bottom: 2.5em;
 }
 
 #waxing-cres {
     position: absolute;
     left: 0;
-    top: 11.5em;
+    bottom: 9.25em;
 }
 
 #waxing-half {
     position: absolute;
-    left: 4em;
-    top: 3em;
+    left: 0em;
+    top: 9.35em;
+}
+
+#waxing-gibbous {
+    position: absolute;
+    left: 4.9em;
+    top: 2.6em;
 }
