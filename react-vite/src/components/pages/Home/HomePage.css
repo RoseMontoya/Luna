@@ -15,7 +15,7 @@
 }
 
 #luna-image {
- position: fixed;
+ position: absolute;
  width: 50vw;
  left: 25vw;
  height: 70vh;
@@ -40,13 +40,17 @@
 }
 
 #home-logged-out h2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    max-width: 60vw;
+    position: absolute;
+    top: 56vh;
+    left: 50%;
+    max-width: 8em;
     text-align: center;
     margin: 0;
+    font-size: 40px;
+    transform: translate(-50%, 0%);
+    color: #126E82;
+    font-family: "Macondo", cursive;
+
 }
 .title-font {
     font-family: "IM Fell Double Pica SC", serif;

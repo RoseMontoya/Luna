@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 // Component/Redux Imports
-import { Loading, Icon, Activities, Levels } from "../../subcomponents";
+import { Loading, Icon, Activities, Levels, FrontPageAnimation } from "../../subcomponents";
 import {
   getEntriesToday,
   getAllIcons,
@@ -164,9 +164,9 @@ function Home() {
               No matter what phase I am in, I always remain whole
             </h2>
           </div>
-          <div id="luna-image">
-            <img src="./images/home-page-image.png" />
-          </div>
+          {/* <div id="luna-image"> */}
+            <FrontPageAnimation />
+          {/* </div> */}
         </div>
       )}
     </main>

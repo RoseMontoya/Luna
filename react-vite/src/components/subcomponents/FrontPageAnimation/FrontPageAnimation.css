@@ -1,8 +1,10 @@
 #moon-cycle {
     height: 520px;
     width: 500px;
-    position: relative;
-    margin: 0 auto;
+    position: absolute;
+    top: 5em;
+    left: 50%;
+    transform: translate(-50%, 0%);
 }
 
 #moon-cycle img {
