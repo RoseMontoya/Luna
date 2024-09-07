@@ -1,7 +1,5 @@
 import { GiPolarStar } from "react-icons/gi";
 import { GiDiamonds } from "react-icons/gi";
-import { GiSpikesHalf } from "react-icons/gi";
-import { GiBeveledStar } from "react-icons/gi";
 import { BsDot } from "react-icons/bs";
 import './FrontPageAnimation.css'
 
@@ -28,8 +26,6 @@ function FrontPageAnimation() {
             <div id="inner-circle">
                 <div id="stars">
                     <GiDiamonds id="s-1"/>
-                    {/* <GiDiamonds id='s-2'/>
-                    <GiDiamonds id='s-3'/> */}
                     <GiDiamonds id='s-2'/>
                     <GiDiamonds id='s-3'/>
                     <GiDiamonds id='s-4'/>
