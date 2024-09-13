@@ -6,6 +6,7 @@ import { useNav } from "../../../context/navContext";
 // Design Imports
 import { FaPlus, FaLinkedin, FaGithub } from "react-icons/fa6";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import { TbWorld } from "react-icons/tb";
 import "./Navigation.css";
 
 function Navigation() {
@@ -52,11 +53,14 @@ function Navigation() {
                   <div id="info">
                     <p style={{ fontSize: "14px" }}>Rose Montoya</p>
                     <div style={{ justifyContent: "start", gap: ".5em" }}>
-                      <Link to="https://www.linkedin.com/in/rose-montoya/">
+                      <Link to="https://www.linkedin.com/in/rose-montoya/" target="_blank">
                         <FaLinkedin />
                       </Link>
-                      <Link to="https://github.com/RoseMontoya">
+                      <Link to="https://github.com/RoseMontoya" target="_blank">
                         <FaGithub />
+                      </Link>
+                      <Link to="https://rose-montoya.netlify.app/" target="_blank">
+                        <TbWorld/>
                       </Link>
                     </div>
                   </div>

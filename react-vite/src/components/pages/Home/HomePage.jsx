@@ -150,7 +150,7 @@ function Home() {
           ) : (
             <div className="no-entries">
               <p>No entries available for today</p>
-              <Link to="entries/new">New Entry</Link>
+              <Link to="entries/new" style={{color: 'aliceblue'}}>New Entry</Link>
             </div>
           )}
         </div>
