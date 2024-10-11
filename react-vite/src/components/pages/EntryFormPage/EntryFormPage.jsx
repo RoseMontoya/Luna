@@ -57,6 +57,8 @@ function EntryFormPage({ type }) {
   const [selectedIcon, setSelectedIcon] = useState({});
   const [note, setNote] = useState("");
 
+  console.log('DATE', date)
+
   const [acts, setActs] = useState(new Set());
   const [levelRatings, setLevelsRating] = useState({});
 

@@ -18,6 +18,7 @@ Check out the live version Luna here:
 * [Feature List](#feature-list)
 * [Technologies](#technologies)
 * [Screenshots](#screenshots)
+* [Set Up](#setup-instructions)
 
 
 ## Feature List
@@ -108,3 +109,8 @@ Check out the live version Luna here:
 **Activity Modal** ![Activity Modal](./react-vite/public/images/site-images/activity-modal.png)
 
 **Delete Activity/Level Modal** ![Delete Activity/Level Modal](./react-vite/public/images/site-images/delete-modal.png)
+
+
+<!-- ## Setup Instructions -->
+<!-- npm start  to start up backend
+npm run dev to start up frontend -->

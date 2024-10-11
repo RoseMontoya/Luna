@@ -4,9 +4,11 @@ import { format } from "date-fns";
 // * Helper Funcs
 // Formats datetime from entries
 const formatDate = (entry) => {
+  console.log('datetime', entry.datetime)
   const formattedDate = format(entry.datetime, "EEEE, MMM d . h:mm a").split(
     " . "
   );
+  console.log('formatted', formattedDate)
   entry.date = formattedDate[0];
   entry.time = formattedDate[1];
 
@@ -176,6 +178,7 @@ const entriesReducer = (state = initialState, action) => {
         newState["allEntries"] = newAll;
       }
 
+      console.log('entry date', new Date(action.payload.datetime), 'current date', new Date() )
       const isToday =
         new Date(action.payload.datetime).toDateString() ===
         new Date().toDateString();
@@ -199,6 +202,8 @@ const entriesReducer = (state = initialState, action) => {
         newAll[action.payload.id] = action.payload;
         newState["allEntries"] = newAll;
       }
+
+      console.log('entry date', new Date(action.payload.datetime), 'current date', new Date() )
 
       const isToday =
         new Date(action.payload.datetime).toDateString() ===
