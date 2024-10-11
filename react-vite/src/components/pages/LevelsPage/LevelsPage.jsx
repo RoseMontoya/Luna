@@ -19,7 +19,7 @@ function LevelsPage() {
   const levelsObj = useSelector((state) => state.levels.allLevels);
   const levels = levelsObj ? Object.values(levelsObj) : [];
   const [lvls, setLvls] = useState(levels || []);
-  const [selected, setSelected] = useState(""); // Keep track of which level is enabled for editting
+  const [selected, setSelected] = useState(""); // Keep track of which level is enabled for editing
 
   useEffect(() => {
     if (!levelsObj) {

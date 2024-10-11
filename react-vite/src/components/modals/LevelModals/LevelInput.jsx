@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createLevel, editLevel } from "../../../redux/levels";
 import DeleteLevelModal from "./DeleteLevelModal";
@@ -17,11 +17,7 @@ function LevelInput({
   const [error, setError] = useState({});
 
   const [name, setName] = useState(level?.name || "");
-  const isSelelcted = level.id === selected;
-
-  // refs for inputs to enable and disable on clicks
-  const inputRef = useRef(null);
-  const editBtnRef = useRef(null);
+  const isSelected = level.id === selected;
 
   useEffect(() => {
     if (name.length > 15) {
@@ -35,30 +31,6 @@ function LevelInput({
       setError({});
     }
   }, [name]);
-
-  // * Trying to get level input to be disabled when you click off of it
-  // useEffect(() => {
-  //   const handleClickOutside = (e) => {
-  //     // console.log('target', e.target.contains('level-input'), 'Input current', inputRef.current, '...', !inputRef.current.contains(e.target),  'Edit current', editBtnRef.current, '...', editBtnRef.current.contains(e.target), 'res', inputRef.current &&
-  //     // !inputRef.current.contains(e.target) &&
-  //     // !editBtnRef.current.contains(e.target))
-  //     // if (inputRef.current && !inputRef.current.contains(e.target) && !e.target === "<button className=\"hidden lvl-btns\">Edit</button>") {
-  //     //     console.log('inside if statement')
-  //     //     setSelected('')
-  //     // }
-  //     if (
-  //       inputRef.current &&
-  //       !inputRef.current.contains(e.target) &&
-  //       !editBtnRef.current.contains(e.target)
-  //     ) {
-  //       setSelected("");
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [setSelected]);
 
   const handleEdit = () => {
     setSelected(level.id);
@@ -92,42 +64,31 @@ function LevelInput({
     }
   };
 
-  // const handleDelete = async() => {
-  //     dispatch(deleteLevel(level.id))
-  //         .then(() => {
-  //             setSelected('')
-  //             const newLvls = [...lvls]
-  //             newLvls.splice(idx, 1)
-  //             setLvls(newLvls)
-
-  //         })
-  // }
-
-  // const lvlInput =
+  const handleBlur = () => {
+    setSelected("")
+  }
 
   return (
     <>
       <div className="lvl">
         <input
-          // onClick={() => setSelected(level.id)}
-          disabled={!isSelelcted}
+          disabled={!isSelected}
           className="level-input"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          onBlur={handleBlur}
           placeholder="Please enter level"
           onClick={() => setSelected(level.id)}
-          ref={inputRef}
         />
         <button
-          ref={editBtnRef}
           onClick={handleEdit}
-          className={`${isSelelcted ? "hidden" : ""} lvl-btns`}
+          className={`${isSelected ? "hidden" : ""} lvl-btns`}
         >
           Edit
         </button>
         <button
           onClick={handleSave}
-          className={`${isSelelcted ? "" : "hidden"} lvl-btns`}
+          className={`${isSelected ? "" : "hidden"} lvl-btns`}
         >
           Save
         </button>
